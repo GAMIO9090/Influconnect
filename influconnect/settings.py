@@ -118,3 +118,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+RAPIDAPI_KEY  = os.environ.get('RAPIDAPI_KEY', '')
+RAPIDAPI_HOST = os.environ.get('RAPIDAPI_HOST', '')

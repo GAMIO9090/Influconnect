@@ -10,8 +10,6 @@
     :root{--orange:#f26419;--orange-light:#ff8c42;--dark:#080808;--border:rgba(255,255,255,0.08);--radius:18px}
     html{scroll-behavior:smooth}
     body{font-family:'DM Sans',sans-serif;background:var(--dark);color:#fff;min-height:100vh;overflow-x:hidden}
-
-    /* ── NAV ── */
     nav{display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:70px;background:rgba(8,8,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:fixed;top:0;left:0;right:0;z-index:200}
     .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .logo-icon{width:38px;height:38px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center}
@@ -22,24 +20,19 @@
     .nav-links a:hover{color:#fff}
     .nav-cta{background:var(--orange)!important;color:#fff!important;padding:9px 22px;border-radius:50px;font-weight:600!important}
     .nav-cta:hover{background:#d4510f!important}
-
-    /* ── HERO ── */
-    .hero{position:relative;height:100vh;min-height:620px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 60px;overflow:hidden;background:#080808}
+    .hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 80px;overflow:hidden;background:#080808}
     .hero::before{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px)}
     .hero::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 50% 50%,transparent 25%,rgba(8,8,8,0.88) 100%)}
     #sceneCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
-
-    .hero-inner{position:relative;z-index:10;text-align:center;max-width:820px;width:100%;margin-top:80px}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(242,100,25,0.12);border:1px solid rgba(242,100,25,0.35);border-radius:50px;padding:8px 20px;font-size:0.82rem;font-weight:600;color:var(--orange-light);margin-bottom:28px;letter-spacing:0.5px;animation:fadeUp 0.8s ease both}
+    .hero-inner{position:relative;z-index:10;text-align:center;max-width:820px;width:100%;display:flex;flex-direction:column;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(242,100,25,0.12);border:1px solid rgba(242,100,25,0.35);border-radius:50px;padding:8px 20px;font-size:0.82rem;font-weight:600;color:var(--orange-light);margin-bottom:24px;animation:fadeUp 0.8s ease both}
     .dot{width:7px;height:7px;background:var(--orange);border-radius:50%;animation:pulse 1.6s infinite}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,6.5vw,5.2rem);font-weight:800;line-height:1.0;letter-spacing:-2px;color:#fff;animation:fadeUp 0.7s 0.1s ease both}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800;line-height:1.05;letter-spacing:-2px;color:#fff;animation:fadeUp 0.7s 0.1s ease both;margin-bottom:16px}
     .hero h1 .accent{display:block;background:linear-gradient(90deg,var(--orange),var(--orange-light),#ffb347);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-sub{color:rgba(255,255,255,0.45);font-size:1rem;max-width:460px;margin:18px auto 40px;line-height:1.7;animation:fadeUp 0.7s 0.2s ease both}
+    .hero-sub{color:rgba(255,255,255,0.45);font-size:1rem;max-width:460px;margin:0 auto 36px;line-height:1.7;animation:fadeUp 0.7s 0.2s ease both}
     @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-
-    /* ── MAP WIDGET ── */
-    .map-widget{max-width:620px;width:100%;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:22px;overflow:hidden;backdrop-filter:blur(24px);box-shadow:0 0 60px rgba(242,100,25,0.12),0 0 0 1px rgba(242,100,25,0.06);animation:fadeUp 0.7s 0.3s ease both}
+    .map-widget{max-width:640px;width:100%;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:22px;overflow:hidden;backdrop-filter:blur(24px);box-shadow:0 0 60px rgba(242,100,25,0.12);animation:fadeUp 0.7s 0.3s ease both}
     .map-bg{position:relative;height:130px;overflow:hidden;background:#0c0c0c}
     .map-svg{width:100%;height:100%;display:block}
     .map-pin{position:absolute;top:50%;left:50%;width:36px;height:36px;background:var(--orange);border-radius:50% 50% 50% 0;transform:translate(-50%,-55%) rotate(-45deg);box-shadow:0 0 24px rgba(242,100,25,0.8);display:flex;align-items:center;justify-content:center;animation:pinBounce 1.8s ease-in-out infinite}
@@ -51,67 +44,149 @@
     .map-city-wrap:focus-within{border-color:var(--orange);box-shadow:0 0 0 3px rgba(242,100,25,0.12)}
     .map-city-input{flex:1;border:none;background:transparent;padding:12px 0;font-size:0.93rem;font-family:'DM Sans',sans-serif;color:#fff;outline:none}
     .map-city-input::placeholder{color:rgba(255,255,255,0.28)}
-    .gps-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;color:var(--orange-light);font-size:0.78rem;font-weight:700;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:opacity 0.2s}
-    .gps-btn:hover{opacity:0.7}
+    .gps-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;color:var(--orange-light);font-size:0.78rem;font-weight:700;font-family:'DM Sans',sans-serif;white-space:nowrap}
     .gps-btn svg{width:14px;height:14px}
     .gps-btn.spinning svg{animation:spin 0.9s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
     .gps-toast{display:none;align-items:center;gap:8px;background:rgba(242,100,25,0.1);border:1px solid rgba(242,100,25,0.25);border-radius:8px;padding:7px 12px;font-size:0.8rem;color:var(--orange-light);font-weight:600;margin-bottom:10px}
     .gps-toast.show{display:flex}
-    .map-bottom-row{display:flex;align-items:center;gap:10px}
-    .map-niche-wrap{flex:1;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 14px}
-    .map-niche-select{flex:1;appearance:none;border:none;background:transparent;padding:12px 0;font-size:0.92rem;font-family:'DM Sans',sans-serif;color:rgba(255,255,255,0.65);cursor:pointer;outline:none}
-    .map-niche-select option{background:#1a1a1a;color:#fff}
-    .map-find-btn{background:var(--orange);color:#fff;border:none;border-radius:12px;padding:12px 26px;font-size:0.93rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap;transition:background 0.2s,transform 0.1s,box-shadow 0.2s;box-shadow:0 0 20px rgba(242,100,25,0.4)}
-    .map-find-btn:hover{background:#d4510f;transform:translateY(-1px);box-shadow:0 0 32px rgba(242,100,25,0.65)}
-
-    /* ── INFLUENCER GRID ── */
-    .section-header{max-width:1200px;margin:70px auto 0;padding:0 28px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+    .filters-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .filter-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:6px 13px;font-size:0.79rem;font-weight:600;color:rgba(255,255,255,0.45);cursor:pointer;transition:all 0.15s;font-family:'DM Sans',sans-serif}
+    .filter-chip:hover{border-color:rgba(242,100,25,0.4);color:rgba(255,255,255,0.75)}
+    .filter-chip.active{background:rgba(242,100,25,0.15);border-color:rgba(242,100,25,0.5);color:var(--orange-light)}
+    .budget-row{display:flex;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+    .budget-inp-wrap{flex:1;min-width:130px;display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:0 14px;transition:border-color 0.2s}
+    .budget-inp-wrap:focus-within{border-color:var(--orange)}
+    .budget-inp-wrap span{font-size:0.8rem;color:rgba(255,255,255,0.3);white-space:nowrap}
+    .budget-inp{flex:1;border:none;background:transparent;padding:10px 0;font-size:0.88rem;font-family:'DM Sans',sans-serif;color:#fff;outline:none;width:80px}
+    .budget-inp::placeholder{color:rgba(255,255,255,0.25)}
+    .map-find-btn{background:var(--orange);color:#fff;border:none;border-radius:12px;padding:12px 26px;font-size:0.93rem;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background 0.2s,transform 0.1s;box-shadow:0 0 20px rgba(242,100,25,0.4);width:100%;margin-top:4px}
+    .map-find-btn:hover{background:#d4510f;transform:translateY(-1px)}
+    .map-find-btn:disabled{opacity:0.55;cursor:not-allowed;transform:none}
+    #ai-results-section{max-width:1200px;margin:0 auto;padding:0 28px}
+    .ai-results-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:32px 0 18px;flex-wrap:wrap}
+    .ai-results-header h2{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-0.5px}
+    .ai-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .count-badge{background:var(--orange);color:#fff;border-radius:50px;padding:3px 14px;font-size:0.8rem;font-weight:700}
+    .source-badge-real{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#4ade80;border-radius:50px;padding:3px 12px;font-size:0.75rem;font-weight:700}
+    .source-badge-ai{background:rgba(242,100,25,0.1);border:1px solid rgba(242,100,25,0.3);color:var(--orange-light);border-radius:50px;padding:3px 12px;font-size:0.75rem;font-weight:700}
+    .sort-sel{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:7px 12px;color:rgba(255,255,255,0.65);font-size:0.83rem;font-family:'DM Sans',sans-serif;cursor:pointer;outline:none}
+    .sort-sel option{background:#1a1a1a}
+    .ai-loading{text-align:center;padding:60px 20px}
+    .ai-loading-spinner{width:48px;height:48px;border:3px solid rgba(242,100,25,0.15);border-top-color:var(--orange);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 18px}
+    .ai-loading p{color:rgba(255,255,255,0.4);font-size:0.95rem}
+    .ai-loading p span{color:var(--orange-light);font-weight:600}
+    .ai-influencer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px;padding-bottom:60px}
+    .ai-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:24px 20px 18px;transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;display:flex;flex-direction:column;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+    .ai-card.real-card{border-color:rgba(34,197,94,0.2)}
+    .ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--orange-light))}
+    .ai-card.real-card::before{background:linear-gradient(90deg,#22c55e,#4ade80)}
+    .ai-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(242,100,25,0.25);border-color:rgba(242,100,25,0.2)}
+    .ai-card.real-card:hover{box-shadow:0 20px 50px rgba(0,0,0,0.5),0 0 0 1px rgba(34,197,94,0.3);border-color:rgba(34,197,94,0.4)}
+    .ai-card-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .ai-avatar{width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden}
+    .ai-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .ai-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;letter-spacing:-0.2px;color:#fff;line-height:1.2}
+    .ai-handle{font-size:0.8rem;color:var(--orange-light);font-weight:600;margin-top:2px}
+    .real-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.3);border-radius:4px;padding:1px 6px;font-size:0.65rem;font-weight:700;color:#4ade80;margin-left:5px;vertical-align:middle}
+    .ai-niche-tag{display:inline-block;background:rgba(242,100,25,0.12);color:var(--orange-light);border:1px solid rgba(242,100,25,0.25);border-radius:6px;padding:3px 10px;font-size:0.74rem;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:12px}
+    .ai-bio{font-size:0.82rem;color:rgba(255,255,255,0.4);line-height:1.5;margin-bottom:14px;flex:1}
+    .ai-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;padding:12px 0;border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07)}
+    .ai-stat{display:flex;flex-direction:column;gap:2px}
+    .ai-stat-val{font-family:'Syne',sans-serif;font-size:0.97rem;font-weight:800;color:#fff}
+    .ai-stat-lbl{font-size:0.7rem;color:rgba(255,255,255,0.35);font-weight:500}
+    .ai-rate-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .ai-rate{font-size:0.82rem;color:rgba(255,255,255,0.45)}
+    .ai-rate strong{color:var(--orange-light);font-weight:700;font-size:0.92rem}
+    .ai-actions{display:flex;gap:8px;margin-top:auto}
+    .ai-btn-insta{flex:1;padding:9px 0;border:1.5px solid rgba(193,53,132,0.5);border-radius:10px;background:linear-gradient(135deg,rgba(193,53,132,0.15),rgba(131,58,180,0.15));color:rgba(255,255,255,0.85);font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:5px}
+    .ai-btn-insta:hover{background:linear-gradient(135deg,rgba(193,53,132,0.35),rgba(131,58,180,0.35));border-color:rgba(193,53,132,0.9);color:#fff}
+    .ai-btn-fill{flex:1;padding:9px 0;border:none;border-radius:10px;background:var(--orange);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.84rem;font-weight:700;cursor:pointer;text-align:center;transition:all 0.18s;box-shadow:0 0 14px rgba(242,100,25,0.3)}
+    .ai-btn-fill:hover{background:#d4510f}
+    .ai-mock-note{font-size:0.67rem;color:rgba(255,255,255,0.2);text-align:center;margin-top:8px;font-style:italic}
+    .ai-empty{text-align:center;padding:72px 20px;grid-column:1/-1}
+    .ai-empty-icon{font-size:3.5rem;margin-bottom:14px;opacity:.6}
+    .ai-empty h3{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;margin-bottom:8px}
+    .ai-empty p{color:rgba(255,255,255,0.35);font-size:0.9rem}
+    .ai-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(242,100,25,0.1);border:1px solid rgba(242,100,25,0.2);border-radius:6px;padding:2px 8px;font-size:0.72rem;color:var(--orange-light);font-weight:600;margin-left:6px;vertical-align:middle}
+    .section-header{max-width:1200px;margin:20px auto 0;padding:0 28px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
     .section-header h2{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;letter-spacing:-0.5px;color:#fff}
-    .count-badge{background:var(--orange);color:#fff;border-radius:50px;padding:3px 12px;font-size:0.8rem;font-weight:700}
+    .count-badge-db{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.65);border-radius:50px;padding:3px 12px;font-size:0.8rem;font-weight:700}
     .influencer-grid{max-width:1200px;margin:22px auto 90px;padding:0 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-
-    /* ── CARD ── */
-    .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:26px 22px 20px;transition:transform 0.22s,box-shadow 0.22s,border-color 0.22s;display:flex;flex-direction:column;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
-    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--orange),var(--orange-light))}
+    .card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius);padding:26px 22px 20px;transition:transform 0.22s,box-shadow 0.22s;display:flex;flex-direction:column;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,rgba(255,255,255,0.15),rgba(255,255,255,0.05))}
     .card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 0 1px rgba(242,100,25,0.3);border-color:rgba(242,100,25,0.2)}
-    .card-avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--orange-light),var(--orange));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;margin-bottom:14px;box-shadow:0 0 18px rgba(242,100,25,0.35)}
+    .card-avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#444,#222);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:#fff;margin-bottom:14px}
     .card-username{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:-0.3px;margin-bottom:6px}
     .card-username a{text-decoration:none;color:#fff}
     .card-username a:hover{color:var(--orange-light)}
-    .card-category{display:inline-block;background:rgba(242,100,25,0.12);color:var(--orange-light);border:1px solid rgba(242,100,25,0.25);border-radius:6px;padding:3px 10px;font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px}
+    .card-category{display:inline-block;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:3px 10px;font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:14px}
     .card-stats{display:flex;gap:18px;margin-bottom:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.07)}
     .stat{display:flex;flex-direction:column;gap:2px}
     .stat-value{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#fff}
     .stat-label{font-size:0.72rem;color:rgba(255,255,255,0.38);font-weight:500}
     .card-rating{display:flex;align-items:center;gap:5px;margin-bottom:18px}
-    .stars{color:#f5a623;font-size:0.92rem;letter-spacing:1px}
-    .rating-val{font-weight:700;font-size:0.88rem;color:rgba(255,255,255,0.65)}
     .rating-na{color:rgba(255,255,255,0.28);font-size:0.83rem}
     .card-actions{display:flex;gap:8px;margin-top:auto}
-    .btn-outline{flex:1;padding:9px 0;border:1px solid rgba(255,255,255,0.18);border-radius:10px;background:transparent;color:rgba(255,255,255,0.75);font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:background 0.18s,color 0.18s}
+    .btn-outline{flex:1;padding:9px 0;border:1px solid rgba(255,255,255,0.18);border-radius:10px;background:transparent;color:rgba(255,255,255,0.75);font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:background 0.18s}
     .btn-outline:hover{background:rgba(255,255,255,0.09);color:#fff}
-    .btn-fill{flex:1;padding:9px 0;border:none;border-radius:10px;background:var(--orange);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:background 0.18s,box-shadow 0.18s;box-shadow:0 0 14px rgba(242,100,25,0.3)}
-    .btn-fill:hover{background:#d4510f;box-shadow:0 0 26px rgba(242,100,25,0.6)}
-
-    /* ── EMPTY STATE ── */
+    .btn-fill{flex:1;padding:9px 0;border:none;border-radius:10px;background:var(--orange);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.86rem;font-weight:700;cursor:pointer;text-align:center;text-decoration:none;transition:background 0.18s;box-shadow:0 0 14px rgba(242,100,25,0.3)}
+    .btn-fill:hover{background:#d4510f}
     .empty-state{grid-column:1/-1;text-align:center;padding:72px 20px}
     .empty-icon{font-size:4rem;margin-bottom:16px;opacity:.6}
     .empty-state h3{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:8px;color:#fff}
     .empty-state p{color:rgba(255,255,255,0.4)}
-
-    /* ── FOOTER ── */
+    .section-divider{max-width:1200px;margin:0 auto;padding:0 28px}
+    .section-divider-line{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:10px 0 0}
     footer{text-align:center;padding:26px 20px;border-top:1px solid rgba(255,255,255,0.07);color:rgba(255,255,255,0.3);font-size:0.83rem}
     footer span{color:var(--orange);font-weight:700}
+    @media(max-width:640px){nav{padding:0 18px}.hero{padding:90px 16px 60px}.hero h1{font-size:2.2rem;letter-spacing:-1px}.map-find-btn{width:100%}.budget-row{flex-direction:column}}
 
-    @media(max-width:640px){nav{padding:0 18px}.map-bottom-row{flex-direction:column}.map-find-btn{width:100%;text-align:center}}
+    /* Chatbot */
+    #ic-widget{position:fixed;bottom:24px;right:24px;z-index:9999;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:flex-end}
+    #ic-toggle-btn{width:56px;height:56px;border-radius:16px;border:none;cursor:pointer;background:#f26419;flex-shrink:0;box-shadow:0 0 0 1px rgba(242,100,25,0.4),0 8px 24px rgba(242,100,25,0.45);display:flex;align-items:center;justify-content:center;transition:transform 0.2s}
+    #ic-toggle-btn:hover{transform:translateY(-2px)}
+    #ic-toggle-btn svg{width:24px;height:24px;transition:transform 0.3s}
+    #ic-toggle-btn.open svg{transform:rotate(45deg)}
+    #ic-box{display:none;flex-direction:column;width:340px;height:500px;border-radius:20px;overflow:hidden;background:#0f0f0f;border:1px solid rgba(242,100,25,0.22);box-shadow:0 32px 64px rgba(0,0,0,0.75);margin-bottom:12px;transform:translateY(12px) scale(0.97);opacity:0;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),opacity 0.2s ease}
+    #ic-box.visible{display:flex;opacity:1;transform:translateY(0) scale(1)}
+    .ic-header{background:linear-gradient(135deg,#1c0900,#2e1500,#1a0800);padding:14px 16px;border-bottom:1px solid rgba(242,100,25,0.18);display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .ic-logo{width:38px;height:38px;background:#f26419;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ic-logo svg{width:19px;height:19px}
+    .ic-title-wrap{flex:1}
+    .ic-title-wrap strong{display:block;font-size:14px;font-weight:700;color:#fff}
+    .ic-title-wrap small{font-size:11px;color:rgba(242,100,25,0.75)}
+    .ic-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;animation:icpulse 2.2s infinite}
+    @keyframes icpulse{0%,100%{opacity:1}50%{opacity:0.35}}
+    #ic-form-screen{padding:16px;background:#0a0a0a;flex:1;overflow-y:auto}
+    #ic-form-screen p.ic-welcome{font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.5}
+    .ic-label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:5px}
+    .ic-field{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 13px;font-size:13px;color:#fff;outline:none;font-family:'DM Sans',sans-serif;margin-bottom:12px;box-sizing:border-box}
+    .ic-field:focus{border-color:rgba(242,100,25,0.5)}
+    .ic-lang-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+    .ic-lang-btn{padding:7px 14px;border-radius:20px;border:1.5px solid rgba(242,100,25,0.4);background:transparent;color:rgba(255,255,255,0.55);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer}
+    .ic-lang-btn.active{background:#f26419;border-color:#f26419;color:#fff}
+    .ic-start-btn{width:100%;background:#f26419;color:#fff;border:none;border-radius:12px;padding:11px;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer}
+    .ic-error{color:#ff6b6b;font-size:12px;margin-top:8px;display:none}
+    #ic-chat-screen{display:none;flex-direction:column;flex:1;min-height:0}
+    #ic-messages{flex:1;overflow-y:auto;padding:14px;background:#080808;display:flex;flex-direction:column;gap:10px}
+    .ic-bot-row{display:flex;align-items:flex-end;gap:8px}
+    .ic-bot-avatar{width:28px;height:28px;flex-shrink:0;background:#161616;border:1px solid rgba(242,100,25,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center}
+    .ic-bot-avatar svg{width:14px;height:14px}
+    .ic-bot-bubble{background:#161616;border:1px solid rgba(255,255,255,0.06);border-radius:14px 14px 14px 3px;padding:10px 13px;font-size:13px;color:rgba(255,255,255,0.85);line-height:1.55;max-width:82%}
+    .ic-user-row{display:flex;justify-content:flex-end}
+    .ic-user-bubble{background:linear-gradient(135deg,#f26419,#c94e0e);border-radius:14px 14px 3px 14px;padding:10px 13px;font-size:13px;color:#fff;line-height:1.55;max-width:82%}
+    .ic-typing{color:rgba(255,255,255,0.3);font-size:12px;padding:4px 0}
+    .ic-input-row{padding:12px;background:#0c0c0c;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:8px;align-items:center;flex-shrink:0}
+    #ic-input{flex:1;background:#161616;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 14px;font-size:13px;color:#fff;outline:none;font-family:'DM Sans',sans-serif}
+    #ic-send-btn{width:38px;height:38px;flex-shrink:0;border:none;background:#f26419;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+    #ic-send-btn svg{width:15px;height:15px}
   </style>
 </head>
 <body>
 
-<!-- ── NAVBAR ── -->
 <nav>
-  <a class="logo" href="{% url 'home' %}">
+  <a class="logo" href="#">
     <div class="logo-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
@@ -125,74 +200,38 @@
     <li><a href="{% url 'influencers:influencers_list' %}">Explore Influencers</a></li>
     <li><a href="{% url 'how_it_works' %}">How it Works</a></li>
     <li><a href="{% url 'login' %}">Login</a></li>
-    {% if user.is_authenticated %}
-      <li><a href="{% url 'shopkeepers:shopkeeper_dashboard' %}" class="nav-cta">Get Started</a></li>
-    {% else %}
-      <li><a href="{% url 'login' %}" class="nav-cta">Get Started</a></li>
-    {% endif %}
+    <li><a href="{% url 'login' %}" class="nav-cta">Get Started</a></li>
   </ul>
 </nav>
 
-<!-- ── HERO (animated canvas) ── -->
 <section class="hero">
   <canvas id="sceneCanvas"></canvas>
   <div class="hero-inner">
     <div class="hero-badge"><span class="dot"></span> 2,400+ verified local influencers ready to promote</div>
     <h1>Find Local Influencers<span class="accent">Near Your Shop</span></h1>
     <p class="hero-sub">Connect with nearby creators and boost your business with targeted, hyper-local promotions that actually convert.</p>
-
-    <!-- MAP SEARCH WIDGET -->
     <div class="map-widget">
       <div class="map-bg">
         <svg class="map-svg" viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
           <rect width="620" height="130" fill="#0c0c0c"/>
-          <line x1="0" y1="43" x2="620" y2="43" stroke="#1a1a1a" stroke-width="10"/>
-          <line x1="0" y1="90" x2="620" y2="90" stroke="#1a1a1a" stroke-width="10"/>
-          <line x1="95" y1="0" x2="95" y2="130" stroke="#1a1a1a" stroke-width="10"/>
-          <line x1="240" y1="0" x2="240" y2="130" stroke="#1a1a1a" stroke-width="10"/>
-          <line x1="378" y1="0" x2="378" y2="130" stroke="#1a1a1a" stroke-width="10"/>
-          <line x1="520" y1="0" x2="520" y2="130" stroke="#1a1a1a" stroke-width="10"/>
-          <line x1="0" y1="43" x2="620" y2="43" stroke="rgba(242,100,25,0.2)" stroke-width="0.8"/>
-          <line x1="0" y1="90" x2="620" y2="90" stroke="rgba(242,100,25,0.2)" stroke-width="0.8"/>
-          <line x1="95" y1="0" x2="95" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/>
-          <line x1="240" y1="0" x2="240" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/>
-          <line x1="378" y1="0" x2="378" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/>
-          <line x1="520" y1="0" x2="520" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/>
-          <rect x="5" y="4" width="82" height="31" rx="5" fill="#131313"/>
-          <rect x="103" y="4" width="129" height="31" rx="5" fill="#131313"/>
-          <rect x="248" y="4" width="122" height="31" rx="5" fill="#131313"/>
-          <rect x="386" y="4" width="126" height="31" rx="5" fill="#131313"/>
-          <rect x="528" y="4" width="88" height="31" rx="5" fill="#131313"/>
-          <rect x="5" y="51" width="82" height="31" rx="5" fill="#131313"/>
-          <rect x="103" y="51" width="129" height="31" rx="5" fill="#131313"/>
-          <rect x="248" y="51" width="122" height="31" rx="5" fill="#131313"/>
-          <rect x="386" y="51" width="126" height="31" rx="5" fill="#131313"/>
-          <rect x="528" y="51" width="88" height="31" rx="5" fill="#131313"/>
-          <rect x="5" y="98" width="82" height="28" rx="5" fill="#131313"/>
-          <rect x="103" y="98" width="129" height="28" rx="5" fill="#131313"/>
-          <rect x="248" y="98" width="122" height="28" rx="5" fill="#131313"/>
-          <rect x="386" y="98" width="126" height="28" rx="5" fill="#131313"/>
-          <rect x="528" y="98" width="88" height="28" rx="5" fill="#131313"/>
-          <circle cx="50" cy="67" r="4" fill="#f26419" opacity=".8"/>
-          <circle cx="50" cy="67" r="9" fill="rgba(242,100,25,0.15)"/>
+          <line x1="0" y1="43" x2="620" y2="43" stroke="#1a1a1a" stroke-width="10"/><line x1="0" y1="90" x2="620" y2="90" stroke="#1a1a1a" stroke-width="10"/>
+          <line x1="95" y1="0" x2="95" y2="130" stroke="#1a1a1a" stroke-width="10"/><line x1="240" y1="0" x2="240" y2="130" stroke="#1a1a1a" stroke-width="10"/><line x1="378" y1="0" x2="378" y2="130" stroke="#1a1a1a" stroke-width="10"/><line x1="520" y1="0" x2="520" y2="130" stroke="#1a1a1a" stroke-width="10"/>
+          <line x1="0" y1="43" x2="620" y2="43" stroke="rgba(242,100,25,0.2)" stroke-width="0.8"/><line x1="0" y1="90" x2="620" y2="90" stroke="rgba(242,100,25,0.2)" stroke-width="0.8"/>
+          <line x1="95" y1="0" x2="95" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/><line x1="240" y1="0" x2="240" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/><line x1="378" y1="0" x2="378" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/><line x1="520" y1="0" x2="520" y2="130" stroke="rgba(242,100,25,0.12)" stroke-width="0.8"/>
+          <rect x="5" y="4" width="82" height="31" rx="5" fill="#131313"/><rect x="103" y="4" width="129" height="31" rx="5" fill="#131313"/><rect x="248" y="4" width="122" height="31" rx="5" fill="#131313"/><rect x="386" y="4" width="126" height="31" rx="5" fill="#131313"/><rect x="528" y="4" width="88" height="31" rx="5" fill="#131313"/>
+          <rect x="5" y="51" width="82" height="31" rx="5" fill="#131313"/><rect x="103" y="51" width="129" height="31" rx="5" fill="#131313"/><rect x="248" y="51" width="122" height="31" rx="5" fill="#131313"/><rect x="386" y="51" width="126" height="31" rx="5" fill="#131313"/><rect x="528" y="51" width="88" height="31" rx="5" fill="#131313"/>
+          <rect x="5" y="98" width="82" height="28" rx="5" fill="#131313"/><rect x="103" y="98" width="129" height="28" rx="5" fill="#131313"/><rect x="248" y="98" width="122" height="28" rx="5" fill="#131313"/><rect x="386" y="98" width="126" height="28" rx="5" fill="#131313"/><rect x="528" y="98" width="88" height="28" rx="5" fill="#131313"/>
+          <circle cx="50" cy="67" r="4" fill="#f26419" opacity=".8"/><circle cx="50" cy="67" r="9" fill="rgba(242,100,25,0.15)"/>
           <circle cx="175" cy="113" r="3.5" fill="#f26419" opacity=".65"/>
-          <circle cx="450" cy="22" r="4" fill="#f26419" opacity=".7"/>
-          <circle cx="450" cy="22" r="9" fill="rgba(242,100,25,0.15)"/>
+          <circle cx="450" cy="22" r="4" fill="#f26419" opacity=".7"/><circle cx="450" cy="22" r="9" fill="rgba(242,100,25,0.15)"/>
         </svg>
         <div class="map-glow"></div>
-        <div class="map-pin">
-          <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        </div>
+        <div class="map-pin"><svg viewBox="0 0 24 24" fill="white"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
       </div>
-
-      <!-- Search form — action uses Django URL -->
-      <form method="GET" action="{% url 'home' %}" class="map-controls" id="locationForm">
+      <div class="map-controls">
         <div class="map-city-wrap">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <input type="text" name="city" id="cityInput"
-                 placeholder="Enter your city or area..."
-                 value="{{ request.GET.city }}"
-                 class="map-city-input" autocomplete="off"/>
+          <input type="text" id="aiCityInput" placeholder="Apni city ya area likhein... (e.g. Delhi, Jaipur)" class="map-city-input" autocomplete="off"/>
           <button type="button" class="gps-btn" id="gpsBtn" onclick="getGPS()">
             <svg id="gpsIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="7" opacity=".25"/></svg>
             <span id="gpsTxt">Use my location</span>
@@ -202,65 +241,67 @@
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
           <span id="gpsMsg">Location detected!</span>
         </div>
-        <div class="map-bottom-row">
-          <div class="map-niche-wrap">
-            <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <select name="category" class="map-niche-select">
-              <option value="">All Niches</option>
-              <option value="Food"    {% if request.GET.category == 'Food' %}selected{% endif %}>🍔 Food</option>
-              <option value="Fashion" {% if request.GET.category == 'Fashion' %}selected{% endif %}>👗 Fashion</option>
-              <option value="Tech"    {% if request.GET.category == 'Tech' %}selected{% endif %}>💻 Tech</option>
-              <option value="Fitness" {% if request.GET.category == 'Fitness' %}selected{% endif %}>💪 Fitness</option>
-              <option value="Travel"  {% if request.GET.category == 'Travel' %}selected{% endif %}>✈️ Travel</option>
-              <option value="Beauty"  {% if request.GET.category == 'Beauty' %}selected{% endif %}>💄 Beauty</option>
-            </select>
-          </div>
-          <button type="submit" class="map-find-btn">Find Influencers</button>
+        <div class="filters-row" id="nicheChips">
+          <button class="filter-chip active" data-niche="All">✦ All Niches</button>
+          <button class="filter-chip" data-niche="Food">🍔 Food</button>
+          <button class="filter-chip" data-niche="Fashion">👗 Fashion</button>
+          <button class="filter-chip" data-niche="Beauty">💄 Beauty</button>
+          <button class="filter-chip" data-niche="Tech">💻 Tech</button>
+          <button class="filter-chip" data-niche="Fitness">💪 Fitness</button>
+          <button class="filter-chip" data-niche="Lifestyle">🌿 Lifestyle</button>
+          <button class="filter-chip" data-niche="Travel">✈️ Travel</button>
         </div>
-        <input type="hidden" id="gpsLat" name="lat"/>
-        <input type="hidden" id="gpsLng" name="lng"/>
-      </form>
-    </div><!-- /map-widget -->
+        <div class="budget-row">
+          <div class="budget-inp-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            <span>Min Followers</span>
+            <input type="number" id="minFollowers" class="budget-inp" placeholder="e.g. 5000" min="0"/>
+          </div>
+          <div class="budget-inp-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Max Budget ₹</span>
+            <input type="number" id="maxBudget" class="budget-inp" placeholder="e.g. 10000" min="0"/>
+          </div>
+        </div>
+        <button class="map-find-btn" id="aiFindBtn" onclick="aiFindInfluencers()">🔍 Find Influencers with AI</button>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ── SECTION HEADER ── -->
-<div class="section-header">
-  <h2>Available Influencers</h2>
-  <span class="count-badge">{{ influencers|length }} found</span>
+<div id="ai-results-section" style="display:none">
+  <div class="ai-results-header">
+    <h2 id="ai-results-title">Results</h2>
+    <div class="ai-meta">
+      <span class="count-badge" id="ai-count-badge">0 found</span>
+      <span id="source-badge"></span>
+      <select class="sort-sel" id="aiSortSel" onchange="aiSortResults(this.value)">
+        <option value="followers">Sort: Followers ↓</option>
+        <option value="rate_asc">Sort: Rate Low → High</option>
+        <option value="rate_desc">Sort: Rate High → Low</option>
+        <option value="engagement">Sort: Engagement ↓</option>
+      </select>
+    </div>
+  </div>
+  <div class="ai-influencer-grid" id="aiGrid"></div>
 </div>
 
-<!-- ── INFLUENCER GRID (Django loop) ── -->
+<div class="section-divider"><hr class="section-divider-line"/></div>
+<div class="section-header">
+  <h2>Platform Influencers</h2>
+  <span class="count-badge-db">{{ influencers|length }} registered</span>
+</div>
 <div class="influencer-grid">
   {% for influencer in influencers %}
   <div class="card">
-    <div class="card-avatar">{{ influencer.user.username|first|upper }}</div>
-    <div class="card-username"><a href="#">@{{ influencer.user.username }}</a></div>
-    <span class="card-category">{{ influencer.category }}</span>
+    <div class="card-avatar">{{ influencer.user.username|slice:":1"|upper }}</div>
+    <div class="card-username"><a href="{% url 'influencers:influencer_detail' influencer.id %}">@{{ influencer.user.username|upper }}</a></div>
+    <span class="card-category">{{ influencer.category|upper }}</span>
     <div class="card-stats">
-      <div class="stat">
-        <span class="stat-value">{{ influencer.followers }}</span>
-        <span class="stat-label">Followers</span>
-      </div>
-      <div class="stat">
-        <span class="stat-value">{{ influencer.category }}</span>
-        <span class="stat-label">Niche</span>
-      </div>
+      <div class="stat"><span class="stat-value">{{ influencer.followers }}</span><span class="stat-label">Followers</span></div>
+      <div class="stat"><span class="stat-value">{{ influencer.location|default:"—" }}</span><span class="stat-label">Location</span></div>
     </div>
-    <div class="card-rating">
-      {% if influencer.rating %}
-        <span class="stars">
-          {% if influencer.rating >= 1 %}★{% else %}☆{% endif %}
-          {% if influencer.rating >= 2 %}★{% else %}☆{% endif %}
-          {% if influencer.rating >= 3 %}★{% else %}☆{% endif %}
-          {% if influencer.rating >= 4 %}★{% else %}☆{% endif %}
-          {% if influencer.rating >= 5 %}★{% else %}☆{% endif %}
-        </span>
-        <span class="rating-val">{{ influencer.rating }}/5</span>
-      {% else %}
-        <span class="rating-na">No rating yet</span>
-      {% endif %}
-    </div>
+    <div class="card-rating"><span class="rating-na">No rating yet</span></div>
     <div class="card-actions">
       <a href="{% url 'influencers:influencer_detail' influencer.id %}" class="btn-outline">View Profile</a>
       <a href="{% url 'bookings:create_booking' influencer.id %}" class="btn-fill">Book Now</a>
@@ -268,442 +309,22 @@
   </div>
   {% empty %}
   <div class="empty-state">
-    <div class="empty-icon">🔍</div>
-    <h3>No influencers found</h3>
-    <p>Try changing your filters or check back later for new creators.</p>
+    <div class="empty-icon">👥</div>
+    <h3>Abhi koi influencer nahi</h3>
+    <p>AI search upar se try karo!</p>
   </div>
   {% endfor %}
 </div>
 
-<!-- ── FOOTER ── -->
 <footer>© 2026 <span>InfluConnect</span> · Built to connect local shops with local creators.</footer>
 
-<!-- ── SCRIPTS ── -->
-<script>
-/* ── CANVAS ANIMATION ── */
-(function(){
-  const cv=document.getElementById('sceneCanvas');
-  const cx=cv.getContext('2d');
-  let W,H,t=0;
-
-  function resize(){
-    W=cv.width=cv.offsetWidth||window.innerWidth;
-    H=cv.height=cv.offsetHeight||window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize',resize);
-
-  function lg(x0,y0,x1,y1){
-    if(!isFinite(x0)||!isFinite(y0)||!isFinite(x1)||!isFinite(y1))return null;
-    if(x0===x1&&y0===y1)return null;
-    return cx.createLinearGradient(x0,y0,x1,y1);
-  }
-
-  // ── PARTICLES ──
-  const pts=Array.from({length:70},()=>({
-    x:Math.random(),y:Math.random(),
-    vx:(Math.random()-.5)*.00011,vy:(Math.random()-.5)*.00011,
-    r:Math.random()*1.5+.3,a:Math.random()*.45+.15,ph:Math.random()*Math.PI*2
-  }));
-
-  // ── SHOPS ──
-  const SIGNS=['CAFE','SHOP','MART','SALON','DUKAN','BAKERS','CLOTH','STORE','KIRANA','HOTEL'];
-  const WCOLS=['rgba(242,100,25,.5)','rgba(255,200,80,.45)','rgba(80,160,255,.4)','rgba(200,255,100,.35)'];
-  const shops=[];
-  for(let i=0;i<22;i++) shops.push(mkShop(i*155-600));
-
-  function mkShop(x){
-    return{
-      x,w:85+Math.random()*90,h:75+Math.random()*120,
-      col:['#151515','#181818','#121212','#1c1c1c','#161616'][Math.floor(Math.random()*5)],
-      sign:SIGNS[Math.floor(Math.random()*SIGNS.length)],
-      wins:Array.from({length:Math.floor(2+Math.random()*5)},()=>({
-        rx:.05+Math.random()*.6,ry:.08+Math.random()*.5,
-        rw:.1+Math.random()*.12,rh:.08+Math.random()*.1,
-        col:WCOLS[Math.floor(Math.random()*WCOLS.length)],
-        blink:Math.random()<.2
-      }))
-    };
-  }
-
-  function getGY(){ return H * 0.60; }
-
-  function drawShops(){
-    const gy=getGY(), spd=0.9;
-    for(const s of shops){
-      s.x-=spd;
-      if(s.x+s.w<-10){
-        let mx=-9999;
-        for(const ss of shops) mx=Math.max(mx,ss.x+ss.w);
-        Object.assign(s,mkShop(mx+8+Math.random()*20));
-      }
-      const top=gy-s.h;
-      cx.fillStyle=s.col;
-      cx.fillRect(s.x,top,s.w,s.h);
-      cx.fillStyle='rgba(242,100,25,.2)';
-      cx.fillRect(s.x,top,s.w,4);
-      cx.fillStyle='rgba(255,255,255,.03)';
-      cx.fillRect(s.x+s.w-2,top,2,s.h);
-      const sy=top+s.h*.16;
-      cx.fillStyle='rgba(242,100,25,.22)';
-      cx.beginPath();
-      if(cx.roundRect){cx.roundRect(s.x+s.w*.08,sy,s.w*.84,20,3);}
-      else{cx.rect(s.x+s.w*.08,sy,s.w*.84,20);}
-      cx.fill();
-      cx.fillStyle='rgba(255,150,70,.95)';
-      cx.font=`bold ${Math.min(10,s.w*.11)}px DM Sans,sans-serif`;
-      cx.textAlign='center';
-      cx.fillText(s.sign,s.x+s.w*.5,sy+14);
-      for(const w of s.wins){
-        const lit=w.blink?(Math.sin(t*2.5+w.rx*15)>0):true;
-        if(lit){cx.fillStyle=w.col;cx.fillRect(s.x+s.w*w.rx,top+s.h*w.ry,s.w*w.rw,s.h*w.rh);}
-      }
-    }
-    const gg=lg(0,getGY(),W,getGY());
-    if(gg){
-      gg.addColorStop(0,'rgba(242,100,25,0)');gg.addColorStop(.35,'rgba(242,100,25,.3)');
-      gg.addColorStop(.65,'rgba(242,100,25,.3)');gg.addColorStop(1,'rgba(242,100,25,0)');
-      cx.strokeStyle=gg;cx.lineWidth=2.5;
-      cx.beginPath();cx.moveTo(0,getGY());cx.lineTo(W,getGY());cx.stroke();
-    }
-    const gtg=lg(0,getGY(),0,H);
-    if(gtg){
-      gtg.addColorStop(0,'rgba(242,100,25,.05)');gtg.addColorStop(1,'rgba(0,0,0,0)');
-      cx.fillStyle=gtg;cx.fillRect(0,getGY(),W,H-getGY());
-    }
-    cx.save();
-    cx.strokeStyle='rgba(255,255,255,.08)';cx.lineWidth=2;
-    cx.setLineDash([28,22]);cx.lineDashOffset=-(t*22)%50;
-    cx.beginPath();cx.moveTo(0,getGY()+20);cx.lineTo(W,getGY()+20);cx.stroke();
-    cx.restore();
-  }
-
-  function drawGrid(){
-    const gy=getGY(), fy=H*1.08, vpx=W*.5, sp=W*1.6;
-    const COLS=16,ROWS=9,off=(t*.25)%1;
-    for(let i=0;i<=COLS;i++){
-      const r=i/COLS,bx=vpx-sp*.5+sp*r,tx=vpx+(bx-vpx)*.01;
-      const a=.025+Math.sin(t*.5+i*.4)*.015;
-      const g=lg(tx,gy,bx,fy);if(!g)continue;
-      g.addColorStop(0,'rgba(242,100,25,0)');g.addColorStop(.3,`rgba(242,100,25,${a})`);g.addColorStop(1,`rgba(242,100,25,${a*.25})`);
-      cx.strokeStyle=g;cx.lineWidth=.6;cx.beginPath();cx.moveTo(tx,gy);cx.lineTo(bx,fy);cx.stroke();
-    }
-    for(let j=0;j<=ROWS+1;j++){
-      const raw=((j/ROWS)+off)%1,ratio=Math.pow(raw,2.6);
-      const y=gy+(fy-gy)*ratio;if(y<gy||y>fy)continue;
-      const ps=(y-gy)/(fy-gy);
-      const xl=vpx-sp*.5*ps,xr=vpx+sp*.5*ps;
-      const a=ps*(.04+Math.sin(t*.35+j)*.025);
-      const g2=lg(xl,y,xr,y);if(!g2)continue;
-      g2.addColorStop(0,'rgba(242,100,25,0)');g2.addColorStop(.2,`rgba(242,100,25,${a})`);
-      g2.addColorStop(.8,`rgba(242,100,25,${a})`);g2.addColorStop(1,'rgba(242,100,25,0)');
-      cx.strokeStyle=g2;cx.lineWidth=.55;cx.beginPath();cx.moveTo(xl,y);cx.lineTo(xr,y);cx.stroke();
-    }
-  }
-
-  function drawParticles(){
-    for(const p of pts){
-      p.x+=p.vx;p.y+=p.vy;
-      if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;
-      const pulse=Math.sin(t*1.1+p.ph)*.35+.65;
-      cx.beginPath();cx.arc(p.x*W,p.y*H,p.r*pulse,0,Math.PI*2);
-      cx.fillStyle=p.r>1.1?`rgba(242,100,25,${p.a*pulse*.7})`:`rgba(255,255,255,${p.a*pulse*.6})`;
-      cx.fill();
-    }
-  }
-
-  // ── SHOPKEEPER ──
-  function shopkeeper(px,py,lp){
-    const lk=Math.sin(lp)*20,rk=Math.sin(lp+Math.PI)*20;
-    cx.fillStyle='rgba(0,0,0,.35)';cx.beginPath();cx.ellipse(px,py+3,24,5,0,0,Math.PI*2);cx.fill();
-    cx.strokeStyle='#4a2c1a';cx.lineWidth=7;cx.lineCap='round';
-    cx.beginPath();cx.moveTo(px-5,py-16);cx.lineTo(px-5+lk*.4,py-3);cx.lineTo(px-5+lk*.75,py+2);cx.stroke();
-    cx.beginPath();cx.moveTo(px+5,py-16);cx.lineTo(px+5+rk*.4,py-3);cx.lineTo(px+5+rk*.75,py+2);cx.stroke();
-    cx.fillStyle='#1a1208';
-    cx.beginPath();cx.ellipse(px-5+lk*.75,py+5,8,3,lk*.02,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.ellipse(px+5+rk*.75,py+5,8,3,-rk*.02,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#c94e0e';
-    cx.beginPath();if(cx.roundRect)cx.roundRect(px-17,py-50,34,36,7);else cx.rect(px-17,py-50,34,36);cx.fill();
-    cx.fillStyle='rgba(255,255,255,.1)';
-    cx.beginPath();if(cx.roundRect)cx.roundRect(px-9,py-48,18,22,4);else cx.rect(px-9,py-48,18,22);cx.fill();
-    const la=Math.sin(lp+Math.PI)*22,ra=Math.sin(lp)*22;
-    cx.strokeStyle='#c94e0e';cx.lineWidth=9;cx.lineCap='round';
-    cx.beginPath();cx.moveTo(px-15,py-42);cx.lineTo(px-22+la*.5,py-24+la*.3);cx.stroke();
-    cx.beginPath();cx.moveTo(px+15,py-42);cx.lineTo(px+22+ra*.5,py-24+ra*.3);cx.stroke();
-    cx.fillStyle='#f5c8a0';
-    cx.beginPath();cx.arc(px-22+la*.5,py-24+la*.3,5.5,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.arc(px+22+ra*.5,py-24+ra*.3,5.5,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#f5c8a0';cx.fillRect(px-6,py-57,12,9);
-    cx.beginPath();cx.ellipse(px,py-68,20,22,0,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#2e1e10';cx.beginPath();cx.ellipse(px,py-77,20,13,0,Math.PI,Math.PI*2);cx.fill();
-    cx.fillStyle='#111';cx.fillRect(px-22,py-82,44,7);
-    cx.fillStyle='#f26419';cx.fillRect(px-22,py-75,44,5);
-    cx.fillStyle='#fff';
-    cx.beginPath();cx.ellipse(px-8,py-69,5,6,0,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.ellipse(px+8,py-69,5,6,0,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#1a0800';
-    cx.beginPath();cx.arc(px-8,py-69,3,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.arc(px+8,py-69,3,0,Math.PI*2);cx.fill();
-    cx.fillStyle='rgba(120,200,255,.8)';
-    cx.beginPath();cx.arc(px+23,py-78,3.5,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.moveTo(px+23,py-74);cx.lineTo(px+27,py-64);cx.lineTo(px+19,py-64);cx.closePath();cx.fill();
-    cx.fillStyle='#7a3020';cx.beginPath();cx.ellipse(px,py-60,5,4,.1,0,Math.PI);cx.fill();
-  }
-
-  // ── INFLUENCER ──
-  function influencer(px,py,lp){
-    const lk=Math.sin(lp)*18,rk=Math.sin(lp+Math.PI)*18;
-    cx.fillStyle='rgba(0,0,0,.3)';cx.beginPath();cx.ellipse(px,py+3,21,4.5,0,0,Math.PI*2);cx.fill();
-    cx.strokeStyle='#0d0d22';cx.lineWidth=7;cx.lineCap='round';
-    cx.beginPath();cx.moveTo(px-5,py-14);cx.lineTo(px-5+lk*.4,py-2);cx.lineTo(px-5+lk*.75,py+2);cx.stroke();
-    cx.beginPath();cx.moveTo(px+5,py-14);cx.lineTo(px+5+rk*.4,py-2);cx.lineTo(px+5+rk*.75,py+2);cx.stroke();
-    cx.fillStyle='#0a0a0a';
-    cx.beginPath();cx.ellipse(px-5+lk*.75,py+5,7,2.5,.2,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.ellipse(px+5+rk*.75,py+5,7,2.5,-.2,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#1a1a38';
-    cx.beginPath();if(cx.roundRect)cx.roundRect(px-15,py-46,30,34,5);else cx.rect(px-15,py-46,30,34);cx.fill();
-    cx.fillStyle='#f26419';cx.font='bold 8px sans-serif';cx.textAlign='center';cx.fillText('IC',px,py-28);
-    const la=Math.sin(lp+Math.PI)*20;
-    cx.strokeStyle='#1a1a38';cx.lineWidth=8;cx.lineCap='round';
-    cx.beginPath();cx.moveTo(px-13,py-38);cx.lineTo(px-20+la*.4,py-20+la*.2);cx.stroke();
-    cx.beginPath();cx.moveTo(px+13,py-38);cx.lineTo(px+24,py-58+Math.sin(lp)*5);cx.stroke();
-    const camX=px+24,camY=py-58+Math.sin(lp)*5;
-    cx.fillStyle='#1e1e1e';
-    cx.beginPath();if(cx.roundRect)cx.roundRect(camX-10,camY-9,22,14,4);else cx.rect(camX-10,camY-9,22,14);cx.fill();
-    cx.fillStyle='#050510';cx.beginPath();cx.arc(camX+1,camY-2,6,0,Math.PI*2);cx.fill();
-    cx.strokeStyle='rgba(242,100,25,.8)';cx.lineWidth=1.8;cx.beginPath();cx.arc(camX+1,camY-2,6,0,Math.PI*2);cx.stroke();
-    const blink=Math.sin(t*4)>.2;
-    if(blink){cx.fillStyle='#ff2222';cx.beginPath();cx.arc(camX+8,camY-7,3,0,Math.PI*2);cx.fill();}
-    cx.fillStyle='rgba(255,50,50,.7)';cx.font='bold 6px sans-serif';cx.textAlign='center';cx.fillText('REC',camX+7,camY-14);
-    cx.fillStyle='#c0905a';cx.beginPath();cx.arc(px-20+la*.4,py-20+la*.2,5,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#c8955a';cx.fillRect(px-5,py-51,10,7);
-    cx.beginPath();cx.ellipse(px,py-63,17,19,0,0,Math.PI*2);cx.fill();
-    cx.fillStyle='#0d0d0d';cx.beginPath();cx.ellipse(px,py-72,17,11,-.1,Math.PI,Math.PI*2);cx.fill();
-    cx.beginPath();cx.ellipse(px+15,py-66,5,8,.5,0,Math.PI*2);cx.fill();
-    cx.fillStyle='rgba(0,0,0,.9)';
-    cx.beginPath();cx.ellipse(px-7,py-64,5.5,4,0,0,Math.PI*2);cx.fill();
-    cx.beginPath();cx.ellipse(px+7,py-64,5.5,4,0,0,Math.PI*2);cx.fill();
-    cx.strokeStyle='#f26419';cx.lineWidth=1.6;
-    cx.beginPath();cx.moveTo(px-1.5,py-64);cx.lineTo(px+1.5,py-64);cx.stroke();
-    cx.beginPath();cx.moveTo(px-13,py-64);cx.lineTo(px-18,py-63);cx.stroke();
-    cx.beginPath();cx.moveTo(px+13,py-64);cx.lineTo(px+18,py-63);cx.stroke();
-    cx.strokeStyle='#8a5540';cx.lineWidth=2;cx.beginPath();cx.arc(px,py-56,5,.3,Math.PI-.3);cx.stroke();
-  }
-
-  // ── SPEECH BUBBLES ──
-  const bubbles=[
-    ['Bachao mujhe! 😱','#c0392b'],
-    ['Ek reel bana lo! 🎥','#f26419'],
-    ['Nahi chahiye promo!','#c0392b'],
-    ['50K followers hain!','#f26419'],
-    ['Mera shop chhod do!','#c0392b'],
-    ['Viral kar dunga! 🔥','#f26419'],
-  ];
-  let bubbleIdx=0,lastBubbleTime=0;
-
-  function drawBubble(px,py,text,col){
-    cx.font='bold 11px DM Sans,sans-serif';cx.textAlign='center';
-    const tw=cx.measureText(text).width;
-    const bw=tw+22,bh=26,bx=px-bw/2,by=py-bh-12;
-    cx.fillStyle=col;
-    cx.beginPath();if(cx.roundRect)cx.roundRect(bx,by,bw,bh,7);else cx.rect(bx,by,bw,bh);cx.fill();
-    cx.beginPath();cx.moveTo(px-6,by+bh);cx.lineTo(px,by+bh+11);cx.lineTo(px+6,by+bh);cx.closePath();cx.fill();
-    cx.fillStyle='#fff';cx.fillText(text,px,by+bh-8);
-  }
-
-  function speedLines(px,py,dir){
-    for(let i=0;i<5;i++){
-      const ly=py-20-i*15+Math.random()*6;
-      const len=25+Math.random()*55;
-      const lx=dir>0?px-len-10-Math.random()*30:px+10+Math.random()*30;
-      const g=lg(lx,ly,lx+(dir>0?len:-len),ly);if(!g)continue;
-      if(dir>0){g.addColorStop(0,'rgba(242,100,25,0)');g.addColorStop(1,`rgba(242,100,25,${.15+Math.random()*.15})`);}
-      else{g.addColorStop(0,`rgba(242,100,25,${.15+Math.random()*.15})`);g.addColorStop(1,'rgba(242,100,25,0)');}
-      cx.strokeStyle=g;cx.lineWidth=.9+Math.random()*.8;
-      cx.beginPath();cx.moveTo(lx,ly);cx.lineTo(lx+(dir>0?len:-len),ly);cx.stroke();
-    }
-  }
-
-  function drawStreaks(){
-    for(let i=0;i<4;i++){
-      const ph=(t*.1+i*1.9)%(Math.PI*2);
-      const pr=Math.sin(ph)*.5+.5;if(pr<.03||pr>.97)continue;
-      const sx=(i*.27+.04)*W,ex=sx+140*pr,sy=(i*.21+.04)*H;
-      const a=Math.sin(pr*Math.PI)*.28;
-      const g=lg(sx,sy,ex,sy);if(!g)continue;
-      g.addColorStop(0,'rgba(255,255,255,0)');g.addColorStop(1,`rgba(255,255,255,${a})`);
-      cx.strokeStyle=g;cx.lineWidth=.7;cx.beginPath();cx.moveTo(sx,sy);cx.lineTo(ex,sy);cx.stroke();
-    }
-  }
-
-  function frame(){
-    cx.clearRect(0,0,W,H);
-    t+=.016;
-    const gy=getGY();
-    const bob=Math.sin(t*7)*3.5;
-
-    const inX = W * 0.10 + Math.sin(t * 0.08) * 6;
-    const skX = W * 0.88 + Math.sin(t * 0.08 + 0.6) * 6;
-
-    drawShops();
-    drawGrid();
-    drawStreaks();
-    drawParticles();
-
-    speedLines(inX, gy + bob * 0.7, 1);
-    speedLines(skX, gy + bob, -1);
-
-    shopkeeper(skX, gy + bob, t * 7);
-    influencer(inX, gy + bob * 0.7, t * 7 + 0.5);
-
-    if(t-lastBubbleTime>2.2){bubbleIdx=(bubbleIdx+1)%bubbles.length;lastBubbleTime=t;}
-    const[bText,bCol]=bubbles[bubbleIdx];
-    if(bubbleIdx%2===0){
-      drawBubble(skX, gy + bob - 82, bText, bCol);
-    } else {
-      drawBubble(inX, gy + bob * 0.7 - 88, bText, bCol);
-    }
-
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
-
-/* ── GPS / GEOLOCATION ── */
-function getGPS(){
-  const btn=document.getElementById('gpsBtn');
-  const txt=document.getElementById('gpsTxt');
-  const toast=document.getElementById('gpsToast');
-  const msg=document.getElementById('gpsMsg');
-
-  if(!navigator.geolocation){msg.textContent='Geolocation not supported.';toast.classList.add('show');return;}
-
-  btn.classList.add('spinning');
-  txt.textContent='Detecting...';
-  toast.classList.remove('show');
-
-  navigator.geolocation.getCurrentPosition(
-    function(pos){
-      const lat=pos.coords.latitude.toFixed(5);
-      const lng=pos.coords.longitude.toFixed(5);
-      document.getElementById('gpsLat').value=lat;
-      document.getElementById('gpsLng').value=lng;
-
-      fetch('https://nominatim.openstreetmap.org/reverse?lat='+lat+'&lon='+lng+'&format=json')
-        .then(function(r){return r.json();})
-        .then(function(data){
-          var a=data.address;
-          var city=a.city||a.town||a.village||a.county||'';
-          var state=a.state||'';
-          var place=city?(state?city+', '+state:city):(lat+', '+lng);
-          document.getElementById('cityInput').value=place;
-          msg.textContent='📍 '+place;
-        })
-        .catch(function(){
-          document.getElementById('cityInput').value=lat+', '+lng;
-          msg.textContent='📍 Lat: '+lat+', Lng: '+lng;
-        })
-        .finally(function(){
-          btn.classList.remove('spinning');
-          txt.textContent='✓ Located';
-          toast.classList.add('show');
-        });
-    },
-    function(err){
-      btn.classList.remove('spinning');
-      txt.textContent='Use my location';
-      var errs={1:'Permission denied.',2:'Position unavailable.',3:'Request timed out.'};
-      msg.textContent='⚠️ '+(errs[err.code]||'Could not get location.');
-      toast.classList.add('show');
-    },
-    {timeout:10000,maximumAge:60000}
-  );
-}
-</script>
-
-<!-- ═══════════════════════════════════════════════
-     AI CHATBOT WIDGET  — InfluConnect dark 3D theme
-     Replace the old "AI Chatbot Widget" block with this
-     ═══════════════════════════════════════════════ -->
-
-<style>
-  #ic-widget{position:fixed;bottom:24px;right:24px;z-index:9999;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;align-items:flex-end}
-
-  #ic-toggle-btn{width:56px;height:56px;border-radius:16px;border:none;cursor:pointer;background:#f26419;flex-shrink:0;box-shadow:0 0 0 1px rgba(242,100,25,0.4),0 8px 24px rgba(242,100,25,0.45),0 0 48px rgba(242,100,25,0.15);display:flex;align-items:center;justify-content:center;transition:transform 0.2s,box-shadow 0.2s}
-  #ic-toggle-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(242,100,25,0.5),0 12px 32px rgba(242,100,25,0.55),0 0 60px rgba(242,100,25,0.2)}
-  #ic-toggle-btn svg{width:24px;height:24px;transition:transform 0.3s}
-  #ic-toggle-btn.open svg{transform:rotate(45deg)}
-
-  #ic-box{display:none;flex-direction:column;width:340px;height:500px;border-radius:20px;overflow:hidden;background:#0f0f0f;border:1px solid rgba(242,100,25,0.22);box-shadow:0 0 0 1px rgba(242,100,25,0.07),0 32px 64px rgba(0,0,0,0.75),inset 0 1px 0 rgba(255,255,255,0.05);margin-bottom:12px;transform:translateY(12px) scale(0.97);opacity:0;transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1),opacity 0.2s ease}
-  #ic-box.visible{display:flex;opacity:1;transform:translateY(0) scale(1)}
-
-  .ic-header{background:linear-gradient(135deg,#1c0900 0%,#2e1500 60%,#1a0800 100%);padding:14px 16px;border-bottom:1px solid rgba(242,100,25,0.18);display:flex;align-items:center;gap:10px;flex-shrink:0}
-  .ic-logo{width:38px;height:38px;background:#f26419;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 18px rgba(242,100,25,0.55)}
-  .ic-logo svg{width:19px;height:19px}
-  .ic-title-wrap{flex:1;min-width:0}
-  .ic-title-wrap strong{display:block;font-size:14px;font-weight:700;color:#fff;letter-spacing:-0.2px;line-height:1.2}
-  .ic-title-wrap small{font-size:11px;color:rgba(242,100,25,0.75);font-weight:500}
-  .ic-dot{width:7px;height:7px;background:#22c55e;border-radius:50%;box-shadow:0 0 7px rgba(34,197,94,0.7);animation:icpulse 2.2s infinite}
-  @keyframes icpulse{0%,100%{opacity:1}50%{opacity:0.35}}
-
-  #ic-form-screen{padding:16px;background:#0a0a0a;flex:1;overflow-y:auto;min-height:0}
-  #ic-form-screen p.ic-welcome{font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:14px;line-height:1.5}
-  .ic-label{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:5px}
-  .ic-field{width:100%;background:#161616;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 13px;font-size:13px;color:#fff;outline:none;font-family:'DM Sans',sans-serif;margin-bottom:12px;box-sizing:border-box;transition:border-color 0.2s,box-shadow 0.2s}
-  .ic-field::placeholder{color:rgba(255,255,255,0.2)}
-  .ic-field:focus{border-color:rgba(242,100,25,0.5);box-shadow:0 0 0 3px rgba(242,100,25,0.1)}
-  .ic-lang-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
-  .ic-lang-btn{padding:7px 14px;border-radius:20px;border:1.5px solid rgba(242,100,25,0.4);background:transparent;color:rgba(255,255,255,0.55);font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.15s}
-  .ic-lang-btn:hover{border-color:rgba(242,100,25,0.7);color:#fff}
-  .ic-lang-btn.active{background:#f26419;border-color:#f26419;color:#fff;box-shadow:0 4px 12px rgba(242,100,25,0.35)}
-  .ic-start-btn{width:100%;background:#f26419;color:#fff;border:none;border-radius:12px;padding:11px;font-size:14px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(242,100,25,0.4);transition:background 0.15s,transform 0.1s}
-  .ic-start-btn:hover{background:#d4510f;transform:translateY(-1px)}
-  .ic-error{color:#ff6b6b;font-size:12px;margin-top:8px;display:none;font-weight:500}
-
-  /* CHAT SCREEN — fills remaining height */
-  #ic-chat-screen{display:none;flex-direction:column;flex:1;min-height:0}
-
-  /* MESSAGES — scrollable, never overflows box */
-  #ic-messages{flex:1;overflow-y:auto;padding:14px;background:#080808;display:flex;flex-direction:column;gap:10px;min-height:0}
-  #ic-messages::-webkit-scrollbar{width:3px}
-  #ic-messages::-webkit-scrollbar-track{background:transparent}
-  #ic-messages::-webkit-scrollbar-thumb{background:rgba(242,100,25,0.25);border-radius:2px}
-
-  .ic-bot-row{display:flex;align-items:flex-end;gap:8px}
-  .ic-bot-avatar{width:28px;height:28px;flex-shrink:0;background:#161616;border:1px solid rgba(242,100,25,0.25);border-radius:8px;display:flex;align-items:center;justify-content:center}
-  .ic-bot-avatar svg{width:14px;height:14px}
-  .ic-bot-bubble{background:#161616;border:1px solid rgba(255,255,255,0.06);border-radius:14px 14px 14px 3px;padding:10px 13px;font-size:13px;color:rgba(255,255,255,0.85);line-height:1.55;max-width:82%}
-  .ic-user-row{display:flex;justify-content:flex-end}
-  .ic-user-bubble{background:linear-gradient(135deg,#f26419,#c94e0e);border-radius:14px 14px 3px 14px;padding:10px 13px;font-size:13px;color:#fff;line-height:1.55;max-width:82%;box-shadow:0 4px 14px rgba(242,100,25,0.3)}
-  .ic-typing{color:rgba(255,255,255,0.3);font-size:12px;padding:4px 0;flex-shrink:0}
-
-  /* INPUT — always pinned to bottom */
-  .ic-input-row{padding:12px;background:#0c0c0c;border-top:1px solid rgba(255,255,255,0.05);display:flex;gap:8px;align-items:center;flex-shrink:0}
-  #ic-input{flex:1;background:#161616;border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:10px 14px;font-size:13px;color:#fff;outline:none;font-family:'DM Sans',sans-serif;transition:border-color 0.2s,box-shadow 0.2s}
-  #ic-input::placeholder{color:rgba(255,255,255,0.22)}
-  #ic-input:focus{border-color:rgba(242,100,25,0.45);box-shadow:0 0 0 3px rgba(242,100,25,0.08)}
-  #ic-send-btn{width:38px;height:38px;flex-shrink:0;border:none;background:#f26419;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(242,100,25,0.35);transition:background 0.15s,transform 0.1s}
-  #ic-send-btn:hover{background:#d4510f;transform:scale(1.05)}
-  #ic-send-btn svg{width:15px;height:15px}
-</style>
-
 <div id="ic-widget">
-
   <div id="ic-box">
     <div class="ic-header">
-      <div class="ic-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-          <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-        </svg>
-      </div>
-      <div class="ic-title-wrap">
-        <strong>InfluConnect AI</strong>
-        <small>Influencer booking assistant</small>
-      </div>
+      <div class="ic-logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+      <div class="ic-title-wrap"><strong>InfluConnect AI</strong><small>Influencer booking assistant</small></div>
       <div class="ic-dot"></div>
     </div>
-
     <div id="ic-form-screen">
       <p class="ic-welcome">Pehle thodi details dijiye taaki main aapki better help kar sakun:</p>
       <label class="ic-label">Aapka naam</label>
@@ -719,132 +340,173 @@ function getGPS(){
       <button class="ic-start-btn" onclick="icStartChat()">Start Chat &rarr;</button>
       <p id="ic-form-error" class="ic-error">Sabhi fields fill karo aur language chunein!</p>
     </div>
-
     <div id="ic-chat-screen">
       <div id="ic-messages"></div>
       <div class="ic-input-row">
-        <input id="ic-input" type="text" placeholder="Apna sawaal likhein..."
-               onkeypress="if(event.key==='Enter') icSend()"/>
-        <button id="ic-send-btn" onclick="icSend()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-          </svg>
-        </button>
+        <input id="ic-input" type="text" placeholder="Apna sawaal likhein..." onkeypress="if(event.key==='Enter') icSend()"/>
+        <button id="ic-send-btn" onclick="icSend()"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       </div>
     </div>
   </div>
-
-  <button id="ic-toggle-btn" onclick="icToggle()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-    </svg>
-  </button>
-
+  <button id="ic-toggle-btn" onclick="icToggle()"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
 </div>
 
 <script>
-  let icLang='',icName='',icEmail='',icHistory=[];
+/* ══ CANVAS ══ */
+(function(){const cv=document.getElementById('sceneCanvas');const cx=cv.getContext('2d');let W,H,t=0;function resize(){W=cv.width=cv.offsetWidth||window.innerWidth;H=cv.height=cv.offsetHeight||window.innerHeight;}resize();window.addEventListener('resize',resize);function lg(x0,y0,x1,y1){if(!isFinite(x0)||!isFinite(y0)||!isFinite(x1)||!isFinite(y1))return null;if(x0===x1&&y0===y1)return null;return cx.createLinearGradient(x0,y0,x1,y1);}const pts=Array.from({length:70},()=>({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.00011,vy:(Math.random()-.5)*.00011,r:Math.random()*1.5+.3,a:Math.random()*.45+.15,ph:Math.random()*Math.PI*2}));const SIGNS=['CAFE','SHOP','MART','SALON','DUKAN','BAKERS','CLOTH','STORE','KIRANA','HOTEL'];const WCOLS=['rgba(242,100,25,.5)','rgba(255,200,80,.45)','rgba(80,160,255,.4)','rgba(200,255,100,.35)'];const shops=[];for(let i=0;i<22;i++)shops.push(mkShop(i*155-600));function mkShop(x){return{x,w:85+Math.random()*90,h:75+Math.random()*120,col:['#151515','#181818','#121212','#1c1c1c','#161616'][Math.floor(Math.random()*5)],sign:SIGNS[Math.floor(Math.random()*SIGNS.length)],wins:Array.from({length:Math.floor(2+Math.random()*5)},()=>({rx:.05+Math.random()*.6,ry:.08+Math.random()*.5,rw:.1+Math.random()*.12,rh:.08+Math.random()*.1,col:WCOLS[Math.floor(Math.random()*WCOLS.length)],blink:Math.random()<.2}))}}function getGY(){return H*0.60;}function drawShops(){const gy=getGY(),spd=0.9;for(const s of shops){s.x-=spd;if(s.x+s.w<-10){let mx=-9999;for(const ss of shops)mx=Math.max(mx,ss.x+ss.w);Object.assign(s,mkShop(mx+8+Math.random()*20));}const top=gy-s.h;cx.fillStyle=s.col;cx.fillRect(s.x,top,s.w,s.h);cx.fillStyle='rgba(242,100,25,.2)';cx.fillRect(s.x,top,s.w,4);const sy=top+s.h*.16;cx.fillStyle='rgba(242,100,25,.22)';cx.beginPath();if(cx.roundRect)cx.roundRect(s.x+s.w*.08,sy,s.w*.84,20,3);else cx.rect(s.x+s.w*.08,sy,s.w*.84,20);cx.fill();cx.fillStyle='rgba(255,150,70,.95)';cx.font=`bold ${Math.min(10,s.w*.11)}px DM Sans,sans-serif`;cx.textAlign='center';cx.fillText(s.sign,s.x+s.w*.5,sy+14);for(const w of s.wins){const lit=w.blink?(Math.sin(t*2.5+w.rx*15)>0):true;if(lit){cx.fillStyle=w.col;cx.fillRect(s.x+s.w*w.rx,top+s.h*w.ry,s.w*w.rw,s.h*w.rh);}}}const gg=lg(0,getGY(),W,getGY());if(gg){gg.addColorStop(0,'rgba(242,100,25,0)');gg.addColorStop(.35,'rgba(242,100,25,.3)');gg.addColorStop(.65,'rgba(242,100,25,.3)');gg.addColorStop(1,'rgba(242,100,25,0)');cx.strokeStyle=gg;cx.lineWidth=2.5;cx.beginPath();cx.moveTo(0,getGY());cx.lineTo(W,getGY());cx.stroke();}cx.save();cx.strokeStyle='rgba(255,255,255,.08)';cx.lineWidth=2;cx.setLineDash([28,22]);cx.lineDashOffset=-(t*22)%50;cx.beginPath();cx.moveTo(0,getGY()+20);cx.lineTo(W,getGY()+20);cx.stroke();cx.restore();}function drawGrid(){const gy=getGY(),fy=H*1.08,vpx=W*.5,sp=W*1.6;const COLS=16,ROWS=9,off=(t*.25)%1;for(let i=0;i<=COLS;i++){const r=i/COLS,bx=vpx-sp*.5+sp*r,tx=vpx+(bx-vpx)*.01;const a=.025+Math.sin(t*.5+i*.4)*.015;const g=lg(tx,gy,bx,fy);if(!g)continue;g.addColorStop(0,'rgba(242,100,25,0)');g.addColorStop(.3,`rgba(242,100,25,${a})`);g.addColorStop(1,`rgba(242,100,25,${a*.25})`);cx.strokeStyle=g;cx.lineWidth=.6;cx.beginPath();cx.moveTo(tx,gy);cx.lineTo(bx,fy);cx.stroke();}for(let j=0;j<=ROWS+1;j++){const raw=((j/ROWS)+off)%1,ratio=Math.pow(raw,2.6);const y=gy+(fy-gy)*ratio;if(y<gy||y>fy)continue;const ps=(y-gy)/(fy-gy);const xl=vpx-sp*.5*ps,xr=vpx+sp*.5*ps;const a=ps*(.04+Math.sin(t*.35+j)*.025);const g2=lg(xl,y,xr,y);if(!g2)continue;g2.addColorStop(0,'rgba(242,100,25,0)');g2.addColorStop(.2,`rgba(242,100,25,${a})`);g2.addColorStop(.8,`rgba(242,100,25,${a})`);g2.addColorStop(1,'rgba(242,100,25,0)');cx.strokeStyle=g2;cx.lineWidth=.55;cx.beginPath();cx.moveTo(xl,y);cx.lineTo(xr,y);cx.stroke();}}function drawParticles(){for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;const pulse=Math.sin(t*1.1+p.ph)*.35+.65;cx.beginPath();cx.arc(p.x*W,p.y*H,p.r*pulse,0,Math.PI*2);cx.fillStyle=p.r>1.1?`rgba(242,100,25,${p.a*pulse*.7})`:`rgba(255,255,255,${p.a*pulse*.6})`;cx.fill();}}function shopkeeper(px,py,lp){const lk=Math.sin(lp)*20,rk=Math.sin(lp+Math.PI)*20;cx.strokeStyle='#4a2c1a';cx.lineWidth=7;cx.lineCap='round';cx.beginPath();cx.moveTo(px-5,py-16);cx.lineTo(px-5+lk*.75,py+2);cx.stroke();cx.beginPath();cx.moveTo(px+5,py-16);cx.lineTo(px+5+rk*.75,py+2);cx.stroke();cx.fillStyle='#c94e0e';cx.beginPath();if(cx.roundRect)cx.roundRect(px-17,py-50,34,36,7);else cx.rect(px-17,py-50,34,36);cx.fill();cx.fillStyle='#f5c8a0';cx.fillRect(px-6,py-57,12,9);cx.beginPath();cx.ellipse(px,py-68,20,22,0,0,Math.PI*2);cx.fill();cx.fillStyle='#2e1e10';cx.beginPath();cx.ellipse(px,py-77,20,13,0,Math.PI,Math.PI*2);cx.fill();}function influencer(px,py,lp){const la=Math.sin(lp+Math.PI)*20;cx.fillStyle='#1a1a38';cx.beginPath();if(cx.roundRect)cx.roundRect(px-15,py-46,30,34,5);else cx.rect(px-15,py-46,30,34);cx.fill();cx.strokeStyle='#1a1a38';cx.lineWidth=8;cx.lineCap='round';cx.beginPath();cx.moveTo(px+13,py-38);cx.lineTo(px+24,py-58+Math.sin(lp)*5);cx.stroke();const camX=px+24,camY=py-58+Math.sin(lp)*5;cx.fillStyle='#1e1e1e';cx.beginPath();if(cx.roundRect)cx.roundRect(camX-10,camY-9,22,14,4);else cx.rect(camX-10,camY-9,22,14);cx.fill();const blink=Math.sin(t*4)>.2;if(blink){cx.fillStyle='#ff2222';cx.beginPath();cx.arc(camX+8,camY-7,3,0,Math.PI*2);cx.fill();}cx.fillStyle='#c8955a';cx.fillRect(px-5,py-51,10,7);cx.beginPath();cx.ellipse(px,py-63,17,19,0,0,Math.PI*2);cx.fill();cx.fillStyle='#0d0d0d';cx.beginPath();cx.ellipse(px,py-72,17,11,-.1,Math.PI,Math.PI*2);cx.fill();}const bubbles=[['Bachao mujhe! 😱','#c0392b'],['Ek reel bana lo! 🎥','#f26419'],['Nahi chahiye promo!','#c0392b'],['50K followers hain!','#f26419'],['Mera shop chhod do!','#c0392b'],['Viral kar dunga! 🔥','#f26419']];let bubbleIdx=0,lastBubbleTime=0;function drawBubble(px,py,text,col){cx.font='bold 11px DM Sans,sans-serif';cx.textAlign='center';const tw=cx.measureText(text).width;const bw=tw+22,bh=26,bx=px-bw/2,by=py-bh-12;cx.fillStyle=col;cx.beginPath();if(cx.roundRect)cx.roundRect(bx,by,bw,bh,7);else cx.rect(bx,by,bw,bh);cx.fill();cx.beginPath();cx.moveTo(px-6,by+bh);cx.lineTo(px,by+bh+11);cx.lineTo(px+6,by+bh);cx.closePath();cx.fill();cx.fillStyle='#fff';cx.fillText(text,px,by+bh-8);}function frame(){cx.clearRect(0,0,W,H);t+=.016;const gy=getGY();const bob=Math.sin(t*7)*3.5;const inX=W*0.10+Math.sin(t*0.08)*6;const skX=W*0.88+Math.sin(t*0.08+0.6)*6;drawShops();drawGrid();drawParticles();shopkeeper(skX,gy+bob,t*7);influencer(inX,gy+bob*0.7,t*7+0.5);if(t-lastBubbleTime>2.2){bubbleIdx=(bubbleIdx+1)%bubbles.length;lastBubbleTime=t;}const[bText,bCol]=bubbles[bubbleIdx];if(bubbleIdx%2===0){drawBubble(skX,gy+bob-82,bText,bCol);}else{drawBubble(inX,gy+bob*0.7-88,bText,bCol);}requestAnimationFrame(frame);}frame();})();
 
-  function icToggle(){
-    const box=document.getElementById('ic-box');
-    const btn=document.getElementById('ic-toggle-btn');
-    const isOpen=box.classList.contains('visible');
-    if(isOpen){
-      box.style.opacity='0';
-      box.style.transform='translateY(12px) scale(0.97)';
-      setTimeout(()=>{box.classList.remove('visible');box.style.display='none';},200);
-      btn.classList.remove('open');
-    } else {
-      box.style.display='flex';
-      setTimeout(()=>{box.classList.add('visible');},10);
-      btn.classList.add('open');
-    }
+/* ══ GPS ══ */
+function getGPS(){
+  const btn=document.getElementById('gpsBtn'),txt=document.getElementById('gpsTxt'),toast=document.getElementById('gpsToast'),msg=document.getElementById('gpsMsg');
+  if(!navigator.geolocation){msg.textContent='Geolocation not supported.';toast.classList.add('show');return;}
+  btn.classList.add('spinning');txt.textContent='Detecting...';toast.classList.remove('show');
+  navigator.geolocation.getCurrentPosition(
+    pos=>{
+      const lat=pos.coords.latitude.toFixed(5),lng=pos.coords.longitude.toFixed(5);
+      fetch('https://nominatim.openstreetmap.org/reverse?lat='+lat+'&lon='+lng+'&format=json')
+        .then(r=>r.json())
+        .then(d=>{var a=d.address;var city=a.city||a.town||a.village||a.county||'';var state=a.state||'';var place=city?(state?city+', '+state:city):(lat+', '+lng);document.getElementById('aiCityInput').value=place;msg.textContent='📍 '+place;setTimeout(()=>aiFindInfluencers(),500);})
+        .catch(()=>{document.getElementById('aiCityInput').value=lat+', '+lng;msg.textContent='📍 Located!';})
+        .finally(()=>{btn.classList.remove('spinning');txt.textContent='✓ Located';toast.classList.add('show');});
+    },
+    err=>{btn.classList.remove('spinning');txt.textContent='Use my location';var errs={1:'Permission denied.',2:'Position unavailable.',3:'Timed out.'};msg.textContent='⚠️ '+(errs[err.code]||'Error');toast.classList.add('show');},
+    {timeout:10000,maximumAge:60000}
+  );
+}
+
+document.querySelectorAll('#nicheChips .filter-chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{document.querySelectorAll('#nicheChips .filter-chip').forEach(c=>c.classList.remove('active'));chip.classList.add('active');});
+});
+
+function getCsrfToken(){const c=document.cookie.split(';').find(x=>x.trim().startsWith('csrftoken='));return c?c.split('=')[1].trim():'';}
+function fmtNum(n){if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return Math.round(n/1000)+'K';return String(n);}
+const AVATAR_COLORS=['#e74c3c','#9b59b6','#3498db','#1abc9c','#e67e22','#e91e63','#00bcd4','#8bc34a','#ff5722','#607d8b','#795548','#f39c12'];
+
+let aiInfluencerData=[];
+let currentCity='';
+
+async function aiFindInfluencers(){
+  const city=document.getElementById('aiCityInput').value.trim();
+  const minF=parseInt(document.getElementById('minFollowers').value)||0;
+  const maxB=parseInt(document.getElementById('maxBudget').value)||9999999;
+  const activeChip=document.querySelector('#nicheChips .filter-chip.active');
+  const niche=activeChip?activeChip.dataset.niche:'All';
+  if(!city){document.getElementById('aiCityInput').focus();document.getElementById('aiCityInput').style.borderColor='#f26419';setTimeout(()=>document.getElementById('aiCityInput').style.borderColor='',1500);return;}
+  currentCity=city;
+  const btn=document.getElementById('aiFindBtn');
+  btn.disabled=true;btn.textContent='⏳ Dhundh raha hai...';
+  const section=document.getElementById('ai-results-section');
+  section.style.display='block';
+  section.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('aiGrid').innerHTML=`<div style="grid-column:1/-1"><div class="ai-loading"><div class="ai-loading-spinner"></div><p>Instagram pe <span>${city}</span> ke real influencers dhundh raha hai...</p><p style="font-size:0.8rem;margin-top:6px;opacity:0.5">Real data fetch ho raha hai...</p></div></div>`;
+  document.getElementById('ai-results-title').innerHTML=`Results for "${city}"`;
+  document.getElementById('ai-count-badge').textContent='...';
+  document.getElementById('source-badge').innerHTML='';
+  try{
+    const resp=await fetch('/api/find-influencers/',{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':getCsrfToken()},body:JSON.stringify({city,niche,minFollowers:minF,maxBudget:maxB})});
+    if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error||`Server error ${resp.status}`);}
+    const data=await resp.json();
+    aiInfluencerData=data.influencers||[];
+    const source=data.source||'ai_generated';
+    renderAIResults(aiInfluencerData,city,source);
+  }catch(err){
+    document.getElementById('aiGrid').innerHTML=`<div class="ai-empty" style="grid-column:1/-1"><div class="ai-empty-icon">⚠️</div><h3>Kuch error aa gaya</h3><p>${err.message}</p></div>`;
+    document.getElementById('ai-count-badge').textContent='Error';
+  }finally{btn.disabled=false;btn.textContent='🔍 Find Influencers with AI';}
+}
+
+function renderAIResults(influencers,city,source){
+  const grid=document.getElementById('aiGrid');
+  document.getElementById('ai-count-badge').textContent=influencers.length+' found';
+
+  const isReal = source==='instagram_real';
+  document.getElementById('ai-results-title').innerHTML=`${isReal?'Real Instagram':'AI Suggested'} Results for "${city}"`;
+  document.getElementById('source-badge').innerHTML=isReal
+    ?'<span class="source-badge-real">✓ Real Instagram Data</span>'
+    :'<span class="source-badge-ai">✦ AI Generated</span>';
+
+  if(!influencers.length){
+    grid.innerHTML=`<div class="ai-empty"><div class="ai-empty-icon">🔍</div><h3>Koi influencer nahi mila</h3><p>${city} mein koi match nahi. Filters change karo.</p></div>`;
+    return;
   }
 
-  function icSelectLang(btn,lang){
-    document.querySelectorAll('.ic-lang-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    icLang=lang;
-  }
+  grid.innerHTML=influencers.map((inf,i)=>{
+    const initials=(inf.name||inf.handle||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    const color=AVATAR_COLORS[i%AVATAR_COLORS.length];
+    const profileUrl=inf.profile_url||`https://www.instagram.com/${inf.handle}/`;
 
-  function icStartChat(){
-    icName=document.getElementById('ic-name').value.trim();
-    icEmail=document.getElementById('ic-email').value.trim();
-    const err=document.getElementById('ic-form-error');
-    if(!icName||!icEmail||!icLang){err.style.display='block';return;}
-    err.style.display='none';
-    document.getElementById('ic-form-screen').style.display='none';
-    const cs=document.getElementById('ic-chat-screen');
-    cs.style.display='flex';
-    cs.style.flexDirection='column';
-    const greet=icLang==='Hindi'
-      ?`Namaste ${icName} ji! Main InfluConnect ka AI assistant hoon. Kya help chahiye?`
-      :icLang==='English'
-      ?`Hello ${icName}! I'm InfluConnect's AI assistant. How can I help you today?`
-      :`Hey ${icName}! Main InfluConnect ka AI assistant hoon. Batao kya help chahiye?`;
-    icAddBot(greet);
-  }
+    // Avatar — real photo agar mile, warna initials
+    const avatarHtml=inf.pic_url
+      ?`<img src="${inf.pic_url}" alt="${inf.name}" onerror="this.parentElement.textContent='${initials}'">`
+      :initials;
 
-  function icAddBot(text){
-    const m=document.getElementById('ic-messages');
-    const row=document.createElement('div');
-    row.className='ic-bot-row';
-    row.innerHTML=`<div class="ic-bot-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#f26419" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16"/><line x1="16" y1="16" x2="16" y2="16"/></svg></div><div class="ic-bot-bubble">${text}</div>`;
-    m.appendChild(row);
-    m.scrollTop=m.scrollHeight;
-  }
+    const realBadge=inf.is_real
+      ?`<span class="real-badge">✓ Real</span>`
+      :'';
 
-  function icGetCookie(name){
-    let v=null;
-    if(document.cookie){document.cookie.split(';').forEach(c=>{c=c.trim();if(c.startsWith(name+'='))v=decodeURIComponent(c.substring(name.length+1));});}
-    return v;
-  }
+    const disclaimer=inf.is_real
+      ?''
+      :`<p class="ai-mock-note">⚠️ AI-generated · Verify karein</p>`;
 
-  function icSend(){
-    const input=document.getElementById('ic-input');
-    const m=document.getElementById('ic-messages');
-    const msg=input.value.trim();
-    if(!msg)return;
+    return `<div class="ai-card ${inf.is_real?'real-card':''}" data-followers="${inf.followers}" data-rate="${inf.ratePerPost}" data-engagement="${inf.engagementRate}">
+      <div class="ai-card-top">
+        <div class="ai-avatar" style="${inf.pic_url?'':`background:${color}22;color:${color};border:2px solid ${color}44`}">${avatarHtml}</div>
+        <div>
+          <div class="ai-name">${inf.name||inf.handle}${inf.verified?'<span style="color:#4fc3f7;font-size:0.72rem;margin-left:4px"> ✓</span>':''}${realBadge}</div>
+          <div class="ai-handle">@${inf.handle}</div>
+        </div>
+      </div>
+      <span class="ai-niche-tag">${inf.niche||'Creator'}</span>
+      <p class="ai-bio">${inf.bio||'Instagram creator'}</p>
+      <div class="ai-stats">
+        <div class="ai-stat"><span class="ai-stat-val">${fmtNum(inf.followers||0)}</span><span class="ai-stat-lbl">Followers</span></div>
+        <div class="ai-stat"><span class="ai-stat-val">${(inf.engagementRate||0).toFixed(1)}%</span><span class="ai-stat-lbl">Engagement</span></div>
+        <div class="ai-stat"><span class="ai-stat-val">${fmtNum(inf.avgReelViews||0)}</span><span class="ai-stat-lbl">Avg Reel Views</span></div>
+        <div class="ai-stat"><span class="ai-stat-val">₹${(inf.ratePerPost||0).toLocaleString('en-IN')}</span><span class="ai-stat-lbl">Est. Per Post</span></div>
+      </div>
+      <div class="ai-rate-row">
+        <span class="ai-rate">Est. Rate: <strong>₹${(inf.ratePerPost||0).toLocaleString('en-IN')}/post</strong></span>
+        <span style="font-size:0.72rem;color:rgba(255,255,255,0.3)">${inf.is_real?'📸 Instagram':'🤖 AI'}</span>
+      </div>
+      <div class="ai-actions">
+        <a href="${profileUrl}" target="_blank" rel="noopener" class="ai-btn-insta">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          ${inf.is_real?'View Profile':'Search Instagram'}
+        </a>
+        <button class="ai-btn-fill" onclick="aiContact('${(inf.name||inf.handle).replace(/'/g,"\\'")}','${inf.handle}','${inf.niche||"Creator"}',${inf.ratePerPost||0})">Contact</button>
+      </div>
+      ${disclaimer}
+    </div>`;
+  }).join('');
+}
 
-    const uRow=document.createElement('div');
-    uRow.className='ic-user-row';
-    uRow.innerHTML=`<div class="ic-user-bubble">${msg}</div>`;
-    m.appendChild(uRow);
-    input.value='';
-    m.scrollTop=m.scrollHeight;
+function aiSortResults(val){
+  if(!aiInfluencerData.length)return;
+  const sorted=[...aiInfluencerData];
+  if(val==='followers')sorted.sort((a,b)=>b.followers-a.followers);
+  if(val==='rate_asc')sorted.sort((a,b)=>a.ratePerPost-b.ratePerPost);
+  if(val==='rate_desc')sorted.sort((a,b)=>b.ratePerPost-a.ratePerPost);
+  if(val==='engagement')sorted.sort((a,b)=>b.engagementRate-a.engagementRate);
+  const src=aiInfluencerData[0]?.is_real?'instagram_real':'ai_generated';
+  renderAIResults(sorted,currentCity,src);
+}
 
-    const tid='ict-'+Date.now();
-    const tEl=document.createElement('div');
-    tEl.className='ic-typing';tEl.id=tid;tEl.textContent='Typing...';
-    m.appendChild(tEl);
-    m.scrollTop=m.scrollHeight;
+function aiContact(name,handle,niche,rate){
+  const box=document.getElementById('ic-box'),btn=document.getElementById('ic-toggle-btn');
+  if(!box.classList.contains('visible')){box.style.display='flex';setTimeout(()=>box.classList.add('visible'),10);btn.classList.add('open');}
+  const chatScreen=document.getElementById('ic-chat-screen');
+  if(chatScreen.style.display==='flex'){const inp=document.getElementById('ic-input');inp.value=`${name} (@${handle}, ${niche}, est. ₹${Number(rate).toLocaleString('en-IN')}/post) ke liye collaboration pitch draft karo`;inp.focus();}
+  else{document.querySelector('.ic-welcome').textContent=`${name} ko contact karna chahte ho? Pehle details dijiye:`;}
+}
 
-    icHistory.push({role:'user',content:msg});
-
-    fetch('/ai-chat/',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','X-CSRFToken':icGetCookie('csrftoken')},
-      body:JSON.stringify({message:msg,language:icLang,name:icName})
-    })
-    .then(res=>{if(!res.ok)throw new Error('Server error '+res.status);return res.json();})
-    .then(data=>{
-      const t=document.getElementById(tid);if(t)t.remove();
-      if(data.reply){icHistory.push({role:'assistant',content:data.reply});icAddBot(data.reply);}
-      else throw new Error(data.error||'Koi jawab nahi aaya.');
-    })
-    .catch(err=>{
-      const t=document.getElementById(tid);if(t)t.remove();
-      const eRow=document.createElement('div');
-      eRow.className='ic-bot-row';
-      eRow.innerHTML=`<div class="ic-bot-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#f26419" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div><div class="ic-bot-bubble" style="color:#ff6b6b;">${err.message||'Dobara try karo.'}</div>`;
-      m.appendChild(eRow);
-      m.scrollTop=m.scrollHeight;
-      icHistory.pop();
-    });
-  }
+/* ══ CHATBOT ══ */
+let icLang='',icName='',icEmail='',icHistory=[];
+function icToggle(){const box=document.getElementById('ic-box'),btn=document.getElementById('ic-toggle-btn'),isOpen=box.classList.contains('visible');if(isOpen){box.style.opacity='0';box.style.transform='translateY(12px) scale(0.97)';setTimeout(()=>{box.classList.remove('visible');box.style.display='none';},200);btn.classList.remove('open');}else{box.style.display='flex';setTimeout(()=>box.classList.add('visible'),10);btn.classList.add('open');}}
+function icSelectLang(btn,lang){document.querySelectorAll('.ic-lang-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');icLang=lang;}
+function icStartChat(){icName=document.getElementById('ic-name').value.trim();icEmail=document.getElementById('ic-email').value.trim();const err=document.getElementById('ic-form-error');if(!icName||!icEmail||!icLang){err.style.display='block';return;}err.style.display='none';document.getElementById('ic-form-screen').style.display='none';const cs=document.getElementById('ic-chat-screen');cs.style.display='flex';cs.style.flexDirection='column';const greet=icLang==='Hindi'?`Namaste ${icName} ji!`:icLang==='English'?`Hello ${icName}!`:`Hey ${icName}!`;icAddBot(greet+' Main InfluConnect ka AI assistant hoon. Kya help chahiye?');}
+function icAddBot(text){const m=document.getElementById('ic-messages');const row=document.createElement('div');row.className='ic-bot-row';row.innerHTML=`<div class="ic-bot-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="#f26419" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div><div class="ic-bot-bubble">${text}</div>`;m.appendChild(row);m.scrollTop=m.scrollHeight;}
+function icGetCookie(name){let v=null;if(document.cookie)document.cookie.split(';').forEach(c=>{c=c.trim();if(c.startsWith(name+'='))v=decodeURIComponent(c.substring(name.length+1));});return v;}
+function icSend(){const input=document.getElementById('ic-input'),m=document.getElementById('ic-messages'),msg=input.value.trim();if(!msg)return;const uRow=document.createElement('div');uRow.className='ic-user-row';uRow.innerHTML=`<div class="ic-user-bubble">${msg}</div>`;m.appendChild(uRow);input.value='';m.scrollTop=m.scrollHeight;const tid='ict-'+Date.now();const tEl=document.createElement('div');tEl.className='ic-typing';tEl.id=tid;tEl.textContent='Typing...';m.appendChild(tEl);m.scrollTop=m.scrollHeight;icHistory.push({role:'user',content:msg});fetch('/ai-chat/',{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':icGetCookie('csrftoken')},body:JSON.stringify({message:msg,language:icLang,name:icName})}).then(res=>{if(!res.ok)throw new Error('Server error');return res.json();}).then(data=>{document.getElementById(tid)?.remove();if(data.reply){icHistory.push({role:'assistant',content:data.reply});icAddBot(data.reply);}}).catch(err=>{document.getElementById(tid)?.remove();icAddBot('⚠️ Dobara try karo.');icHistory.pop();});}
 </script>
-<!-- ═══════════════════════════════════════════════ -->
-
 </body>
 </html>
