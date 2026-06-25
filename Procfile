@@ -1,1 +1,1 @@
-web: gunicorn influconnect.wsgi --log-file -
+web: gunicorn influconnect.wsgi --log-file - --bind 0.0.0.0:$PORT
