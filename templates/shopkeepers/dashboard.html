@@ -7,18 +7,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
 
-html[data-theme="light"] {
-  --bg: #f9f4ee;
-  --s1: #ffffff;
-  --s2: #f3ede6;
-  --s3: #ede4d8;
-  --txt: #1E130A;
-  --txt2: rgba(30,19,10,0.6);
-  --txt3: rgba(30,19,10,0.35);
+[data-theme="light"] {
+  --bg: #f9f4ee; --s1: #ffffff; --s2: #f3ede6; --s3: #ede4d8;
+  --txt: #1E130A; --txt2: rgba(30,19,10,0.6); --txt3: rgba(30,19,10,0.35);
   --border: rgba(0,0,0,0.09);
-  --or1: #e85d0a;
-  --or2: #f07830;
-  --or3: rgba(232,93,10,0.10);
+  --or1: #e85d0a; --or2: #f07830; --or3: rgba(232,93,10,0.10);
 }
 
     :root {
@@ -47,7 +40,7 @@ html[data-theme="light"] {
       background: var(--or1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .sidebar-logo-icon svg { width: 18px; height: 18px; }
-    .sidebar-logo-text { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--txt); }
+    .sidebar-logo-text { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: #fff; }
     .sidebar-logo-text span { color: var(--or1); }
     .sidebar-nav { flex: 1; padding: 1rem .75rem; overflow-y: auto; }
     .nav-label { font-size: .65rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; padding: .5rem .65rem .3rem; margin-top: .5rem; }
@@ -58,7 +51,7 @@ html[data-theme="light"] {
       transition: all .18s; margin-bottom: .15rem; position: relative;
     }
     .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
-    .nav-item:hover { background: var(--or3); color: var(--or1); }
+    .nav-item:hover { background: rgba(255,255,255,0.05); color: var(--txt); }
     .nav-item.active { background: var(--or3); color: var(--or1); font-weight: 700; }
     .nav-item.active::before {
       content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
@@ -99,7 +92,7 @@ html[data-theme="light"] {
     .main { margin-left: 240px; min-height: 100vh; }
     .topbar {
       position: sticky; top: 0; z-index: 50;
-      background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(20px);
+      background: rgba(var(--bg-rgb, 10,10,15), 0.9) ; backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       padding: .9rem 2rem; display: flex; align-items: center; justify-content: space-between;
     }
@@ -128,7 +121,7 @@ html[data-theme="light"] {
 
     /* ── ACTIVE BOOKING BANNER ── */
     .active-booking-banner {
-      background: var(--s2);
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
       border: 1.5px solid var(--or1);
       border-radius: 20px;
       padding: 1.4rem 1.8rem;
@@ -203,316 +196,44 @@ html[data-theme="light"] {
     /* ── GRID LAYOUT ── */
     .dashboard-grid { display: grid; grid-template-columns: 1fr 340px; gap: 1.4rem; }
 
-    /* ── PREMIUM INFLUENCER CARDS (Shopkeeper Style) ── */
-    .influencer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
-    
+    /* ── INFLUENCER CARDS ── */
+    .influencer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
     .inf-card {
-      background: var(--s1);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 0;
-      transition: all .32s cubic-bezier(.34, 1.56, .64, 1);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 340px;
+      background: var(--s1); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.2rem; transition: all .22s; position: relative; overflow: hidden;
     }
-    
-    /* BANNER BACKGROUND */
-    .inf-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 140px;
-      background-size: cover;
-      background-position: center;
-      z-index: 1;
-    }
-    
-    /* Dark overlay on banner */
-    .inf-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 140px;
-      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
-      z-index: 2;
-    }
-    
-    .inf-card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(255,107,26,0.5);
-      box-shadow: 0 20px 48px rgba(255,107,26,0.25);
-    }
-    
-    /* BODY SECTION */
-    .inf-card-body {
-      position: relative;
-      z-index: 3;
-      padding: 0 1.3rem 1.3rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    /* PROFILE PIC - Floats on banner */
-    .inf-avatar-float {
-      position: absolute;
-      top: -28px;
-      left: 1.3rem;
-      z-index: 10;
-    }
-    
+    .inf-card:hover { transform: translateY(-4px); border-color: rgba(255,107,26,0.3); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+    .inf-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, rgba(255,107,26,0.4), rgba(255,140,66,0.2)); }
+    .inf-top { display: flex; align-items: center; gap: .75rem; margin-bottom: .9rem; }
     .inf-avatar {
-      width: 70px;
-      height: 70px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, var(--or1), var(--or2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Syne', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #fff;
-      flex-shrink: 0;
-      border: 3px solid var(--s1);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-      overflow: hidden;
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, #1a1a2e, #2d2d4e);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: #fff; flex-shrink: 0;
     }
-    
-    .inf-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 11px;
-    }
-    
-    .inf-avatar::after {
-      content: '';
-      position: absolute;
-      bottom: -7px;
-      right: -7px;
-      width: 18px;
-      height: 18px;
-      background: #4ADE80;
-      border-radius: 50%;
-      border: 2.5px solid var(--s1);
-      box-shadow: 0 0 10px rgba(74,222,128,0.6);
-    }
-    
-    /* TOP SECTION - Category + Name */
-    .inf-top {
-      margin-top: 1.8rem;
-      margin-bottom: .5rem;
-    }
-    
-    .inf-cat-badge {
-      display: inline-block;
-      background: var(--or3);
-      color: var(--or1);
-      font-size: .6rem;
-      font-weight: 700;
-      padding: .22rem .6rem;
-      border-radius: 18px;
-      border: 1px solid rgba(255,107,26,0.3);
-      margin-bottom: .5rem;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-    
-    .inf-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--txt);
-      margin-bottom: .15rem;
-      line-height: 1.2;
-    }
-    
-    .inf-username {
-      font-size: .75rem;
-      color: var(--txt3);
-      display: block;
-      margin-bottom: .45rem;
-      font-weight: 500;
-    }
-    
-    /* BIO/DESCRIPTION */
-    .inf-bio {
-      font-size: .75rem;
-      color: var(--txt2);
-      margin-bottom: .7rem;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    
-    /* LOCATION */
-    .inf-location {
-      display: flex;
-      align-items: center;
-      gap: .3rem;
-      font-size: .73rem;
-      color: var(--txt3);
-      margin-bottom: .8rem;
-    }
-    
-    .inf-location svg {
-      width: 12px;
-      height: 12px;
-      color: var(--or1);
-      flex-shrink: 0;
-    }
-    
-    /* RATE BOX */
-    .inf-rate {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      background: var(--s2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: .65rem .85rem;
-      margin-bottom: .9rem;
-    }
-    
-    .inf-rate svg {
-      width: 14px;
-      height: 14px;
-      color: var(--or1);
-      flex-shrink: 0;
-    }
-    
-    .inf-rate-val {
-      font-family: 'Syne', sans-serif;
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--or1);
-    }
-    
-    .inf-rate-lbl {
-      font-size: .55rem;
-      color: var(--txt3);
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: .5px;
-    }
-    
-    /* ACTION BUTTONS */
-    .inf-actions {
-      display: flex;
-      gap: .65rem;
-      margin-top: auto;
-    }
-    
-    .profile-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      flex: 1;
-      padding: .65rem .7rem;
-      border-radius: 11px;
-      background: transparent;
-      color: var(--or1);
-      border: 1.5px solid rgba(255,107,26,0.4);
-      font-size: .76rem;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all .16s;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    
-    .profile-btn:hover {
-      background: var(--or3);
-      border-color: rgba(255,107,26,0.6);
-      transform: translateY(-1px);
-    }
-    
-    .profile-btn svg {
-      width: 13px;
-      height: 13px;
-    }
-    
-    /* BOOK BUTTON */
-    .book-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .35rem;
-      flex: 1;
-      padding: .65rem .7rem;
-      border-radius: 11px;
-      background: linear-gradient(135deg, var(--or1), var(--or2));
-      color: #fff;
-      font-size: .76rem;
-      font-weight: 700;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: all .16s;
-      box-shadow: 0 3px 10px rgba(255,107,26,0.3);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    
-    .book-btn svg { width: 13px; height: 13px; }
-    .book-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(255,107,26,0.4); }
-    .book-btn.disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      pointer-events: none;
-      background: linear-gradient(135deg, #555, #444);
-      box-shadow: none;
-    }
+    .inf-name { font-family: 'Syne', sans-serif; font-size: .92rem; font-weight: 800; color: var(--txt); }
+    .inf-cat { font-size: .72rem; color: var(--txt3); margin-top: .1rem; }
+    .inf-stats { display: flex; gap: .6rem; margin-bottom: .9rem; }
+    .inf-stat { flex: 1; background: var(--s2); border-radius: 8px; padding: .45rem .5rem; text-align: center; }
+    .inf-stat-val { font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 800; color: var(--txt); }
+    .inf-stat-lbl { font-size: .6rem; color: var(--txt3); margin-top: .1rem; }
 
     /* ── BOOK NOW BUTTON ── */
     .book-btn {
       display: flex; align-items: center; justify-content: center; gap: .45rem;
-      flex: 1; padding: .7rem; border-radius: 11px;
+      width: 100%; padding: .6rem; border-radius: 10px;
       background: linear-gradient(135deg, var(--or1), var(--or2));
-      color: #fff; font-size: .82rem; font-weight: 700;
+      color: #fff; font-size: .8rem; font-weight: 700;
       text-decoration: none; border: none; cursor: pointer; transition: all .18s;
-      box-shadow: 0 4px 14px rgba(255,107,26,0.35);
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      box-shadow: 0 4px 14px rgba(255,107,26,0.3);
     }
-    .book-btn svg { width: 15px; height: 15px; }
-    .book-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,26,0.45); }
+    .book-btn svg { width: 14px; height: 14px; }
+    .book-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,26,0.4); }
+    /* DISABLED STATE — active booking hone pe */
     .book-btn.disabled {
-      opacity: 0.4; cursor: not-allowed; pointer-events: none;
+      opacity: 0.38; cursor: not-allowed; pointer-events: none;
       background: linear-gradient(135deg, #555, #444);
-      box-shadow: none; filter: grayscale(0.5);
-    }
-    
-    /* Chat button */
-    .chat-btn {
-      display: flex; align-items: center; justify-content: center; gap: .4rem;
-      flex: 1; padding: .7rem; border-radius: 11px;
-      background: transparent; color: var(--txt2);
-      border: 1.5px solid var(--border);
-      font-size: .82rem; font-weight: 600;
-      text-decoration: none; cursor: pointer; transition: all .18s;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .chat-btn svg { width: 15px; height: 15px; }
-    .chat-btn:hover { color: var(--or1); border-color: rgba(255,107,26,0.3); background: var(--or3); }
-    
-    /* View profile link */
-    .view-profile-link {
-      display: inline-block;
-      font-size: .76rem;
-      color: var(--or1);
-      text-decoration: none;
-      font-weight: 600;
-      transition: all .15s;
-    }
-    .view-profile-link:hover {
-      gap: .3rem;
+      box-shadow: none; filter: grayscale(0.4);
     }
 
     /* ── RECENT BOOKINGS ── */
@@ -594,7 +315,6 @@ html[data-theme="light"] {
     @media (max-width: 768px) {
       .sidebar { transform: translateX(-100%); }
       .main { margin-left: 0; }
-      .influencer-grid { grid-template-columns: 1fr; }
       .active-booking-banner { flex-direction: column; align-items: flex-start; }
       .ab-actions { width: 100%; }
       .ab-btn { flex: 1; justify-content: center; }
@@ -617,13 +337,6 @@ html[data-theme="light"] {
 
   <nav class="sidebar-nav">
     <span class="nav-label">Main</span>
-    <a href="/?force=1" class="nav-item">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-    <polyline points="9 22 9 12 15 12 15 22"/>
-  </svg>
-  Home
-</a>
     <a href="{% url 'shopkeepers:shopkeeper_dashboard' %}" class="nav-item active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
       Dashboard
@@ -681,6 +394,8 @@ html[data-theme="light"] {
   <span id="theme-label">Light Mode</span>
 </button>
 
+
+
       <div class="topbar-badge">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         Shopkeeper
@@ -703,7 +418,7 @@ html[data-theme="light"] {
     {% endif %}
 
     <!-- ══════════════════════════════════════════════
-         ACTIVE BOOKING BANNER
+         ACTIVE BOOKING BANNER — jab tak complete/cancel nahi hota
     ══════════════════════════════════════════════ -->
     {% if active_booking %}
     <div class="active-booking-banner fade-1">
@@ -798,69 +513,38 @@ html[data-theme="light"] {
 
         <div class="influencer-grid">
           {% for influencer in recommended_influencers %}
-          <div class="inf-card" style="background-image: url('{% if influencer.banner_image %}{{ influencer.banner_image.url }}{% else %}linear-gradient(135deg, rgba(255,107,26,0.15) 0%, rgba(255,140,66,0.08) 100%){% endif %}'); background-size: cover; background-position: center;">
-            <!-- Floating Avatar -->
-            <div class="inf-avatar-float">
-              <div class="inf-avatar">
-                {% if influencer.profile_image %}
-                  <img src="{{ influencer.profile_image.url }}" alt="{{ influencer.user.username }}"/>
-                {% else %}
-                  {{ influencer.user.username|first|upper }}
-                {% endif %}
-              </div>
-            </div>
-
-            <!-- BODY -->
-            <div class="inf-card-body">
-              <!-- Category + Name -->
-              <div class="inf-top">
-                <div class="inf-cat-badge">{{ influencer.category }}</div>
+          <div class="inf-card">
+            <div class="inf-top">
+              <div class="inf-avatar">{{ influencer.user.username|first|upper }}</div>
+              <div>
                 <div class="inf-name">@{{ influencer.user.username }}</div>
-                <div class="inf-username">{{ influencer.user.first_name|default:influencer.user.username }}</div>
-              </div>
-
-              <!-- Bio/Description -->
-              {% if influencer.bio %}
-              <div class="inf-bio">{{ influencer.bio }}</div>
-              {% endif %}
-
-              <!-- Location -->
-              {% if influencer.location or influencer.city %}
-              <div class="inf-location">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                <span>{{ influencer.location|default:influencer.city }}</span>
-              </div>
-              {% endif %}
-
-              <!-- Rate Box -->
-              <div class="inf-rate">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <div>
-                  <div class="inf-rate-lbl">Per Post</div>
-                  <div class="inf-rate-val">₹{{ influencer.price_per_post|default:influencer.rate_instagram_post|default:"—" }}</div>
-                </div>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="inf-actions">
-                <a href="{% url 'influencers:influencer_detail' influencer.id %}" class="profile-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  View Profile
-                </a>
-                
-                {% if active_booking %}
-                <a class="book-btn disabled" title="Complete active booking first">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  Book 🔒
-                </a>
-                {% else %}
-                <a href="{% url 'bookings:create_booking' influencer.id %}" class="book-btn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  Book
-                </a>
-                {% endif %}
+                <div class="inf-cat">{{ influencer.category }}</div>
               </div>
             </div>
+            <div class="inf-stats">
+              <div class="inf-stat">
+                <div class="inf-stat-val">{{ influencer.followers|default:"—" }}</div>
+                <div class="inf-stat-lbl">Followers</div>
+              </div>
+              <div class="inf-stat">
+                <div class="inf-stat-val">{{ influencer.category|default:"—" }}</div>
+                <div class="inf-stat-lbl">Niche</div>
+              </div>
+            </div>
+
+            <!-- ══ BOOK NOW — disabled if active booking ══ -->
+            {% if active_booking %}
+            <a class="book-btn disabled" title="Pehle active booking complete ya cancel karein">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Booking Active 🔒
+            </a>
+            {% else %}
+            <a href="{% url 'bookings:create_booking' influencer.id %}" class="book-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Book Now
+            </a>
+            {% endif %}
+
           </div>
           {% empty %}
           <div class="empty-state" style="grid-column:1/-1">

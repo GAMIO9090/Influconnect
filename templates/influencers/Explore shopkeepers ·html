@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Explore Shopkeepers — InfluConnect</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--or1:#FF6B1A;--or2:#E8500A;--or3:#C94008;--sidebar-w:230px;}
+[data-theme="dark"]{--bg-page:#0D0D0D;--bg-sidebar:#111111;--bg-card:#181818;--bg-card2:#1E1E1E;--bg-topbar:rgba(13,13,13,0.96);--border:#2A2A2A;--border2:#333333;--text-primary:#FFFFFF;--text-secondary:#BBBBBB;--text-muted:#666666;--or-soft:rgba(255,107,26,0.12);--or-pale:rgba(255,107,26,0.08);--accent:#FF6B1A;--accent-dim:rgba(255,107,26,0.15);--accent-border:rgba(255,107,26,0.3);--green-text:#4ADE80;--green-bg:rgba(74,222,128,0.08);--green-border:rgba(74,222,128,0.2);--red-text:#FF6B6B;--red-bg:rgba(255,107,107,0.08);--red-border:rgba(255,107,107,0.2);--yellow-text:#FFC542;--yellow-bg:rgba(255,197,66,0.08);--yellow-border:rgba(255,197,66,0.2);--shadow-card:0 4px 24px rgba(0,0,0,0.5);--shadow-hover:0 16px 44px rgba(0,0,0,0.7);--scrollbar-bg:#111;--scrollbar-thumb:#2A2A2A;}
+[data-theme="light"]{--bg-page:#F5F0EB;--bg-sidebar:#FFFFFF;--bg-card:#FFFFFF;--bg-card2:#F0EBE4;--bg-topbar:rgba(255,255,255,0.96);--border:#E5DDD5;--border2:#D5C9BC;--text-primary:#1A1A1A;--text-secondary:#555555;--text-muted:#999999;--or-soft:rgba(255,107,26,0.07);--or-pale:#FFF0E8;--accent:#E8500A;--accent-dim:rgba(232,80,10,0.1);--accent-border:rgba(232,80,10,0.25);--green-text:#16A34A;--green-bg:rgba(22,163,74,0.08);--green-border:rgba(22,163,74,0.2);--red-text:#DC2626;--red-bg:rgba(220,38,38,0.07);--red-border:rgba(220,38,38,0.18);--yellow-text:#B45309;--yellow-bg:rgba(180,83,9,0.07);--yellow-border:rgba(180,83,9,0.18);--shadow-card:0 2px 12px rgba(0,0,0,0.06);--shadow-hover:0 8px 28px rgba(0,0,0,0.1);--scrollbar-bg:#F5F0EB;--scrollbar-thumb:#D5C9BC;}
+html{scroll-behavior:smooth;}html,body{height:100%;transition:background .3s,color .3s;}
+
+/* ── Richer page background (instead of flat black) ── */
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-primary);display:flex;min-height:100vh;overflow-x:hidden;
+  background-color:var(--bg-page);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255,107,26,0.10) 0%, transparent 38%),
+    radial-gradient(circle at 88% 18%, rgba(232,80,10,0.08) 0%, transparent 42%),
+    radial-gradient(circle at 50% 95%, rgba(255,107,26,0.06) 0%, transparent 45%),
+    linear-gradient(rgba(255,107,26,0.025) 1px,transparent 1px),
+    linear-gradient(90deg, rgba(255,107,26,0.025) 1px,transparent 1px);
+  background-size:auto,auto,auto,34px 34px,34px 34px;
+  background-attachment:fixed;
+}
+[data-theme="light"] body{
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(232,80,10,0.06) 0%, transparent 38%),
+    radial-gradient(circle at 88% 18%, rgba(232,80,10,0.05) 0%, transparent 42%),
+    radial-gradient(circle at 50% 95%, rgba(232,80,10,0.04) 0%, transparent 45%),
+    linear-gradient(rgba(232,80,10,0.02) 1px,transparent 1px),
+    linear-gradient(90deg, rgba(232,80,10,0.02) 1px,transparent 1px);
+}
+
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--scrollbar-bg);}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:3px;}
+.sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;transition:background .3s,border-color .3s,transform .28s;}
+.sidebar-brand{padding:1.3rem 1.15rem 1.05rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.brand-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,#FF7A2F,#C94008);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,107,26,0.2),0 4px 12px rgba(201,64,8,0.35);}
+.brand-icon svg{width:16px;height:16px;}
+.brand-name{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;}
+.brand-name .bl{color:var(--text-primary);}.brand-name .or{color:var(--accent);}
+.role-chip{margin:.6rem 1.15rem .1rem;display:inline-flex;align-items:center;gap:.3rem;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:20px;padding:.2rem .7rem;font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);width:fit-content;}
+.role-chip::before{content:'';width:4px;height:4px;background:var(--accent);border-radius:50%;}
+.nav-section-label{font-size:.57rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:.9rem 1.15rem .28rem;}
+.nav-menu{list-style:none;padding:0 .55rem;flex:1;}
+.nav-item{margin-bottom:.08rem;}
+.nav-link{display:flex;align-items:center;gap:.58rem;padding:.55rem .75rem;border-radius:10px;text-decoration:none;color:var(--text-muted);font-size:.82rem;font-weight:500;transition:all .16s;position:relative;}
+.nav-link:hover{background:var(--or-soft);color:var(--accent);}
+.nav-link.active{background:var(--or-soft);color:var(--accent);font-weight:600;}
+.nav-link.active::before{content:'';position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:0 2px 2px 0;background:var(--accent);}
+.nav-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .16s;}
+.nav-link.active .nav-icon,.nav-link:hover .nav-icon{background:var(--accent-dim);}
+.nav-icon svg{width:14px;height:14px;}
+.nav-badge{margin-left:auto;background:var(--accent);color:#fff;font-size:.57rem;font-weight:700;padding:.07rem .42rem;border-radius:20px;min-width:17px;text-align:center;}
+.sidebar-footer{padding:.65rem .55rem 1.1rem;border-top:1px solid var(--border);}
+.logout-btn{display:flex;align-items:center;gap:.58rem;padding:.55rem .75rem;border-radius:10px;color:var(--red-text);font-size:.8rem;font-weight:600;background:transparent;border:none;width:100%;cursor:pointer;transition:background .16s;}
+.logout-btn:hover{background:var(--red-bg);}
+.logout-icon{width:28px;height:28px;border-radius:7px;background:var(--red-bg);display:flex;align-items:center;justify-content:center;}
+.logout-icon svg{width:13px;height:13px;color:var(--red-text);}
+.main-wrap{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{height:60px;background:var(--bg-topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.6rem;position:sticky;top:0;z-index:50;transition:background .3s,border-color .3s;}
+.topbar-left{display:flex;align-items:center;gap:.7rem;}
+.topbar-greeting{font-size:.6rem;color:var(--text-muted);font-weight:500;letter-spacing:.07em;text-transform:uppercase;}
+.topbar-name{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;color:var(--text-primary);}
+.topbar-name span{color:var(--accent);}
+.online-badge{display:inline-flex;align-items:center;gap:3px;font-size:.58rem;color:var(--green-text);font-weight:600;background:var(--green-bg);padding:.15rem .5rem;border-radius:20px;margin-left:.35rem;border:1px solid var(--green-border);}
+.online-badge::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green-text);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+.topbar-right{display:flex;align-items:center;gap:.6rem;}
+.search-box{display:flex;align-items:center;gap:.4rem;background:var(--bg-card2);border:1px solid var(--border);border-radius:9px;padding:.38rem .8rem;transition:all .2s;}
+.search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim);}
+.search-box svg{width:12px;height:12px;color:var(--text-muted);}
+.search-box input{border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;font-size:.77rem;color:var(--text-primary);outline:none;width:120px;}
+.search-box input::placeholder{color:var(--text-muted);}
+.theme-toggle{display:flex;align-items:center;gap:.45rem;background:var(--bg-card2);border:1px solid var(--border);border-radius:22px;padding:.28rem .48rem;cursor:pointer;transition:all .22s;}
+.theme-toggle:hover{border-color:var(--accent);}
+.toggle-track{width:38px;height:20px;border-radius:10px;background:var(--border2);position:relative;transition:background .3s;}
+[data-theme="light"] .toggle-track{background:linear-gradient(135deg,#FF7A2F,#C94008);}
+.toggle-knob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 4px rgba(0,0,0,0.3);}
+[data-theme="light"] .toggle-knob{transform:translateX(18px);}
+.ti{width:13px;height:13px;color:var(--text-muted);transition:color .25s;flex-shrink:0;}
+[data-theme="light"] .ti-sun{color:var(--accent);}[data-theme="dark"] .ti-moon{color:#9B6DFF;}
+.topbar-avatar{width:33px;height:33px;border-radius:8px;background:linear-gradient(135deg,#FF7A2F,#C94008);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:800;color:#fff;cursor:pointer;box-shadow:2px 2px 0 #A83400;}
+.hamburger{display:none;width:33px;height:33px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);align-items:center;justify-content:center;cursor:pointer;}
+.hamburger svg{width:15px;height:15px;color:var(--text-primary);}
+.page-content{padding:1.6rem 1.6rem 3rem;flex:1;}
+.page-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.45rem;animation:fadeUp .4s ease both;}
+.page-title{font-family:'Syne',sans-serif;font-size:1.38rem;font-weight:800;color:var(--text-primary);letter-spacing:-.03em;}
+.page-subtitle{font-size:.78rem;color:var(--text-muted);margin-top:.1rem;}
+.date-pill{font-size:.7rem;color:var(--text-muted);background:var(--bg-card2);border:1px solid var(--border);border-radius:7px;padding:.28rem .68rem;font-weight:500;}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;background:var(--bg-card);border-radius:16px;border:1px dashed var(--border);text-align:center;grid-column:1/-1;}
+.empty-icon{width:52px;height:52px;background:var(--accent-dim);border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem;}
+.empty-icon svg{width:22px;height:22px;color:var(--accent);}
+.empty-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-primary);margin-bottom:.3rem;}
+.empty-sub{font-size:.78rem;color:var(--text-muted);max-width:240px;line-height:1.55;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.4);}.main-wrap{margin-left:0;}.hamburger{display:flex;}.search-box{display:none;}.page-content{padding:1.1rem .95rem 2rem;}.date-pill{display:none;}}
+@media(max-width:480px){.topbar{padding:0 .9rem;}}
+
+/* ── Page-specific styles ── */
+.filter-bar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.5rem;animation:fadeUp .35s ease both;}
+.filter-bar input,.filter-bar select{background:var(--bg-card);border:1px solid var(--border);border-radius:9px;padding:.46rem .8rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;color:var(--text-primary);outline:none;transition:border-color .18s;}
+.filter-bar input:focus,.filter-bar select:focus{border-color:var(--accent);}
+.filter-bar input::placeholder{color:var(--text-muted);}
+.filter-bar select option{background:var(--bg-card);color:var(--text-primary);}
+.filter-btn{display:inline-flex;align-items:center;gap:.38rem;padding:.46rem .9rem;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;border:none;cursor:pointer;background:linear-gradient(150deg,#FF7A2F,#C94008);color:#fff;box-shadow:0 3px 12px rgba(201,64,8,0.25);transition:transform .16s;}
+.filter-btn:hover{transform:translateY(-1px);}
+.reset-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);display:inline-flex;align-items:center;gap:.38rem;padding:.46rem .9rem;border-radius:9px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .16s;}
+.reset-btn:hover{border-color:var(--accent-border);color:var(--accent);}
+.results-count{font-size:.78rem;color:var(--text-muted);margin-bottom:.9rem;}
+.results-count span{color:var(--text-primary);font-weight:600;}
+
+/* === SHOP CARD === */
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;align-items:start;animation:fadeUp .4s .12s ease both;}
+
+/* card is NOT the link anymore — wraps everything, link only on banner+body for stable layout */
+.shop-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s,border-color .25s;box-shadow:var(--shadow-card);position:relative;}
+.shop-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);border-color:var(--accent-border);}
+.shop-card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+
+/* Banner area on top — taller + image fix so faces/logos aren't cropped weirdly */
+.shop-banner{position:relative;height:130px;width:100%;flex-shrink:0;overflow:hidden;background:linear-gradient(135deg,#1a0f08,#241208);}
+.shop-banner img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;}
+.shop-banner.no-img{background-image:
+    radial-gradient(circle at 25% 30%, rgba(255,107,26,0.22) 0%, transparent 55%),
+    radial-gradient(circle at 80% 70%, rgba(232,80,10,0.18) 0%, transparent 50%),
+    linear-gradient(135deg,#170d07,#231007 60%,#150b06);
+}
+.shop-banner.no-img::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,107,26,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,26,0.06) 1px,transparent 1px);
+  background-size:26px 26px;
+}
+.shop-banner-tag{position:absolute;top:9px;right:11px;font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.85);background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);padding:.18rem .5rem;border-radius:20px;z-index:3;}
+.shop-banner-fade{position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(to top, var(--bg-card) 0%, transparent 100%);z-index:2;}
+
+/* Logo overlapping banner bottom */
+.shop-card-top{display:flex;align-items:flex-end;gap:.75rem;padding:0 1.2rem;margin-top:-32px;position:relative;z-index:4;margin-bottom:.7rem;}
+.shop-logo{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,#FF7A2F,#C94008);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;flex-shrink:0;overflow:hidden;border:3px solid var(--bg-card);box-shadow:0 6px 18px rgba(0,0,0,0.45);}
+.shop-logo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.shop-card-name-wrap{padding-bottom:2px;}
+.shop-card-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text-primary);line-height:1.2;}
+.shop-card-type{font-size:.64rem;font-weight:600;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent-border);padding:.1rem .46rem;border-radius:20px;display:inline-block;margin-top:.28rem;}
+
+.shop-card-body{padding:0 1.2rem;flex:1;}
+.shop-card-desc{font-size:.77rem;color:var(--text-muted);line-height:1.55;margin-bottom:.9rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.shop-card-meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.1rem;}
+.shop-meta-tag{display:inline-flex;align-items:center;gap:.22rem;font-size:.63rem;font-weight:600;padding:.14rem .48rem;border-radius:6px;background:var(--bg-card2);color:var(--text-muted);border:1px solid var(--border);}
+.shop-meta-tag svg{width:9px;height:9px;}
+
+/* Footer pinned directly under each card's own content — no detachment */
+.shop-card-footer{padding:.85rem 1.2rem;border-top:1px solid var(--border);display:flex;gap:.5rem;width:100%;}
+.btn-view-profile{flex:1;display:flex;align-items:center;justify-content:center;gap:.32rem;padding:.52rem .7rem;border-radius:9px;font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border);text-decoration:none;transition:all .16s;}
+.btn-view-profile:hover{background:rgba(255,107,26,0.2);}
+.btn-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:.32rem;padding:.52rem .7rem;border-radius:9px;font-family:'Syne',sans-serif;font-size:.74rem;font-weight:700;background:#25D366;color:#fff;border:none;text-decoration:none;transition:all .16s;white-space:nowrap;}
+.btn-wa:hover{background:#1ebe5a;transform:translateY(-1px);}
+.btn-wa svg{width:13px;height:13px;}
+
+/* Distinct banner palettes by business type, cycling via nth-of-type */
+.shop-card:nth-of-type(3n+1) .shop-banner.no-img{background-image:radial-gradient(circle at 25% 30%, rgba(255,107,26,0.24) 0%, transparent 55%),radial-gradient(circle at 80% 70%, rgba(232,80,10,0.18) 0%, transparent 50%),linear-gradient(135deg,#170d07,#231007 60%,#150b06);}
+.shop-card:nth-of-type(3n+2) .shop-banner.no-img{background-image:radial-gradient(circle at 30% 25%, rgba(255,154,90,0.2) 0%, transparent 55%),radial-gradient(circle at 75% 75%, rgba(201,64,8,0.22) 0%, transparent 50%),linear-gradient(135deg,#1c0a02,#260f04 60%,#180902);}
+.shop-card:nth-of-type(3n+3) .shop-banner.no-img{background-image:radial-gradient(circle at 70% 20%, rgba(255,107,26,0.2) 0%, transparent 50%),radial-gradient(circle at 20% 80%, rgba(255,154,90,0.16) 0%, transparent 50%),linear-gradient(135deg,#150c08,#1f0f08 60%,#130a06);}
+
+@media(max-width:600px){.shop-grid{grid-template-columns:1fr;}.filter-bar{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <a href="{% url 'influencers:dashboard' %}" class="sidebar-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+    </div>
+    <span class="brand-name"><span class="bl">Influ</span><span class="or">Connect</span></span>
+  </a>
+
+  <div class="role-chip">⚡ Influencer Mode</div>
+  <p class="nav-section-label">Main Menu</p>
+
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a href="/?force=1" class="nav-link">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </span>
+        Home
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:dashboard' %}" class="nav-link">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+        </span>
+        Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'bookings:all_bookings' %}" class="nav-link">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+        </span>
+        All Bookings
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:edit_profile' %}" class="nav-link">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        My Profile
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'bookings:analytics' %}" class="nav-link">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </span>
+        Analytics
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:settings' %}" class="nav-link">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+            <path d="M4.93 4.93a10 10 0 0 0 0 14.14"/>
+          </svg>
+        </span>
+        Settings
+      </a>
+    </li>
+    <!-- ✅ ACTIVE on this page -->
+    <li class="nav-item">
+      <a href="{% url 'influencers:explore_shopkeepers' %}" class="nav-link active">
+        <span class="nav-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <path d="M9 22V12h6v10"/>
+          </svg>
+        </span>
+        Explore Shopkeepers
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="logout-btn">
+        <span class="logout-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </span>
+        Logout
+      </button>
+    </form>
+  </div>
+</aside>
+
+<div class="main-wrap">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div>
+        <div class="topbar-greeting">Creator Portal</div>
+        <div class="topbar-name">Welcome, <span>{{ request.user.username }}</span><span class="online-badge">Online</span></div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" placeholder="Search shopkeepers..."/>
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg class="ti ti-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <div class="toggle-track"><div class="toggle-knob"></div></div>
+        <svg class="ti ti-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+      <div class="topbar-avatar">{{ request.user.username|slice:":2"|upper }}</div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Explore Shopkeepers</h1>
+        <p class="page-subtitle">Find businesses &amp; reach out for collaboration opportunities</p>
+      </div>
+      <span class="date-pill">📅 {% now "l, d M Y" %}</span>
+    </div>
+
+    <!-- ✅ Filter Bar -->
+    <form method="GET" class="filter-bar">
+      <input
+        type="text"
+        name="q"
+        value="{{ search_q }}"
+        placeholder="Search shop name..."
+        style="flex:1;min-width:160px;"
+      />
+      <input
+        type="text"
+        name="city"
+        value="{{ city_q }}"
+        placeholder="City..."
+        style="width:130px;"
+      />
+      <select name="type">
+        <option value="">All Categories</option>
+        {% for val, label in business_types %}
+          <option value="{{ val }}" {% if selected_type == val %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="filter-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        Search
+      </button>
+      {% if search_q or city_q or selected_type %}
+        <a href="{% url 'influencers:explore_shopkeepers' %}" class="reset-btn">✕ Clear</a>
+      {% endif %}
+    </form>
+
+    <p class="results-count">
+      <span>{{ shopkeepers|length }}</span>
+      shopkeeper{{ shopkeepers|length|pluralize }} found
+    </p>
+
+    <!-- Shopkeeper Grid -->
+    <div class="shop-grid">
+      {% for s in shopkeepers %}
+
+        <div class="shop-card">
+
+          <a href="{% url 'influencers:shopkeeper_detail' s.pk %}" class="shop-card-link">
+            <!-- Banner -->
+            <div class="shop-banner{% if not s.logo %} no-img{% endif %}">
+              {% if s.logo %}
+                <img src="{{ s.logo.url }}" alt="{{ s.shop_name }}"/>
+              {% endif %}
+              <span class="shop-banner-tag">{{ s.get_business_type_display }}</span>
+              <div class="shop-banner-fade"></div>
+            </div>
+
+            <!-- Logo + Name overlapping banner -->
+            <div class="shop-card-top">
+              <div class="shop-logo">
+                {% if s.logo %}
+                  <img src="{{ s.logo.url }}" alt="{{ s.shop_name }}"/>
+                {% else %}
+                  {{ s.shop_name|slice:":2"|upper }}
+                {% endif %}
+              </div>
+              <div class="shop-card-name-wrap">
+                <div class="shop-card-name">{{ s.shop_name }}</div>
+                <span class="shop-card-type">{{ s.get_business_type_display }}</span>
+              </div>
+            </div>
+
+            <div class="shop-card-body">
+              {% if s.description %}
+                <p class="shop-card-desc">{{ s.description }}</p>
+              {% else %}
+                <p class="shop-card-desc" style="color:var(--text-muted);font-style:italic;">No description added yet.</p>
+              {% endif %}
+
+              <div class="shop-card-meta">
+                {% if s.city %}
+                  <span class="shop-meta-tag">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    {{ s.city }}{% if s.state %}, {{ s.state }}{% endif %}
+                  </span>
+                {% endif %}
+                {% if s.budget_max %}
+                  <span class="shop-meta-tag" style="color:var(--accent);background:var(--accent-dim);border-color:var(--accent-border);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="1" x2="12" y2="23"/>
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    Budget ₹{{ s.budget_min }}–₹{{ s.budget_max }}
+                  </span>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+
+          <!-- Footer: View Profile + WhatsApp — always directly below this card's own body -->
+          <div class="shop-card-footer">
+            <a href="{% url 'influencers:shopkeeper_detail' s.pk %}" class="btn-view-profile">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              View Profile
+            </a>
+            {% if s.get_wa_link %}
+              <a href="{{ s.get_wa_link }}" target="_blank" rel="noopener" class="btn-wa">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                  <path d="M11.99 0C5.373 0 0 5.373 0 11.99c0 2.11.55 4.09 1.51 5.81L0 24l6.34-1.49A11.934 11.934 0 0 0 11.99 24C18.607 24 24 18.627 24 12.01 24 5.373 18.607 0 11.99 0zm0 21.818a9.83 9.83 0 0 1-5.006-1.367l-.36-.214-3.726.977.997-3.64-.233-.374A9.818 9.818 0 0 1 2.182 12c0-5.415 4.403-9.818 9.818-9.818 5.415 0 9.818 4.403 9.818 9.818 0 5.415-4.403 9.818-9.818 9.818z"/>
+                </svg>
+                WhatsApp
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+      {% empty %}
+        <div class="empty-state">
+          <div class="empty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <path d="M9 22V12h6v10"/>
+            </svg>
+          </div>
+          <h3 class="empty-title">No shopkeepers found</h3>
+          <p class="empty-sub">Try changing your search filters or check back later.</p>
+        </div>
+      {% endfor %}
+
+    </div>
+
+  </main>
+</div>
+
+<script>
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var sb = document.getElementById('sidebar');
+  if (window.innerWidth <= 768 && sb.classList.contains('open') &&
+      !sb.contains(e.target) && !e.target.closest('.hamburger')) {
+    sb.classList.remove('open');
+  }
+});
+function toggleTheme() {
+  var h = document.documentElement;
+  var t = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  h.setAttribute('data-theme', t);
+  try { localStorage.setItem('ic-theme', t); } catch(e) {}
+}
+(function() {
+  try {
+    var s = localStorage.getItem('ic-theme');
+    if (s) document.documentElement.setAttribute('data-theme', s);
+  } catch(e) {}
+})();
+</script>
+</body>
+</html>
