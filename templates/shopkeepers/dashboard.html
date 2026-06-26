@@ -4,688 +4,961 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InfluConnect — Shopkeeper Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html[data-theme="light"] {
+  --bg: #f9f4ee;
+  --s1: #ffffff;
+  --s2: #f3ede6;
+  --s3: #ede4d8;
+  --txt: #1E130A;
+  --txt2: rgba(30,19,10,0.6);
+  --txt3: rgba(30,19,10,0.35);
+  --border: rgba(0,0,0,0.09);
+  --or1: #e85d0a;
+  --or2: #f07830;
+  --or3: rgba(232,93,10,0.10);
+}
 
     :root {
-      --or1:      #FF6B1A;
-      --or2:      #E8500A;
-      --or3:      #C94008;
-      --or-pale:  #FFF3EB;
-      --or-soft:  rgba(255,107,26,0.10);
-      --cream:    #F9F4EE;
-      --white:    #FFFFFF;
-      --ink:      #1E130A;
-      --ink2:     #3D2810;
-      --muted:    #8A7060;
-      --border:   #EAD9C8;
-      --sidebar-w: 248px;
-      --teal:     #0EA878;
-      --teal-pale:#E6FAF4;
-      --blue:     #2563EB;
-      --blue-pale:#EEF3FF;
-      --amber:    #D97706;
-      --amber-pale:#FEF6E4;
+      --bg: #0a0a0f; --s1: #111118; --s2: #16161f; --s3: #1c1c28;
+      --or1: #ff6b1a; --or2: #ff8c42; --or3: rgba(255,107,26,0.12);
+      --txt: #f0f0f5; --txt2: rgba(240,240,245,0.55); --txt3: rgba(240,240,245,0.28);
+      --border: rgba(255,255,255,0.07); --radius: 18px;
     }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--txt); min-height: 100vh; }
 
-    html, body { height: 100%; }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
+    /* ── SIDEBAR ── */
     .sidebar {
-      width: var(--sidebar-w);
-      min-height: 100vh;
-      background: var(--white);
-      border-right: 1px solid var(--border);
+      position: fixed; top: 0; left: 0; width: 240px; height: 100vh;
+      background: var(--s1); border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; z-index: 100; padding: 0;
+    }
+    .sidebar-logo {
+      padding: 1.4rem 1.4rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: .7rem; text-decoration: none;
+    }
+    .sidebar-logo-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--or1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .sidebar-logo-icon svg { width: 18px; height: 18px; }
+    .sidebar-logo-text { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--txt); }
+    .sidebar-logo-text span { color: var(--or1); }
+    .sidebar-nav { flex: 1; padding: 1rem .75rem; overflow-y: auto; }
+    .nav-label { font-size: .65rem; font-weight: 700; color: var(--txt3); text-transform: uppercase; letter-spacing: 1px; padding: .5rem .65rem .3rem; margin-top: .5rem; }
+    .nav-item {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .65rem .75rem; border-radius: 12px; text-decoration: none;
+      color: var(--txt2); font-size: .86rem; font-weight: 500;
+      transition: all .18s; margin-bottom: .15rem; position: relative;
+    }
+    .nav-item svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .nav-item:hover { background: var(--or3); color: var(--or1); }
+    .nav-item.active { background: var(--or3); color: var(--or1); font-weight: 700; }
+    .nav-item.active::before {
+      content: ''; position: absolute; left: 0; top: 20%; bottom: 20%;
+      width: 3px; border-radius: 2px; background: var(--or1);
+    }
+    .nav-badge {
+      margin-left: auto; background: var(--or1); color: #fff;
+      font-size: .62rem; font-weight: 800; border-radius: 20px;
+      padding: .15rem .45rem; min-width: 18px; text-align: center;
+    }
+    .sidebar-footer {
+      padding: .85rem .75rem; border-top: 1px solid var(--border);
+    }
+    .sidebar-user {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .6rem .75rem; border-radius: 12px;
+      background: rgba(255,255,255,0.04); margin-bottom: .5rem;
+    }
+    .user-avatar {
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--or1), var(--or2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 800; color: #fff; flex-shrink: 0;
+    }
+    .user-name { font-size: .82rem; font-weight: 600; color: var(--txt); }
+    .user-role { font-size: .68rem; color: var(--txt3); }
+    .logout-btn {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .6rem .75rem; border-radius: 12px;
+      color: rgba(248,113,113,0.75); font-size: .84rem; font-weight: 600;
+      text-decoration: none; transition: all .18s;
+      background: rgba(248,113,113,0.06); border: 1px solid rgba(248,113,113,0.12);
+    }
+    .logout-btn svg { width: 15px; height: 15px; }
+    .logout-btn:hover { background: rgba(248,113,113,0.12); color: #f87171; }
+
+    /* ── MAIN ── */
+    .main { margin-left: 240px; min-height: 100vh; }
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: .9rem 2rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; }
+    .topbar-title span { color: var(--or1); }
+    .topbar-right { display: flex; align-items: center; gap: .8rem; }
+    .notif-btn {
+      position: relative; width: 38px; height: 38px; border-radius: 12px;
+      background: var(--s2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--txt2); cursor: pointer; text-decoration: none; transition: all .18s;
+    }
+    .notif-btn svg { width: 18px; height: 18px; }
+    .notif-btn:hover { background: var(--s3); color: var(--txt); }
+    .notif-dot {
+      position: absolute; top: -3px; right: -3px; width: 8px; height: 8px;
+      background: var(--or1); border-radius: 50%; border: 2px solid var(--bg);
+    }
+    .topbar-badge {
+      display: flex; align-items: center; gap: .5rem;
+      background: var(--or3); border: 1px solid rgba(255,107,26,0.25);
+      color: var(--or1); padding: .4rem .9rem; border-radius: 20px;
+      font-size: .78rem; font-weight: 700;
+    }
+    .content { padding: 1.8rem 2rem; }
+
+    /* ── ACTIVE BOOKING BANNER ── */
+    .active-booking-banner {
+      background: var(--s2);
+      border: 1.5px solid var(--or1);
+      border-radius: 20px;
+      padding: 1.4rem 1.8rem;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 8px 32px rgba(255,107,26,0.15);
+      animation: fadeUp .5s ease both;
+    }
+    .ab-left { display: flex; align-items: center; gap: 1rem; }
+    .ab-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      background: rgba(255,107,26,0.15); border: 1.5px solid rgba(255,107,26,0.3);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .ab-icon svg { width: 22px; height: 22px; color: var(--or1); }
+    .ab-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: .2rem; }
+    .ab-sub { font-size: .78rem; color: rgba(255,255,255,0.55); }
+    .ab-inf { font-size: .82rem; color: var(--or1); font-weight: 600; }
+    .ab-actions { display: flex; gap: .7rem; flex-shrink: 0; flex-wrap: wrap; }
+    .ab-btn {
+      display: flex; align-items: center; gap: .4rem;
+      padding: .65rem 1.2rem; border-radius: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: .82rem; font-weight: 700;
+      border: none; cursor: pointer; text-decoration: none; transition: all .2s;
+    }
+    .ab-btn.complete {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #fff; box-shadow: 0 4px 14px rgba(5,150,105,0.35);
+    }
+    .ab-btn.complete:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(5,150,105,0.4); }
+    .ab-btn.cancel {
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+      border: 1.5px solid rgba(255,255,255,0.15);
+    }
+    .ab-btn.cancel:hover { background: rgba(220,38,38,0.15); color: #f87171; border-color: rgba(220,38,38,0.3); }
+    .ab-btn svg { width: 15px; height: 15px; }
+    .ab-status {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .72rem; font-weight: 700; padding: .25rem .7rem;
+      border-radius: 20px; background: rgba(255,107,26,0.15);
+      color: var(--or1); border: 1px solid rgba(255,107,26,0.25); margin-top: .3rem;
+    }
+    .ab-status::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--or1); animation: pulse 2s infinite;
+    }
+
+    /* ── STATS GRID ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.8rem; }
+    .stat-card {
+      background: var(--s1); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 1.3rem 1.4rem; position: relative; overflow: hidden; transition: transform .2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); }
+    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--or1), var(--or2)); }
+    .stat-label { font-size: .72rem; font-weight: 600; color: var(--txt3); text-transform: uppercase; letter-spacing: .8px; margin-bottom: .6rem; }
+    .stat-value { font-family: 'Syne', sans-serif; font-size: 1.9rem; font-weight: 800; color: var(--txt); line-height: 1; margin-bottom: .4rem; }
+    .stat-change { font-size: .72rem; color: var(--txt3); }
+    .stat-icon { position: absolute; bottom: 1rem; right: 1rem; width: 36px; height: 36px; border-radius: 10px; background: var(--or3); display: flex; align-items: center; justify-content: center; }
+    .stat-icon svg { width: 18px; height: 18px; color: var(--or1); }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800;
+      color: var(--txt); margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem;
+    }
+    .section-title span { font-family: 'Plus Jakarta Sans', sans-serif; font-size: .72rem; font-weight: 600; color: var(--txt3); font-style: normal; }
+
+    /* ── GRID LAYOUT ── */
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 340px; gap: 1.4rem; }
+
+    /* ── PREMIUM INFLUENCER CARDS (Shopkeeper Style) ── */
+    .influencer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+    
+    .inf-card {
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 0;
+      transition: all .32s cubic-bezier(.34, 1.56, .64, 1);
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      position: fixed;
-      left: 0; top: 0; bottom: 0;
-      z-index: 100;
-      box-shadow: 4px 0 24px rgba(232,80,10,0.06), 1px 0 0 var(--border);
-      transition: transform .3s cubic-bezier(.16,1,.3,1);
+      height: 100%;
+      min-height: 340px;
     }
-
-    .sidebar-brand {
-      padding: 1.6rem 1.4rem 1.4rem;
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; gap: .65rem; text-decoration: none;
+    
+    /* BANNER BACKGROUND */
+    .inf-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+      z-index: 1;
     }
-    .brand-icon {
-      width: 40px; height: 40px; border-radius: 11px;
-      background: linear-gradient(145deg, #FF7A2F, #C94008);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-      box-shadow: 0 1px 0 rgba(255,200,140,0.45) inset, 0 -1px 0 rgba(0,0,0,0.18) inset,
-        2px 3px 0 #A83400, 5px 6px 0 rgba(168,52,0,0.22), 0 10px 22px rgba(201,64,8,0.35);
+    
+    /* Dark overlay on banner */
+    .inf-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 140px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 100%);
+      z-index: 2;
     }
-    .brand-icon svg { width: 19px; height: 19px; }
-    .brand-name { font-family: 'Syne', sans-serif; font-size: 1.25rem; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
-    .brand-name .bl { color: var(--ink); }
-    .brand-name .or { color: var(--or1); text-shadow: 1.5px 1.5px 0 rgba(201,64,8,0.18); }
-
-    .nav-section-label { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding: 1.4rem 1.4rem .4rem; }
-    .nav-menu { list-style: none; padding: 0 .7rem; flex: 1; }
-    .nav-item { margin-bottom: .2rem; }
-    .nav-link {
-      display: flex; align-items: center; gap: .75rem; padding: .7rem .85rem;
-      border-radius: 12px; text-decoration: none; color: var(--muted);
-      font-size: .88rem; font-weight: 500; transition: all .18s ease; position: relative;
+    
+    .inf-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,107,26,0.5);
+      box-shadow: 0 20px 48px rgba(255,107,26,0.25);
     }
-    .nav-link:hover { background: var(--or-soft); color: var(--or2); }
-    .nav-link.active { background: linear-gradient(135deg, rgba(255,107,26,0.14) 0%, rgba(255,107,26,0.07) 100%); color: var(--or2); font-weight: 600; box-shadow: inset 3px 0 0 var(--or1); }
-    .nav-link .nav-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: transparent; transition: all .18s; flex-shrink: 0; }
-    .nav-link:hover .nav-icon, .nav-link.active .nav-icon { background: rgba(255,107,26,0.12); }
-    .nav-link .nav-icon svg { width: 17px; height: 17px; }
-
-    .sidebar-footer { padding: 1rem .7rem 1.4rem; border-top: 1px solid var(--border); }
-    .logout-btn { display: flex; align-items: center; gap: .75rem; padding: .7rem .85rem; border-radius: 12px; text-decoration: none; color: #C0392B; font-size: .88rem; font-weight: 500; transition: all .18s ease; background: transparent; border: none; width: 100%; cursor: pointer; }
-    .logout-btn:hover { background: rgba(192,57,43,0.08); }
-    .logout-btn .nav-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; background: rgba(192,57,43,0.08); }
-    .logout-btn .nav-icon svg { width: 17px; height: 17px; }
-
-    .main-wrap { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-
-    .topbar {
-      height: 68px; background: rgba(255,255,255,0.85); backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between; padding: 0 2rem;
-      position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 12px rgba(0,0,0,0.045);
-    }
-    .topbar-left { display: flex; flex-direction: column; }
-    .topbar-greeting { font-size: .72rem; color: var(--muted); font-weight: 500; letter-spacing: .04em; text-transform: uppercase; }
-    .topbar-name { font-family: 'Syne', sans-serif; font-size: 1.08rem; font-weight: 700; color: var(--ink); letter-spacing: -.02em; }
-    .topbar-name span { color: var(--or1); }
-    .topbar-right { display: flex; align-items: center; gap: 1rem; }
-    .topbar-search { display: flex; align-items: center; gap: .5rem; background: var(--cream); border: 1.5px solid var(--border); border-radius: 10px; padding: .45rem .9rem; transition: all .2s; }
-    .topbar-search:focus-within { border-color: var(--or1); box-shadow: 0 0 0 3px rgba(255,107,26,0.1); }
-    .topbar-search svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
-    .topbar-search input { border: none; background: transparent; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .84rem; color: var(--ink); outline: none; width: 160px; }
-    .topbar-search input::placeholder { color: #B0A098; }
-    .notif-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--cream); border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; transition: all .18s; }
-    .notif-btn:hover { background: var(--or-soft); border-color: rgba(255,107,26,0.25); }
-    .notif-btn svg { width: 17px; height: 17px; color: var(--muted); }
-    .notif-dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; background: var(--or1); border-radius: 50%; border: 1.5px solid var(--white); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(255,107,26,0.5); } 50% { box-shadow: 0 0 0 5px rgba(255,107,26,0); } }
-    .avatar { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #FF7A2F, #C94008); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 800; color: #fff; cursor: pointer; box-shadow: 2px 3px 0 #A83400, 0 8px 20px rgba(201,64,8,0.3); transition: transform .2s; }
-    .avatar:hover { transform: translateY(-2px); }
-
-    .page-content { padding: 2rem 2rem 3rem; flex: 1; }
-
-    .page-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1.8rem; animation: fadeUp .5s ease both; }
-    .page-title { font-family: 'Syne', sans-serif; font-size: 1.55rem; font-weight: 800; color: var(--ink); letter-spacing: -.03em; }
-    .page-subtitle { font-size: .84rem; color: var(--muted); margin-top: .2rem; }
-    .date-badge { font-size: .78rem; color: var(--muted); background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: .38rem .8rem; font-weight: 500; }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
-    .stat-card { background: var(--white); border-radius: 20px; padding: 1.5rem 1.6rem; border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease; animation: fadeUp .5s ease both; cursor: default; }
-    .stat-card:nth-child(1) { animation-delay: .08s; }
-    .stat-card:nth-child(2) { animation-delay: .14s; }
-    .stat-card:nth-child(3) { animation-delay: .20s; }
-    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 20px 20px 0 0; }
-    .stat-card.orange::before { background: linear-gradient(90deg, var(--or1), var(--or3)); }
-    .stat-card.teal::before   { background: linear-gradient(90deg, #0EA878, #059669); }
-    .stat-card.blue::before   { background: linear-gradient(90deg, #2563EB, #1D4ED8); }
-    .stat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
-    .stat-card::after { content: ''; position: absolute; bottom: -30px; right: -20px; width: 110px; height: 110px; border-radius: 50%; opacity: .08; }
-    .stat-card.orange::after { background: var(--or1); }
-    .stat-card.teal::after   { background: #0EA878; }
-    .stat-card.blue::after   { background: #2563EB; }
-    .stat-icon-wrap { width: 46px; height: 46px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
-    .stat-card.orange .stat-icon-wrap { background: var(--or-pale); }
-    .stat-card.teal   .stat-icon-wrap { background: var(--teal-pale); }
-    .stat-card.blue   .stat-icon-wrap { background: var(--blue-pale); }
-    .stat-icon-wrap svg { width: 22px; height: 22px; }
-    .stat-card.orange .stat-icon-wrap svg { color: var(--or2); }
-    .stat-card.teal   .stat-icon-wrap svg { color: var(--teal); }
-    .stat-card.blue   .stat-icon-wrap svg { color: var(--blue); }
-    .stat-label { font-size: .76rem; font-weight: 600; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin-bottom: .35rem; }
-    .stat-value { font-family: 'Syne', sans-serif; font-size: 2.1rem; font-weight: 800; color: var(--ink); letter-spacing: -.04em; line-height: 1; margin-bottom: .6rem; }
-    .stat-change { display: inline-flex; align-items: center; gap: .3rem; font-size: .75rem; font-weight: 600; padding: .2rem .55rem; border-radius: 20px; }
-    .stat-change.up { color: #059669; background: #ECFDF5; }
-    .stat-change svg { width: 12px; height: 12px; }
-
-    .quick-actions { display: flex; gap: .85rem; margin-bottom: 2rem; animation: fadeUp .5s .25s ease both; }
-    .quick-btn { display: flex; align-items: center; gap: .55rem; padding: .65rem 1.1rem; border-radius: 12px; border: 1.5px solid var(--border); background: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-size: .83rem; font-weight: 600; color: var(--ink2); cursor: pointer; text-decoration: none; transition: all .18s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
-    .quick-btn svg { width: 16px; height: 16px; }
-    .quick-btn:hover { border-color: var(--or1); color: var(--or2); background: var(--or-pale); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,107,26,0.14); }
-    .quick-btn.primary { background: linear-gradient(155deg, #FF7A2F, #C94008); border-color: transparent; color: #fff; box-shadow: 2px 3px 0 #A83400, 0 8px 20px rgba(201,64,8,0.28); }
-    .quick-btn.primary:hover { transform: translate(-1px,-3px); box-shadow: 4px 5px 0 #A83400, 0 12px 28px rgba(201,64,8,0.34); color: #fff; }
-
-    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
-    .section-title { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--ink); letter-spacing: -.02em; }
-    .section-title span { display: inline-block; width: 8px; height: 8px; background: var(--or1); border-radius: 50%; margin-right: .45rem; vertical-align: middle; box-shadow: 0 0 6px rgba(255,107,26,0.6); animation: pulse 2s infinite; }
-    .view-all { font-size: .8rem; font-weight: 600; color: var(--or2); text-decoration: none; display: flex; align-items: center; gap: .3rem; transition: gap .18s; }
-    .view-all:hover { gap: .55rem; }
-    .view-all svg { width: 14px; height: 14px; }
-
-    /* ── INFLUENCER CARDS ── */
-    .influencers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; animation: fadeUp .5s .3s ease both; }
-    .inf-card { background: var(--white); border-radius: 20px; padding: 1.4rem 1.2rem 1.3rem; border: 1px solid var(--border); position: relative; overflow: hidden; transition: transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease; display: flex; flex-direction: column; }
-    .inf-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.09), 0 4px 14px rgba(0,0,0,0.05); }
-    .inf-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 20px 20px 0 0; }
-    .inf-card:nth-child(1)::before { background: linear-gradient(90deg,#FF6B1A,#FF9852); }
-    .inf-card:nth-child(2)::before { background: linear-gradient(90deg,#0EA878,#34D399); }
-    .inf-card:nth-child(3)::before { background: linear-gradient(90deg,#2563EB,#60A5FA); }
-    .inf-card:nth-child(4)::before { background: linear-gradient(90deg,#9333EA,#C084FC); }
-
-    .inf-avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: #fff; margin: 0 auto 1rem; position: relative; }
-    .inf-card:nth-child(4n+1) .inf-avatar { background: linear-gradient(135deg,#FF6B1A,#C94008); box-shadow: 0 6px 18px rgba(255,107,26,0.3); }
-    .inf-card:nth-child(4n+2) .inf-avatar { background: linear-gradient(135deg,#0EA878,#059669); box-shadow: 0 6px 18px rgba(14,168,120,0.3); }
-    .inf-card:nth-child(4n+3) .inf-avatar { background: linear-gradient(135deg,#2563EB,#1D4ED8); box-shadow: 0 6px 18px rgba(37,99,235,0.28); }
-    .inf-card:nth-child(4n+0) .inf-avatar { background: linear-gradient(135deg,#9333EA,#7C3AED); box-shadow: 0 6px 18px rgba(147,51,234,0.28); }
-
-    .inf-name { font-family: 'Syne', sans-serif; font-size: .98rem; font-weight: 700; color: var(--ink); text-align: center; letter-spacing: -.02em; margin-bottom: .25rem; }
-    .inf-handle { font-size: .74rem; color: var(--muted); text-align: center; margin-bottom: .9rem; }
-    .inf-category { display: inline-block; align-self: center; font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .22rem .65rem; border-radius: 20px; margin-bottom: 1rem; }
-    .inf-card:nth-child(4n+1) .inf-category { background: var(--or-pale); color: var(--or2); }
-    .inf-card:nth-child(4n+2) .inf-category { background: var(--teal-pale); color: var(--teal); }
-    .inf-card:nth-child(4n+3) .inf-category { background: var(--blue-pale); color: var(--blue); }
-    .inf-card:nth-child(4n+0) .inf-category { background: #F5F3FF; color: #7C3AED; }
-
-    .inf-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin-bottom: 1.1rem; }
-    .inf-stat { background: var(--cream); border-radius: 10px; padding: .5rem .6rem; text-align: center; }
-    .inf-stat-val { font-family: 'Syne', sans-serif; font-size: .9rem; font-weight: 700; color: var(--ink); display: block; }
-    .inf-stat-lbl { font-size: .63rem; color: var(--muted); font-weight: 500; }
-
-    .inf-price-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding: .6rem .65rem; background: var(--cream); border-radius: 10px; }
-    .inf-price-lbl { font-size: .72rem; color: var(--muted); font-weight: 500; }
-    .inf-price-val { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: var(--or2); }
-
-    /* ── TWO BUTTON ROW (Book + Chat) ── */
-    .inf-btn-row { display: grid; grid-template-columns: 1fr auto; gap: .5rem; margin-top: auto; }
-
-    .book-btn {
-      display: flex; align-items: center; justify-content: center; gap: .4rem;
-      padding: .7rem; border-radius: 12px;
-      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700;
-      color: #fff; border: none; cursor: pointer; overflow: hidden;
-      transition: transform .18s cubic-bezier(.34,1.56,.64,1), box-shadow .18s ease;
-      text-decoration: none;
-    }
-    .inf-card:nth-child(4n+1) .book-btn { background: linear-gradient(135deg,#FF7A2F,#C94008); box-shadow: 0 4px 14px rgba(255,107,26,0.32); }
-    .inf-card:nth-child(4n+2) .book-btn { background: linear-gradient(135deg,#0EA878,#059669); box-shadow: 0 4px 14px rgba(14,168,120,0.28); }
-    .inf-card:nth-child(4n+3) .book-btn { background: linear-gradient(135deg,#2563EB,#1D4ED8); box-shadow: 0 4px 14px rgba(37,99,235,0.26); }
-    .inf-card:nth-child(4n+0) .book-btn { background: linear-gradient(135deg,#9333EA,#7C3AED); box-shadow: 0 4px 14px rgba(147,51,234,0.26); }
-    .book-btn:hover { transform: translateY(-2px); }
-    .book-btn svg { width: 15px; height: 15px; }
-
-    /* ── CHAT BUTTON on card ── */
-    .inf-chat-btn {
-      width: 40px; height: 40px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      border: 1.5px solid var(--border); background: var(--white);
-      cursor: pointer; transition: all .2s cubic-bezier(.34,1.56,.64,1);
-      position: relative; flex-shrink: 0;
-    }
-    .inf-chat-btn svg { width: 17px; height: 17px; color: var(--muted); transition: color .18s; }
-    .inf-chat-btn:hover { border-color: var(--or1); background: var(--or-pale); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(255,107,26,0.18); }
-    .inf-chat-btn:hover svg { color: var(--or2); }
-    /* unread dot on chat button */
-    .inf-chat-btn .chat-dot {
-      position: absolute; top: -3px; right: -3px;
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--or1); border: 2px solid var(--white);
-      display: none; animation: pulse 2s infinite;
-    }
-    .inf-chat-btn.has-unread .chat-dot { display: block; }
-
-    /* ── INLINE CHAT PANEL (expands below card) ── */
-    .inf-chat-panel {
-      display: none;
+    
+    /* BODY SECTION */
+    .inf-card-body {
+      position: relative;
+      z-index: 3;
+      padding: 0 1.3rem 1.3rem;
+      flex: 1;
+      display: flex;
       flex-direction: column;
-      background: var(--white);
-      border: 1.5px solid var(--or1);
-      border-radius: 16px;
+    }
+    
+    /* PROFILE PIC - Floats on banner */
+    .inf-avatar-float {
+      position: absolute;
+      top: -28px;
+      left: 1.3rem;
+      z-index: 10;
+    }
+    
+    .inf-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--or1), var(--or2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      border: 3px solid var(--s1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
       overflow: hidden;
-      margin-top: .65rem;
-      box-shadow: 0 8px 32px rgba(255,107,26,0.14);
-      animation: slideDown .22s cubic-bezier(.16,1,.3,1) both;
     }
-    .inf-chat-panel.open { display: flex; }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
-
-    .icp-header {
-      background: linear-gradient(135deg, #FF7A2F, #C94008);
-      padding: .65rem 1rem; display: flex; align-items: center; justify-content: space-between;
+    
+    .inf-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 11px;
     }
-    .icp-header-name { color: #fff; font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 700; }
-    .icp-header-sub { color: rgba(255,255,255,0.75); font-size: .65rem; }
-    .icp-close-btn { background: none; border: none; color: rgba(255,255,255,0.8); cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 6px; }
-    .icp-close-btn:hover { background: rgba(255,255,255,0.18); }
-
-    .icp-messages {
-      height: 180px; overflow-y: auto; padding: .85rem 1rem;
-      display: flex; flex-direction: column; gap: .6rem;
-      background: #FAF6F1;
+    
+    .inf-avatar::after {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      right: -7px;
+      width: 18px;
+      height: 18px;
+      background: #4ADE80;
+      border-radius: 50%;
+      border: 2.5px solid var(--s1);
+      box-shadow: 0 0 10px rgba(74,222,128,0.6);
     }
-    .icp-messages::-webkit-scrollbar { width: 3px; }
-    .icp-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-    .icp-msg-row { display: flex; gap: .4rem; align-items: flex-end; }
-    .icp-msg-row.mine { flex-direction: row-reverse; }
-    .icp-bubble {
-      max-width: 76%; padding: .5rem .8rem; border-radius: 12px;
-      font-size: .78rem; line-height: 1.45; color: var(--ink2);
+    
+    /* TOP SECTION - Category + Name */
+    .inf-top {
+      margin-top: 1.8rem;
+      margin-bottom: .5rem;
     }
-    .icp-msg-row:not(.mine) .icp-bubble { background: var(--white); border: 1px solid var(--border); border-bottom-left-radius: 3px; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
-    .icp-msg-row.mine .icp-bubble { background: linear-gradient(135deg, #FF7A2F, #C94008); color: #fff; border-bottom-right-radius: 3px; }
-
-    .icp-empty { display: flex; align-items: center; justify-content: center; height: 100%; font-size: .75rem; color: var(--muted); text-align: center; }
-
-    .icp-no-booking {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      height: 100%; gap: .5rem; padding: 1rem; text-align: center;
+    
+    .inf-cat-badge {
+      display: inline-block;
+      background: var(--or3);
+      color: var(--or1);
+      font-size: .6rem;
+      font-weight: 700;
+      padding: .22rem .6rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255,107,26,0.3);
+      margin-bottom: .5rem;
+      text-transform: uppercase;
+      letter-spacing: .6px;
     }
-    .icp-no-booking p { font-size: .75rem; color: var(--muted); }
-    .icp-no-booking a { font-size: .78rem; font-weight: 700; color: var(--or2); text-decoration: none; padding: .4rem .9rem; border-radius: 10px; background: var(--or-pale); border: 1px solid rgba(255,107,26,0.2); margin-top: .3rem; }
-
-    .icp-input-row {
-      display: flex; gap: .5rem; padding: .65rem .8rem;
-      background: var(--white); border-top: 1px solid var(--border); align-items: flex-end;
+    
+    .inf-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--txt);
+      margin-bottom: .15rem;
+      line-height: 1.2;
     }
-    .icp-textarea {
-      flex: 1; border: 1.5px solid var(--border); border-radius: 10px;
-      padding: .55rem .8rem; font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: .78rem; color: var(--ink); background: var(--cream);
-      resize: none; outline: none; max-height: 72px; line-height: 1.4;
-      transition: border-color .2s;
+    
+    .inf-username {
+      font-size: .75rem;
+      color: var(--txt3);
+      display: block;
+      margin-bottom: .45rem;
+      font-weight: 500;
     }
-    .icp-textarea:focus { border-color: var(--or1); }
-    .icp-textarea::placeholder { color: #B0A098; }
-    .icp-send-btn {
-      width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
-      background: linear-gradient(135deg, #FF7A2F, #C94008); border: none;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
-      box-shadow: 1px 2px 0 #A83400; transition: transform .18s cubic-bezier(.34,1.56,.64,1);
+    
+    /* BIO/DESCRIPTION */
+    .inf-bio {
+      font-size: .75rem;
+      color: var(--txt2);
+      margin-bottom: .7rem;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .icp-send-btn:hover { transform: translateY(-1px); }
-    .icp-send-btn svg { width: 14px; height: 14px; color: #fff; }
+    
+    /* LOCATION */
+    .inf-location {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .73rem;
+      color: var(--txt3);
+      margin-bottom: .8rem;
+    }
+    
+    .inf-location svg {
+      width: 12px;
+      height: 12px;
+      color: var(--or1);
+      flex-shrink: 0;
+    }
+    
+    /* RATE BOX */
+    .inf-rate {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .65rem .85rem;
+      margin-bottom: .9rem;
+    }
+    
+    .inf-rate svg {
+      width: 14px;
+      height: 14px;
+      color: var(--or1);
+      flex-shrink: 0;
+    }
+    
+    .inf-rate-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--or1);
+    }
+    
+    .inf-rate-lbl {
+      font-size: .55rem;
+      color: var(--txt3);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: .5px;
+    }
+    
+    /* ACTION BUTTONS */
+    .inf-actions {
+      display: flex;
+      gap: .65rem;
+      margin-top: auto;
+    }
+    
+    .profile-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      flex: 1;
+      padding: .65rem .7rem;
+      border-radius: 11px;
+      background: transparent;
+      color: var(--or1);
+      border: 1.5px solid rgba(255,107,26,0.4);
+      font-size: .76rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .16s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .profile-btn:hover {
+      background: var(--or3);
+      border-color: rgba(255,107,26,0.6);
+      transform: translateY(-1px);
+    }
+    
+    .profile-btn svg {
+      width: 13px;
+      height: 13px;
+    }
+    
+    /* BOOK BUTTON */
+    .book-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+      flex: 1;
+      padding: .65rem .7rem;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--or1), var(--or2));
+      color: #fff;
+      font-size: .76rem;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all .16s;
+      box-shadow: 0 3px 10px rgba(255,107,26,0.3);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .book-btn svg { width: 13px; height: 13px; }
+    .book-btn:hover { transform: translateY(-1px); box-shadow: 0 5px 16px rgba(255,107,26,0.4); }
+    .book-btn.disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      pointer-events: none;
+      background: linear-gradient(135deg, #555, #444);
+      box-shadow: none;
+    }
 
-    /* ── TABLE ── */
-    .bookings-section { margin-top: 2rem; animation: fadeUp .5s .38s ease both; }
-    .table-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.04); }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { background: var(--cream); border-bottom: 1px solid var(--border); }
-    thead th { padding: .9rem 1.2rem; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); text-align: left; }
-    tbody tr { border-bottom: 1px solid rgba(234,217,200,0.5); transition: background .15s; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(255,107,26,0.028); }
-    tbody td { padding: .95rem 1.2rem; font-size: .86rem; color: var(--ink2); font-weight: 500; }
-    .status-pill { display: inline-flex; align-items: center; gap: .32rem; padding: .24rem .7rem; border-radius: 20px; font-size: .72rem; font-weight: 700; letter-spacing: .03em; }
-    .status-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-    .status-pill.active    { background: #ECFDF5; color: #059669; }
-    .status-pill.active::before    { background: #059669; }
-    .status-pill.pending   { background: #FEF6E4; color: #D97706; }
-    .status-pill.pending::before   { background: #D97706; }
-    .status-pill.completed { background: var(--blue-pale); color: var(--blue); }
-    .status-pill.completed::before { background: var(--blue); }
+    /* ── BOOK NOW BUTTON ── */
+    .book-btn {
+      display: flex; align-items: center; justify-content: center; gap: .45rem;
+      flex: 1; padding: .7rem; border-radius: 11px;
+      background: linear-gradient(135deg, var(--or1), var(--or2));
+      color: #fff; font-size: .82rem; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer; transition: all .18s;
+      box-shadow: 0 4px 14px rgba(255,107,26,0.35);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .book-btn svg { width: 15px; height: 15px; }
+    .book-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,26,0.45); }
+    .book-btn.disabled {
+      opacity: 0.4; cursor: not-allowed; pointer-events: none;
+      background: linear-gradient(135deg, #555, #444);
+      box-shadow: none; filter: grayscale(0.5);
+    }
+    
+    /* Chat button */
+    .chat-btn {
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      flex: 1; padding: .7rem; border-radius: 11px;
+      background: transparent; color: var(--txt2);
+      border: 1.5px solid var(--border);
+      font-size: .82rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; transition: all .18s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .chat-btn svg { width: 15px; height: 15px; }
+    .chat-btn:hover { color: var(--or1); border-color: rgba(255,107,26,0.3); background: var(--or3); }
+    
+    /* View profile link */
+    .view-profile-link {
+      display: inline-block;
+      font-size: .76rem;
+      color: var(--or1);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all .15s;
+    }
+    .view-profile-link:hover {
+      gap: .3rem;
+    }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    /* ── RECENT BOOKINGS ── */
+    .bookings-panel { background: var(--s1); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem; }
+    .booking-item {
+      display: flex; align-items: center; gap: .8rem;
+      padding: .75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .booking-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .booking-avatar {
+      width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+      background: var(--or3); display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 800; color: var(--or1);
+    }
+    .booking-info { flex: 1; min-width: 0; }
+    .booking-name { font-size: .84rem; font-weight: 700; color: var(--txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .booking-meta { font-size: .7rem; color: var(--txt3); margin-top: .1rem; }
+    .booking-status {
+      font-size: .68rem; font-weight: 700; padding: .25rem .65rem;
+      border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+    }
+    .status-pending   { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .status-approved,
+    .status-in_progress { background: rgba(5,150,105,0.12); color: #34d399; border: 1px solid rgba(5,150,105,0.2); }
+    .status-completed { background: rgba(99,102,241,0.12); color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+    .status-rejected,
+    .status-cancelled { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.15); }
 
-    .hamburger { display: none; width: 38px; height: 38px; border-radius: 10px; background: var(--cream); border: 1.5px solid var(--border); align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-    .hamburger svg { width: 18px; height: 18px; color: var(--ink); }
+    /* ── QUICK ACTIONS ── */
+    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 1.2rem; }
+    .qa-btn {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .85rem 1rem; border-radius: 14px;
+      background: var(--s2); border: 1px solid var(--border);
+      color: var(--txt2); font-size: .82rem; font-weight: 600;
+      text-decoration: none; transition: all .18s;
+    }
+    .qa-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .qa-btn:hover { background: var(--s3); color: var(--txt); border-color: rgba(255,107,26,0.25); }
+    .qa-btn.primary { background: var(--or3); border-color: rgba(255,107,26,0.25); color: var(--or1); }
+    .qa-btn.primary:hover { background: rgba(255,107,26,0.2); }
 
-    @media (max-width: 1200px) { .influencers-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 900px)  { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    /* ── MESSAGES ── */
+    .django-messages { margin-bottom: 1.2rem; }
+    .alert {
+      padding: .85rem 1.2rem; border-radius: 12px; font-size: .85rem; font-weight: 600;
+      display: flex; align-items: center; gap: .6rem; margin-bottom: .5rem;
+    }
+    .alert-success { background: rgba(5,150,105,0.12); border: 1px solid rgba(5,150,105,0.25); color: #34d399; }
+    .alert-error   { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.2); color: #f87171; }
+    .alert-info    { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.2); color: #818cf8; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state { text-align: center; padding: 2.5rem 1rem; }
+    .empty-state svg { width: 40px; height: 40px; color: var(--txt3); margin: 0 auto .8rem; display: block; }
+    .empty-state p { font-size: .84rem; color: var(--txt3); }
+
+    /* ── VIEW ALL LINK ── */
+    .view-all {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .78rem; color: var(--or1); font-weight: 600; text-decoration: none;
+      margin-top: .8rem; transition: gap .15s;
+    }
+    .view-all:hover { gap: .5rem; }
+    .view-all svg { width: 13px; height: 13px; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse  { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(1.4); } }
+    .fade-1 { animation: fadeUp .5s .05s ease both; }
+    .fade-2 { animation: fadeUp .5s .1s ease both; }
+    .fade-3 { animation: fadeUp .5s .15s ease both; }
+    .fade-4 { animation: fadeUp .5s .2s ease both; }
+
+    @media (max-width: 1100px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
       .sidebar { transform: translateX(-100%); }
-      .sidebar.open { transform: translateX(0); box-shadow: 4px 0 40px rgba(0,0,0,0.15); }
-      .main-wrap { margin-left: 0; }
-      .hamburger { display: flex; }
-      .topbar-search { display: none; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .influencers-grid { grid-template-columns: 1fr; }
-      .page-content { padding: 1.2rem 1rem 2rem; }
-      .quick-actions { flex-wrap: wrap; }
+      .main { margin-left: 0; }
+      .influencer-grid { grid-template-columns: 1fr; }
+      .active-booking-banner { flex-direction: column; align-items: flex-start; }
+      .ab-actions { width: 100%; }
+      .ab-btn { flex: 1; justify-content: center; }
     }
-    @media (max-width: 480px) { .topbar { padding: 0 1rem; } .date-badge { display: none; } }
   </style>
 </head>
 <body>
 
-<!-- ════════ SIDEBAR ════════ -->
-<aside class="sidebar" id="sidebar">
-  <a href="{% url 'accounts:login' %}" class="sidebar-brand">
-    <div class="brand-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <a class="sidebar-logo" href="{% url 'home' %}">
+    <div class="sidebar-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
         <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
       </svg>
     </div>
-    <span class="brand-name"><span class="bl">Influ</span><span class="or">Connect</span></span>
+    <span class="sidebar-logo-text">Influ<span>Connect</span></span>
   </a>
-  <p class="nav-section-label">Main Menu</p>
-  <ul class="nav-menu">
-    <li class="nav-item">
-      <a href="{% url 'shopkeepers:shopkeeper_dashboard' %}" class="nav-link active">
-        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
-        Dashboard
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'influencers:influencers_list' %}" class="nav-link">
-        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-        View Influencers
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'bookings:all_bookings' %}" class="nav-link">
-        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span>
-        My Bookings
-        <span style="margin-left:auto;background:var(--or1);color:#fff;font-size:.65rem;font-weight:700;padding:.1rem .45rem;border-radius:20px;">{{ bookings_count }}</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'bookings:analytics' %}" class="nav-link">
-        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-        Analytics
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{% url 'influencers:influencers_list' %}" class="nav-link">
-        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
-        New Booking
-      </a>
-    </li>
-  </ul>
+
+  <nav class="sidebar-nav">
+    <span class="nav-label">Main</span>
+    <a href="/?force=1" class="nav-item">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+    <polyline points="9 22 9 12 15 12 15 22"/>
+  </svg>
+  Home
+</a>
+    <a href="{% url 'shopkeepers:shopkeeper_dashboard' %}" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a href="{% url 'influencers:influencers_list' %}" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Browse Influencers
+    </a>
+    <a href="{% url 'bookings:all_bookings' %}" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      My Bookings
+      {% if bookings_count %}<span class="nav-badge">{{ bookings_count }}</span>{% endif %}
+    </a>
+
+    <span class="nav-label">Account</span>
+    <a href="{% url 'bookings:notifications_page' %}" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Notifications
+      {% if unread_count %}<span class="nav-badge">{{ unread_count }}</span>{% endif %}
+    </a>
+    <a href="{% url 'shopkeepers:shopkeeper_profile' %}" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      My Profile
+    </a>
+  </nav>
+
   <div class="sidebar-footer">
-    <form method="post" action="{% url 'logout' %}">
-      {% csrf_token %}
-      <button type="submit" class="logout-btn">
-        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
-        Logout
-      </button>
-    </form>
+    <div class="sidebar-user">
+      <div class="user-avatar">{{ request.user.username|first|upper }}</div>
+      <div>
+        <div class="user-name">{{ request.user.username }}</div>
+        <div class="user-role">Shopkeeper</div>
+      </div>
+    </div>
+    <a href="{% url 'bookings:logout' %}" class="logout-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      Logout
+    </a>
   </div>
 </aside>
 
-<!-- ════════ MAIN ════════ -->
-<div class="main-wrap">
-  <header class="topbar">
-    <div style="display:flex;align-items:center;gap:.9rem;">
-      <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <div class="topbar-left">
-        <span class="topbar-greeting">Good morning</span>
-        <span class="topbar-name">Welcome, <span>{{ request.user.username }}</span></span>
-      </div>
-    </div>
+<!-- ══ MAIN ══ -->
+<main class="main">
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-title">Good morning, <span>{{ request.user.username }}</span> 👋</div>
     <div class="topbar-right">
-      <div class="topbar-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="Search influencers..."/>
-      </div>
-      <a href="{% url 'bookings:notifications_page' %}" class="notif-btn" style="text-decoration:none;">
+      <a href="{% url 'bookings:notifications_page' %}" class="notif-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        <span class="notif-dot"></span>
+        {% if unread_count %}<span class="notif-dot"></span>{% endif %}
       </a>
-      <div class="avatar">{{ request.user.username|slice:":2"|upper }}</div>
-    </div>
-  </header>
 
-  <main class="page-content">
-    <div class="page-header">
-      <div>
-        <h1 class="page-title">Shopkeeper Dashboard</h1>
-        <p class="page-subtitle">Track your campaigns, bookings &amp; influencer connections</p>
-      </div>
-      <span class="date-badge">📅 {% now "l, d M Y" %}</span>
-    </div>
+<button onclick="toggleTheme()" id="themeBtn" style="display:flex;align-items:center;gap:.4rem;background:var(--s2);border:1px solid var(--border);color:var(--txt2);padding:.4rem .85rem;border-radius:20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;">
+  <svg id="theme-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <span id="theme-label">Light Mode</span>
+</button>
 
-    <div class="stats-grid">
-      <div class="stat-card orange">
-        <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <p class="stat-label">Total Influencers</p>
-        <p class="stat-value">{{ total_influencers }}</p>
-        <span class="stat-change up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>+12% this month</span>
-      </div>
-      <div class="stat-card teal">
-        <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <p class="stat-label">Active Bookings</p>
-        <p class="stat-value">{{ active_bookings }}</p>
-        <span class="stat-change up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>+3 new this week</span>
-      </div>
-      <div class="stat-card blue">
-        <div class="stat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-        <p class="stat-label">Completed Collabs</p>
-        <p class="stat-value">{{ completed_collabs }}</p>
-        <span class="stat-change up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>+8 this quarter</span>
+      <div class="topbar-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Shopkeeper
       </div>
     </div>
+  </div>
 
-    <div class="quick-actions">
-      <a href="{% url 'influencers:influencers_list' %}" class="quick-btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Booking</a>
-      <a href="{% url 'influencers:influencers_list' %}" class="quick-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Browse All</a>
-      <a href="{% url 'bookings:all_bookings' %}" class="quick-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>My Schedule</a>
-      <a href="{% url 'bookings:analytics' %}" class="quick-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a>
-    </div>
+  <div class="content">
 
-    <div class="section-header">
-      <h2 class="section-title"><span></span>Recommended Influencers</h2>
-      <a href="{% url 'influencers:influencers_list' %}" class="view-all">View all <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-
-    <!-- ════════ INFLUENCER CARDS WITH INLINE CHAT ════════ -->
-    <div class="influencers-grid">
-      {% for influencer in recommended_influencers %}
-      <div class="inf-card" id="inf-card-{{ influencer.id }}">
-        <div class="inf-avatar">{{ influencer.user.username|slice:":2"|upper }}</div>
-        <div class="inf-name">{{ influencer.user.username }}</div>
-        <div class="inf-handle">@{{ influencer.user.username|lower }}</div>
-        <span class="inf-category">{{ influencer.category }}</span>
-        <div class="inf-stats">
-          <div class="inf-stat"><span class="inf-stat-val">{{ influencer.followers }}</span><span class="inf-stat-lbl">Followers</span></div>
-          <div class="inf-stat"><span class="inf-stat-val">{{ influencer.location|slice:":6" }}</span><span class="inf-stat-lbl">Location</span></div>
-        </div>
-        <div class="inf-price-row">
-          <span class="inf-price-lbl">Per Post</span>
-          <span class="inf-price-val">₹{{ influencer.price_per_post }}</span>
-        </div>
-
-        <!-- Book + Chat buttons -->
-        <div class="inf-btn-row">
-          <a href="{% url 'bookings:create_booking' influencer.id %}" class="book-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            Book Now
-          </a>
-          <!-- CHAT BUTTON — inf ke saath associated booking id Django se pass karo -->
-          <button
-            class="inf-chat-btn"
-            id="chat-btn-{{ influencer.id }}"
-            onclick="toggleInlineChat({{ influencer.id }}, '{{ influencer.user.username }}', {{ influencer.booking_id|default:'null' }})"
-            title="Chat with {{ influencer.user.username }}"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span class="chat-dot"></span>
-          </button>
-        </div>
-
-        <!-- INLINE CHAT PANEL — card ke neeche expand hoga -->
-        <div class="inf-chat-panel" id="chat-panel-{{ influencer.id }}">
-          <div class="icp-header">
-            <div>
-              <div class="icp-header-name">{{ influencer.user.username }}</div>
-              <div class="icp-header-sub" id="icp-sub-{{ influencer.id }}">Loading...</div>
-            </div>
-            <button class="icp-close-btn" onclick="closeInlineChat({{ influencer.id }})">✕</button>
-          </div>
-          <div class="icp-messages" id="icp-msgs-{{ influencer.id }}">
-            <div class="icp-empty">Loading...</div>
-          </div>
-          <div class="icp-input-row" id="icp-input-wrap-{{ influencer.id }}">
-            <textarea
-              class="icp-textarea"
-              id="icp-input-{{ influencer.id }}"
-              placeholder="Message likhein..."
-              rows="1"
-              oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,72)+'px'"
-              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();icpSend({{ influencer.id }}, {{ influencer.booking_id|default:'null' }});}"
-            ></textarea>
-            <button class="icp-send-btn" onclick="icpSend({{ influencer.id }}, {{ influencer.booking_id|default:'null' }})">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      {% empty %}
-      <!-- Fallback static card (same as before) -->
-      <div class="inf-card">
-        <div class="inf-avatar">RK</div>
-        <div class="inf-name">Rahul Kumar</div>
-        <div class="inf-handle">@rahulk.official</div>
-        <span class="inf-category">Food &amp; Lifestyle</span>
-        <div class="inf-stats"><div class="inf-stat"><span class="inf-stat-val">84K</span><span class="inf-stat-lbl">Followers</span></div><div class="inf-stat"><span class="inf-stat-val">6.4%</span><span class="inf-stat-lbl">Engagement</span></div></div>
-        <div class="inf-price-row"><span class="inf-price-lbl">Per Post</span><span class="inf-price-val">₹4,500</span></div>
-        <div class="inf-btn-row">
-          <a href="#" class="book-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Book Now</a>
-          <button class="inf-chat-btn" title="Chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="chat-dot"></span></button>
-        </div>
+    <!-- Django Messages -->
+    {% if messages %}
+    <div class="django-messages">
+      {% for message in messages %}
+      <div class="alert alert-{% if message.tags == 'error' %}error{% elif message.tags == 'success' %}success{% else %}info{% endif %}">
+        {% if message.tags == 'success' %}✅{% elif message.tags == 'error' %}❌{% else %}ℹ️{% endif %}
+        {{ message }}
       </div>
       {% endfor %}
     </div>
-    <!-- ════════ /INFLUENCER CARDS ════════ -->
+    {% endif %}
 
-    <div class="bookings-section">
-      <div class="section-header">
-        <h2 class="section-title">Recent Bookings</h2>
-        <a href="{% url 'bookings:all_bookings' %}" class="view-all">View all <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+    <!-- ══════════════════════════════════════════════
+         ACTIVE BOOKING BANNER
+    ══════════════════════════════════════════════ -->
+    {% if active_booking %}
+    <div class="active-booking-banner fade-1">
+      <div class="ab-left">
+        <div class="ab-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="ab-title">🔥 Active Booking In Progress</div>
+          <div class="ab-sub">
+            Influencer: <span class="ab-inf">@{{ active_booking.influencer.user.username }}</span>
+            &nbsp;·&nbsp; {{ active_booking.business_name }}
+            &nbsp;·&nbsp; ₹{{ active_booking.amount }}
+          </div>
+          <div class="ab-status">
+            {{ active_booking.get_status_display }} — Naya booking tab milega jab ye complete ho
+          </div>
+        </div>
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Influencer</th><th>Category</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
-          <tbody>
-            {% for booking in recent_bookings %}
-            <tr>
-              <td><strong>{{ booking.influencer.user.username }}</strong></td>
-              <td>{{ booking.influencer.category }}</td>
-              <td>{{ booking.date|date:"d M Y" }}</td>
-              <td>₹{{ booking.influencer.price_per_post }}</td>
-              <td><span class="status-pill {{ booking.status|lower }}">{{ booking.status }}</span></td>
-            </tr>
-            {% empty %}
-            <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:2rem;">No bookings yet. <a href="{% url 'influencers:influencers_list' %}" style="color:var(--or2);font-weight:600;">Create your first booking →</a></td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <div class="ab-actions">
+        <!-- WORK DONE BUTTON -->
+        <form method="post" action="{% url 'bookings:mark_complete' active_booking.id %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="ab-btn complete"
+            onclick="return confirm('Kaam complete ho gaya? Confirm karo — influencer ko notification jayegi.')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Work Done ✅
+          </button>
+        </form>
+        <!-- DIDN'T WORK BUTTON -->
+        <form method="post" action="{% url 'bookings:mark_cancelled' active_booking.id %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="ab-btn cancel"
+            onclick="return confirm('Kya aap ye booking cancel karna chahte ho?')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Didn't Work ❌
+          </button>
+        </form>
+        <!-- CHAT LINK -->
+        {% if active_booking.chatroom %}
+        <a href="{% url 'bookings:chat_room' active_booking.id %}" class="ab-btn" style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.25);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Chat
+        </a>
+        {% endif %}
       </div>
     </div>
-  </main>
-</div>
+    {% endif %}
 
-<!-- ════════ SCRIPTS ════════ -->
+    <!-- Stats Grid -->
+    <div class="stats-grid fade-2">
+      <div class="stat-card">
+        <div class="stat-label">Total Bookings</div>
+        <div class="stat-value">{{ total_bookings }}</div>
+        <div class="stat-change">All time requests</div>
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active / Pending</div>
+        <div class="stat-value">{{ active_bookings }}</div>
+        <div class="stat-change">Currently running</div>
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Completed Collabs</div>
+        <div class="stat-value">{{ completed_collabs }}</div>
+        <div class="stat-change">Successful campaigns</div>
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Total Influencers</div>
+        <div class="stat-value">{{ total_influencers }}</div>
+        <div class="stat-change">Available on platform</div>
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard-grid fade-3">
+
+      <!-- LEFT: Recommended Influencers -->
+      <div>
+        <div class="section-title">
+          Recommended Influencers
+          <span>— Book karein apne business ke liye</span>
+          {% if active_booking %}
+          <span style="margin-left:auto;font-size:.7rem;color:rgba(255,107,26,0.8);background:rgba(255,107,26,0.1);border:1px solid rgba(255,107,26,0.25);padding:.2rem .6rem;border-radius:20px;">
+            🔒 Active booking complete karo pehle
+          </span>
+          {% endif %}
+        </div>
+
+        <div class="influencer-grid">
+          {% for influencer in recommended_influencers %}
+          <div class="inf-card" style="background-image: url('{% if influencer.banner_image %}{{ influencer.banner_image.url }}{% else %}linear-gradient(135deg, rgba(255,107,26,0.15) 0%, rgba(255,140,66,0.08) 100%){% endif %}'); background-size: cover; background-position: center;">
+            <!-- Floating Avatar -->
+            <div class="inf-avatar-float">
+              <div class="inf-avatar">
+                {% if influencer.profile_image %}
+                  <img src="{{ influencer.profile_image.url }}" alt="{{ influencer.user.username }}"/>
+                {% else %}
+                  {{ influencer.user.username|first|upper }}
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- BODY -->
+            <div class="inf-card-body">
+              <!-- Category + Name -->
+              <div class="inf-top">
+                <div class="inf-cat-badge">{{ influencer.category }}</div>
+                <div class="inf-name">@{{ influencer.user.username }}</div>
+                <div class="inf-username">{{ influencer.user.first_name|default:influencer.user.username }}</div>
+              </div>
+
+              <!-- Bio/Description -->
+              {% if influencer.bio %}
+              <div class="inf-bio">{{ influencer.bio }}</div>
+              {% endif %}
+
+              <!-- Location -->
+              {% if influencer.location or influencer.city %}
+              <div class="inf-location">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>{{ influencer.location|default:influencer.city }}</span>
+              </div>
+              {% endif %}
+
+              <!-- Rate Box -->
+              <div class="inf-rate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <div>
+                  <div class="inf-rate-lbl">Per Post</div>
+                  <div class="inf-rate-val">₹{{ influencer.price_per_post|default:influencer.rate_instagram_post|default:"—" }}</div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="inf-actions">
+                <a href="{% url 'influencers:influencer_detail' influencer.id %}" class="profile-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  View Profile
+                </a>
+                
+                {% if active_booking %}
+                <a class="book-btn disabled" title="Complete active booking first">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Book 🔒
+                </a>
+                {% else %}
+                <a href="{% url 'bookings:create_booking' influencer.id %}" class="book-btn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  Book
+                </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="empty-state" style="grid-column:1/-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            <p>Koi influencer nahi mila</p>
+          </div>
+          {% endfor %}
+        </div>
+
+        <a href="{% url 'influencers:influencers_list' %}" class="view-all">
+          Saare influencers dekho
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <!-- RIGHT: Recent Bookings + Quick Actions -->
+      <div>
+        <div class="section-title">Recent Bookings</div>
+        <div class="bookings-panel">
+          {% for booking in recent_bookings %}
+          <div class="booking-item">
+            <div class="booking-avatar">{{ booking.influencer.user.username|first|upper }}</div>
+            <div class="booking-info">
+              <div class="booking-name">@{{ booking.influencer.user.username }}</div>
+              <div class="booking-meta">{{ booking.business_name }} · {{ booking.created_at|date:"d M" }}</div>
+            </div>
+            <span class="booking-status status-{{ booking.status }}">
+              {% if booking.status == 'pending' %}⏳ Pending
+              {% elif booking.status == 'in_progress' %}🔥 In Progress
+              {% elif booking.status == 'approved' %}✅ Approved
+              {% elif booking.status == 'completed' %}🏆 Completed
+              {% elif booking.status == 'rejected' %}❌ Rejected
+              {% elif booking.status == 'cancelled' %}🚫 Cancelled
+              {% else %}{{ booking.status }}
+              {% endif %}
+            </span>
+          </div>
+          {% empty %}
+          <div class="empty-state">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <p>Abhi tak koi booking nahi</p>
+          </div>
+          {% endfor %}
+
+          <a href="{% url 'bookings:all_bookings' %}" class="view-all">
+            Saari bookings dekho
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section-title" style="margin-top:1.4rem">Quick Actions</div>
+        <div class="quick-actions">
+          <a href="{% url 'influencers:influencers_list' %}" class="qa-btn primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Find Influencers
+          </a>
+          <a href="{% url 'bookings:all_bookings' %}" class="qa-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            All Bookings
+          </a>
+          <a href="{% url 'bookings:notifications_page' %}" class="qa-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Notifications
+            {% if unread_count %}<span class="nav-badge" style="margin-left:auto">{{ unread_count }}</span>{% endif %}
+          </a>
+          <a href="{% url 'shopkeepers:shopkeeper_profile' %}" class="qa-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Edit Profile
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /dashboard-grid -->
+  </div><!-- /content -->
+</main>
+
+
 <script>
-  // ── Sidebar toggle ──
-  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-  document.addEventListener('click', function(e) {
-    var sb = document.getElementById('sidebar');
-    if (window.innerWidth <= 768 && sb.classList.contains('open') && !sb.contains(e.target) && !e.target.closest('.hamburger')) sb.classList.remove('open');
-  });
+  var html = document.documentElement;
+  var saved = localStorage.getItem('sk-theme') || 'dark';
+  applyTheme(saved);
 
-  // ── Utilities ──
-  function getCsrf() {
-    var c = document.cookie.split(';').find(function(x){ return x.trim().startsWith('csrftoken='); });
-    return c ? c.split('=')[1].trim() : '';
-  }
-
-  // ── Track open panels & poll intervals ──
-  var openPanels = {};
-  var pollTimers = {};
-
-  // ── Toggle inline chat ──
-  window.toggleInlineChat = function(infId, name, bookingId) {
-    var panel = document.getElementById('chat-panel-' + infId);
-    var isOpen = panel.classList.contains('open');
-    // Close all other panels first
-    Object.keys(openPanels).forEach(function(id) {
-      if (id != infId) closeInlineChat(id);
-    });
-    if (isOpen) { closeInlineChat(infId); return; }
-    panel.classList.add('open');
-    openPanels[infId] = true;
-    loadIcpMessages(infId, bookingId, name);
-    // Poll every 5s
-    pollTimers[infId] = setInterval(function(){ loadIcpMessages(infId, bookingId, name, true); }, 5000);
-  };
-
-  window.closeInlineChat = function(infId) {
-    var panel = document.getElementById('chat-panel-' + infId);
-    if (panel) panel.classList.remove('open');
-    delete openPanels[infId];
-    if (pollTimers[infId]) { clearInterval(pollTimers[infId]); delete pollTimers[infId]; }
-  };
-
-  // ── Load messages into inline panel ──
-  async function loadIcpMessages(infId, bookingId, name, silent) {
-    var el = document.getElementById('icp-msgs-' + infId);
-    var subEl = document.getElementById('icp-sub-' + infId);
-    var inputWrap = document.getElementById('icp-input-wrap-' + infId);
-
-    if (!bookingId) {
-      // No booking yet — show prompt
-      el.innerHTML = '<div class="icp-no-booking"><p>Abhi tak koi booking nahi hai.</p>' +
-        '<a href="/bookings/create/' + infId + '/"> 📅 Booking Karein </a> </div>';
-      if (subEl) subEl.textContent = 'Booking required to chat';
-      if (inputWrap) inputWrap.style.display = 'none';
-      return;
-    }
-
-    if (!silent) el.innerHTML = '<div class="icp-empty">Load ho raha hai...</div>';
-    if (inputWrap) inputWrap.style.display = 'flex';
-
-    try {
-      var r = await fetch('/bookings/api/chat-messages/' + bookingId + '/');
-      if (!r.ok) {
-        el.innerHTML = '<div class="icp-empty"><a href="/bookings/chat/' + bookingId + '/" style="color:var(--or2);font-weight:600;">Full chat kholen →</a></div>';
-        return;
-      }
-      var d = await r.json();
-      var msgs = d.messages || [];
-      var currentUser = d.current_user || '';
-      if (subEl) subEl.textContent = msgs.length ? msgs.length + ' messages' : 'Koi message nahi abhi tak';
-      if (!msgs.length) { el.innerHTML = '<div class="icp-empty">Pehla message bhejein 👋</div>'; return; }
-      el.innerHTML = msgs.map(function(m){
-        var mine = m.sender === currentUser;
-        return '<div class="icp-msg-row ' + (mine ? 'mine' : '') + '">' +
-          '<div class="icp-bubble">' + escapeHtml(m.message) + '</div></div>';
-      }).join('');
-      el.scrollTop = el.scrollHeight;
-    } catch(e) {
-      el.innerHTML = '<div class="icp-empty"><a href="/bookings/chat/' + bookingId + '/" style="color:var(--or2);font-weight:600;">Chat kholen →</a></div>';
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    localStorage.setItem('sk-theme', t);
+    var icon = document.getElementById('theme-icon');
+    var label = document.getElementById('theme-label');
+    if (t === 'light') {
+      label.textContent = 'Dark Mode';
+      icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+    } else {
+      label.textContent = 'Light Mode';
+      icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
     }
   }
-
-  // ── Send message from inline panel ──
-  window.icpSend = async function(infId, bookingId) {
-    if (!bookingId) return;
-    var inp = document.getElementById('icp-input-' + infId);
-    var txt = inp.value.trim();
-    if (!txt) return;
-    var el = document.getElementById('icp-msgs-' + infId);
-    var emptyEl = el.querySelector('.icp-empty, .icp-no-booking');
-    if (emptyEl) emptyEl.remove();
-    el.insertAdjacentHTML('beforeend',
-      '<div class="icp-msg-row mine"><div class="icp-bubble">' + escapeHtml(txt) + '</div></div>');
-    el.scrollTop = el.scrollHeight;
-    inp.value = ''; inp.style.height = 'auto';
-    try {
-      await fetch('/bookings/chat/' + bookingId + '/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': getCsrf() },
-        body: 'message=' + encodeURIComponent(txt)
-      });
-    } catch(e) { console.error(e); }
-  };
-
-  function escapeHtml(t) {
-    return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function toggleTheme() {
+    applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   }
 </script>
 
