@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>{{ shopkeeper.shop_name }} — InfluConnect</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--or1:#FF6B1A;--or2:#E8500A;--or3:#C94008;--sidebar-w:230px;}
+[data-theme="dark"]{--bg-page:#0D0D0D;--bg-sidebar:#111111;--bg-card:#181818;--bg-card2:#1E1E1E;--bg-topbar:rgba(13,13,13,0.96);--border:#2A2A2A;--border2:#333333;--text-primary:#FFFFFF;--text-secondary:#BBBBBB;--text-muted:#666666;--or-soft:rgba(255,107,26,0.12);--or-pale:rgba(255,107,26,0.08);--accent:#FF6B1A;--accent-dim:rgba(255,107,26,0.15);--accent-border:rgba(255,107,26,0.3);--green-text:#4ADE80;--green-bg:rgba(74,222,128,0.08);--green-border:rgba(74,222,128,0.2);--red-text:#FF6B6B;--red-bg:rgba(255,107,107,0.08);--red-border:rgba(255,107,107,0.2);--yellow-text:#FFC542;--yellow-bg:rgba(255,197,66,0.08);--yellow-border:rgba(255,197,66,0.2);--shadow-card:0 4px 24px rgba(0,0,0,0.5);--shadow-hover:0 12px 40px rgba(0,0,0,0.7);--scrollbar-bg:#111;--scrollbar-thumb:#2A2A2A;}
+[data-theme="light"]{--bg-page:#F5F0EB;--bg-sidebar:#FFFFFF;--bg-card:#FFFFFF;--bg-card2:#F0EBE4;--bg-topbar:rgba(255,255,255,0.96);--border:#E5DDD5;--border2:#D5C9BC;--text-primary:#1A1A1A;--text-secondary:#555555;--text-muted:#999999;--or-soft:rgba(255,107,26,0.07);--or-pale:#FFF0E8;--accent:#E8500A;--accent-dim:rgba(232,80,10,0.1);--accent-border:rgba(232,80,10,0.25);--green-text:#16A34A;--green-bg:rgba(22,163,74,0.08);--green-border:rgba(22,163,74,0.2);--red-text:#DC2626;--red-bg:rgba(220,38,38,0.07);--red-border:rgba(220,38,38,0.18);--yellow-text:#B45309;--yellow-bg:rgba(180,83,9,0.07);--yellow-border:rgba(180,83,9,0.18);--shadow-card:0 2px 12px rgba(0,0,0,0.06);--shadow-hover:0 8px 28px rgba(0,0,0,0.1);--scrollbar-bg:#F5F0EB;--scrollbar-thumb:#D5C9BC;}
+html{scroll-behavior:smooth;}html,body{height:100%;background:var(--bg-page);transition:background .3s,color .3s;}
+body{font-family:'Plus Jakarta Sans',sans-serif;color:var(--text-primary);display:flex;min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:var(--scrollbar-bg);}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border-radius:3px;}
+.sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;bottom:0;z-index:100;transition:background .3s,border-color .3s,transform .28s;}
+.sidebar-brand{padding:1.3rem 1.15rem 1.05rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.brand-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,#FF7A2F,#C94008);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 0 2px rgba(255,107,26,0.2),0 4px 12px rgba(201,64,8,0.35);}
+.brand-icon svg{width:16px;height:16px;}
+.brand-name{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:-.03em;}
+.brand-name .bl{color:var(--text-primary);}.brand-name .or{color:var(--accent);}
+.role-chip{margin:.6rem 1.15rem .1rem;display:inline-flex;align-items:center;gap:.3rem;background:var(--accent-dim);border:1px solid var(--accent-border);border-radius:20px;padding:.2rem .7rem;font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);width:fit-content;}
+.role-chip::before{content:'';width:4px;height:4px;background:var(--accent);border-radius:50%;}
+.nav-section-label{font-size:.57rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:.9rem 1.15rem .28rem;}
+.nav-menu{list-style:none;padding:0 .55rem;flex:1;}
+.nav-item{margin-bottom:.08rem;}
+.nav-link{display:flex;align-items:center;gap:.58rem;padding:.55rem .75rem;border-radius:10px;text-decoration:none;color:var(--text-muted);font-size:.82rem;font-weight:500;transition:all .16s;position:relative;}
+.nav-link:hover{background:var(--or-soft);color:var(--accent);}
+.nav-link.active{background:var(--or-soft);color:var(--accent);font-weight:600;}
+.nav-link.active::before{content:'';position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:0 2px 2px 0;background:var(--accent);}
+.nav-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .16s;}
+.nav-link.active .nav-icon,.nav-link:hover .nav-icon{background:var(--accent-dim);}
+.nav-icon svg{width:14px;height:14px;}
+.sidebar-footer{padding:.65rem .55rem 1.1rem;border-top:1px solid var(--border);}
+.logout-btn{display:flex;align-items:center;gap:.58rem;padding:.55rem .75rem;border-radius:10px;color:var(--red-text);font-size:.8rem;font-weight:600;background:transparent;border:none;width:100%;cursor:pointer;transition:background .16s;}
+.logout-btn:hover{background:var(--red-bg);}
+.logout-icon{width:28px;height:28px;border-radius:7px;background:var(--red-bg);display:flex;align-items:center;justify-content:center;}
+.logout-icon svg{width:13px;height:13px;color:var(--red-text);}
+.main-wrap{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+.topbar{height:60px;background:var(--bg-topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 1.6rem;position:sticky;top:0;z-index:50;transition:background .3s,border-color .3s;}
+.topbar-left{display:flex;align-items:center;gap:.7rem;}
+.topbar-greeting{font-size:.6rem;color:var(--text-muted);font-weight:500;letter-spacing:.07em;text-transform:uppercase;}
+.topbar-name{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;color:var(--text-primary);}
+.topbar-name span{color:var(--accent);}
+.online-badge{display:inline-flex;align-items:center;gap:3px;font-size:.58rem;color:var(--green-text);font-weight:600;background:var(--green-bg);padding:.15rem .5rem;border-radius:20px;margin-left:.35rem;border:1px solid var(--green-border);}
+.online-badge::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--green-text);animation:blink 2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.35;}}
+.topbar-right{display:flex;align-items:center;gap:.6rem;}
+.theme-toggle{display:flex;align-items:center;gap:.45rem;background:var(--bg-card2);border:1px solid var(--border);border-radius:22px;padding:.28rem .48rem;cursor:pointer;transition:all .22s;}
+.theme-toggle:hover{border-color:var(--accent);}
+.toggle-track{width:38px;height:20px;border-radius:10px;background:var(--border2);position:relative;transition:background .3s;}
+[data-theme="light"] .toggle-track{background:linear-gradient(135deg,#FF7A2F,#C94008);}
+.toggle-knob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 4px rgba(0,0,0,0.3);}
+[data-theme="light"] .toggle-knob{transform:translateX(18px);}
+.ti{width:13px;height:13px;color:var(--text-muted);transition:color .25s;flex-shrink:0;}
+[data-theme="light"] .ti-sun{color:var(--accent);}[data-theme="dark"] .ti-moon{color:#9B6DFF;}
+.topbar-avatar{width:33px;height:33px;border-radius:8px;background:linear-gradient(135deg,#FF7A2F,#C94008);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.72rem;font-weight:800;color:#fff;cursor:pointer;box-shadow:2px 2px 0 #A83400;}
+.hamburger{display:none;width:33px;height:33px;border-radius:8px;background:var(--bg-card2);border:1px solid var(--border);align-items:center;justify-content:center;cursor:pointer;}
+.hamburger svg{width:15px;height:15px;color:var(--text-primary);}
+.page-content{padding:1.6rem 1.6rem 3rem;flex:1;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%);}.sidebar.open{transform:translateX(0);box-shadow:4px 0 40px rgba(0,0,0,0.4);}.main-wrap{margin-left:0;}.hamburger{display:flex;}.page-content{padding:1.1rem .95rem 2rem;}}
+@media(max-width:480px){.topbar{padding:0 .9rem;}}
+
+/* ── Detail page specific ── */
+.back-btn{display:inline-flex;align-items:center;gap:.42rem;font-size:.78rem;font-weight:600;color:var(--text-muted);text-decoration:none;margin-bottom:1.3rem;padding:.38rem .7rem;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);transition:all .16s;}
+.back-btn:hover{color:var(--accent);border-color:var(--accent-border);}
+.back-btn svg{width:13px;height:13px;}
+.detail-wrap{display:grid;grid-template-columns:1fr 320px;gap:1.2rem;align-items:start;}
+@media(max-width:880px){.detail-wrap{grid-template-columns:1fr;}}
+
+/* Hero card */
+.hero-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-card);animation:fadeUp .35s ease both;}
+<div class="hero-banner">
+  <div class="b-base"></div>
+  <div class="b-grad"></div>
+  <div class="b-orb"></div>
+  <div class="b-beam"></div>
+  <div class="b-dots"></div>
+  <div class="b-streak"></div>
+  <div class="b-rfade"></div>
+  <div class="b-bfade"></div>
+  <div class="b-ring b-r3"></div>
+  <div class="b-ring b-r1"></div>
+  <div class="b-ring b-r2"></div>
+  <div class="b-vbars">
+    <div class="vb" style="height:20px"></div>
+    <div class="vb" style="height:35px"></div>
+    <div class="vb" style="height:25px"></div>
+    <div class="vb" style="height:50px"></div>
+    <div class="vb" style="height:38px"></div>
+    <div class="vb" style="height:60px"></div>
+    <div class="vb" style="height:42px"></div>
+  </div>
+  <div class="b-line"></div>
+</div>
+
+.hero-banner { height:110px; position:relative; overflow:hidden; border-bottom:1px solid var(--border); }
+.b-base { position:absolute; inset:0; background:#060406; }
+.b-grad { position:absolute; inset:0; background: radial-gradient(ellipse 55% 200% at 18% 60%, rgba(255,90,10,0.32) 0%, transparent 55%), radial-gradient(ellipse 60% 120% at 75% -20%, rgba(120,30,5,0.25) 0%, transparent 55%), linear-gradient(160deg,#110300 0%,#0a0200 35%,#0f0604 60%,#080208 100%); }
+.b-orb { position:absolute; width:280px; height:280px; left:-60px; top:-80px; border-radius:50%; background:radial-gradient(circle, rgba(255,80,10,0.22) 0%, transparent 70%); }
+.b-beam { position:absolute; top:-30px; left:-40px; width:300px; height:260px; background:linear-gradient(145deg,rgba(255,80,15,0.08) 0%,transparent 60%); transform:skewX(-15deg); }
+.b-dots { position:absolute; inset:0; background-image:radial-gradient(circle,rgba(255,100,30,0.18) 1px,transparent 1px); background-size:28px 28px; background-position:14px 14px; mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,0.5) 35%,rgba(0,0,0,0.6) 55%,transparent 80%); }
+.b-streak { position:absolute; top:50%; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,rgba(255,100,20,0.45) 30%,rgba(255,140,40,0.65) 45%,transparent 75%); transform:translateY(-50%); }
+.b-rfade { position:absolute; inset:0; background:linear-gradient(to right,transparent 55%,rgba(6,4,6,0.85) 100%); }
+.b-bfade { position:absolute; bottom:0; left:0; right:0; height:55%; background:linear-gradient(to bottom,transparent,rgba(6,4,6,0.92)); }
+.b-ring { position:absolute; border-radius:50%; border:1px solid rgba(255,90,15,0.13); }
+.b-r1 { width:200px; height:200px; right:-30px; top:-70px; }
+.b-r2 { width:130px; height:130px; right:25px; top:-20px; border-color:rgba(255,90,15,0.08); }
+.b-r3 { width:290px; height:290px; right:-80px; top:-110px; border-color:rgba(255,90,15,0.06); }
+.b-vbars { position:absolute; bottom:0; right:90px; display:flex; align-items:flex-end; gap:3px; opacity:0.1; height:70px; }
+.vb { width:5px; background:#FF6B1A; border-radius:2px 2px 0 0; }
+.b-line { position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,rgba(255,90,10,0.65) 30%,rgba(255,130,40,0.95) 50%,rgba(255,90,10,0.65) 70%,transparent); }
+
+
+.hero-body{padding:0 1.5rem 1.5rem;}
+.hero-logo-wrap{margin-top:-28px;margin-bottom:.85rem;position:relative;z-index:2;}
+.hero-logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,#FF7A2F,#C94008);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:#fff;border:3px solid var(--bg-card);overflow:hidden;box-shadow:0 4px 16px rgba(201,64,8,.3);}
+.hero-logo img{width:100%;height:100%;object-fit:cover;}
+.hero-name{font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;color:var(--text-primary);margin-bottom:.22rem;}
+.hero-type-badge{display:inline-flex;align-items:center;gap:.28rem;font-size:.66rem;font-weight:700;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent-border);padding:.14rem .55rem;border-radius:20px;margin-bottom:.9rem;}
+.hero-desc{font-size:.83rem;color:var(--text-secondary);line-height:1.65;margin-bottom:1.1rem;padding:.8rem 1rem;background:var(--bg-card2);border-radius:10px;border-left:3px solid var(--accent-border);}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem;}
+@media(max-width:500px){.info-grid{grid-template-columns:1fr;}}
+.info-item{background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:.65rem .85rem;display:flex;align-items:flex-start;gap:.55rem;}
+.info-item svg{width:14px;height:14px;color:var(--accent);margin-top:.15rem;flex-shrink:0;}
+.info-lbl{font-size:.6rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.1rem;}
+.info-val{font-size:.82rem;font-weight:600;color:var(--text-primary);}
+
+/* Contact card */
+.contact-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;padding:1.3rem 1.25rem;box-shadow:var(--shadow-card);position:sticky;top:80px;animation:fadeUp .35s .1s ease both;}
+.contact-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--text-primary);margin-bottom:1rem;padding-bottom:.65rem;border-bottom:1px solid var(--border);}
+.contact-actions{display:flex;flex-direction:column;gap:.55rem;}
+.btn-c{display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.7rem 1rem;border-radius:10px;font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;transition:all .18s;}
+.btn-c svg{width:15px;height:15px;flex-shrink:0;}
+.btn-wa{background:#25D366;color:#fff;}
+.btn-wa:hover{background:#1ebe5a;transform:translateY(-2px);box-shadow:0 6px 18px rgba(37,211,102,.28);}
+.btn-email{background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border);}
+.btn-email:hover{background:rgba(255,107,26,.22);transform:translateY(-2px);}
+.btn-phone{background:var(--bg-card2);color:var(--text-secondary);border:1px solid var(--border);}
+.btn-phone:hover{border-color:var(--accent-border);color:var(--accent);}
+.budget-box{background:var(--bg-card2);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;margin-top:.8rem;text-align:center;}
+.budget-lbl{font-size:.6rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.2rem;}
+.budget-val{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:var(--accent);}
+.no-contact{background:var(--bg-card2);border:1px dashed var(--border2);border-radius:10px;padding:1.1rem;text-align:center;font-size:.78rem;color:var(--text-muted);line-height:1.6;}
+.no-contact span{display:block;font-size:1.4rem;margin-bottom:.3rem;}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <a href="{% url 'influencers:dashboard' %}" class="sidebar-brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+    </div>
+    <span class="brand-name"><span class="bl">Influ</span><span class="or">Connect</span></span>
+  </a>
+  <div class="role-chip">⚡ Influencer Mode</div>
+  <p class="nav-section-label">Main Menu</p>
+  <ul class="nav-menu">
+    <li class="nav-item">
+      <a href="/?force=1" class="nav-link">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        Home
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:dashboard' %}" class="nav-link">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+        Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'bookings:all_bookings' %}" class="nav-link">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
+        All Bookings
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:edit_profile' %}" class="nav-link">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+        My Profile
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'bookings:analytics' %}" class="nav-link">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+        Analytics
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:settings' %}" class="nav-link">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></span>
+        Settings
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{% url 'influencers:explore_shopkeepers' %}" class="nav-link active">
+        <span class="nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></span>
+        Explore Shopkeepers
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="logout-btn">
+        <span class="logout-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+        Logout
+      </button>
+    </form>
+  </div>
+</aside>
+
+<div class="main-wrap">
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="hamburger" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div>
+        <div class="topbar-greeting">Creator Portal</div>
+        <div class="topbar-name">Welcome, <span>{{ request.user.username }}</span><span class="online-badge">Online</span></div>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg class="ti ti-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <div class="toggle-track"><div class="toggle-knob"></div></div>
+        <svg class="ti ti-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+      <div class="topbar-avatar">{{ request.user.username|slice:":2"|upper }}</div>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <a href="{% url 'influencers:explore_shopkeepers' %}" class="back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+      </svg>
+      Back to Explore
+    </a>
+
+    <div class="detail-wrap">
+
+      <!-- LEFT: Profile Info -->
+      <div>
+        <div class="hero-card">
+          <div class="hero-banner"></div>
+          <div class="hero-body">
+
+            <div class="hero-logo-wrap">
+              <div class="hero-logo">
+                {% if shopkeeper.logo %}
+                  <img src="{{ shopkeeper.logo.url }}" alt="{{ shopkeeper.shop_name }}"/>
+                {% else %}
+                  {{ shopkeeper.shop_name|slice:":2"|upper }}
+                {% endif %}
+              </div>
+            </div>
+
+            <h1 class="hero-name">{{ shopkeeper.shop_name }}</h1>
+
+            <div class="hero-type-badge">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              </svg>
+              {{ shopkeeper.get_business_type_display }}
+            </div>
+
+            {% if shopkeeper.description %}
+              <p class="hero-desc">{{ shopkeeper.description }}</p>
+            {% endif %}
+
+            <div class="info-grid">
+              {% if shopkeeper.city %}
+              <div class="info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                <div>
+                  <div class="info-lbl">Location</div>
+                  <div class="info-val">{{ shopkeeper.city }}{% if shopkeeper.state %}, {{ shopkeeper.state }}{% endif %}</div>
+                </div>
+              </div>
+              {% endif %}
+
+              <div class="info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <div>
+                  <div class="info-lbl">Member Since</div>
+                  <div class="info-val">{{ shopkeeper.created_at|date:"M Y" }}</div>
+                </div>
+              </div>
+
+              {% if shopkeeper.phone %}
+              <div class="info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <div>
+                  <div class="info-lbl">Phone</div>
+                  <div class="info-val">{{ shopkeeper.phone }}</div>
+                </div>
+              </div>
+              {% endif %}
+
+              {% if shopkeeper.email %}
+              <div class="info-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+                </svg>
+                <div>
+                  <div class="info-lbl">Email</div>
+                  <div class="info-val" style="word-break:break-all;">{{ shopkeeper.email }}</div>
+                </div>
+              </div>
+              {% endif %}
+
+              {% if shopkeeper.budget_min or shopkeeper.budget_max %}
+              <div class="info-item" style="grid-column:1/-1;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                <div>
+                  <div class="info-lbl">Collaboration Budget</div>
+                  <div class="info-val">₹{{ shopkeeper.budget_min }} – ₹{{ shopkeeper.budget_max }}</div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Contact Card -->
+      <div>
+        <div class="contact-card">
+          <div class="contact-title">📬 Contact &amp; Collaborate</div>
+
+          <div class="contact-actions">
+
+            {% if shopkeeper.get_wa_link %}
+              <a href="{{ shopkeeper.get_wa_link }}?text={{ request.user.username|urlencode }}+se+InfluConnect+par+collaboration+request+hai+aapke+sath" target="_blank" rel="noopener" class="btn-c btn-wa">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M11.99 0C5.373 0 0 5.373 0 11.99c0 2.11.55 4.09 1.51 5.81L0 24l6.34-1.49A11.934 11.934 0 0 0 11.99 24C18.607 24 24 18.627 24 12.01 24 5.373 18.607 0 11.99 0zm0 21.818a9.83 9.83 0 0 1-5.006-1.367l-.36-.214-3.726.977.997-3.64-.233-.374A9.818 9.818 0 0 1 2.182 12c0-5.415 4.403-9.818 9.818-9.818 5.415 0 9.818 4.403 9.818 9.818 0 5.415-4.403 9.818-9.818 9.818z"/></svg>
+                WhatsApp Chat
+              </a>
+            {% endif %}
+
+            {% if shopkeeper.email %}
+              <a href="mailto:{{ shopkeeper.email }}?subject=Collaboration+Proposal+from+{{ request.user.username }}&body=Hi+{{ shopkeeper.shop_name }},%0A%0AMera+naam+{{ request.user.username }}+hai+aur+main+InfluConnect+par+ek+influencer+hun.+Main+aapke+saath+collaboration+karna+chahta+hun+promotion+ke+liye.%0A%0AKindly+reply+karein.%0A%0ARegards%0A{{ request.user.username }}" class="btn-c btn-email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Send Email
+              </a>
+            {% endif %}
+
+            {% if shopkeeper.phone %}
+              <a href="tel:{{ shopkeeper.phone }}" class="btn-c btn-phone">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.55a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Call: {{ shopkeeper.phone }}
+              </a>
+            {% endif %}
+
+            {% if not shopkeeper.whatsapp and not shopkeeper.phone and not shopkeeper.email %}
+              <div class="no-contact">
+                <span>😕</span>
+                Is shopkeeper ne abhi contact details add nahi ki hain.<br>
+                Baad mein dobara check karein ya doosre shopkeepers explore karein.
+              </div>
+            {% endif %}
+
+          </div>
+
+          {% if shopkeeper.budget_max %}
+            <div class="budget-box">
+              <div class="budget-lbl">Collaboration Budget</div>
+              <div class="budget-val">₹{{ shopkeeper.budget_min }} – ₹{{ shopkeeper.budget_max }}</div>
+            </div>
+          {% endif %}
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');}
+document.addEventListener('click',function(e){
+  var sb=document.getElementById('sidebar');
+  if(window.innerWidth<=768&&sb.classList.contains('open')&&!sb.contains(e.target)&&!e.target.closest('.hamburger')){sb.classList.remove('open');}
+});
+function toggleTheme(){
+  var h=document.documentElement;
+  var t=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',t);
+  try{localStorage.setItem('ic-theme',t);}catch(e){}
+}
+(function(){try{var s=localStorage.getItem('ic-theme');if(s)document.documentElement.setAttribute('data-theme',s);}catch(e){}})();
+</script>
+</body>
+</html>
